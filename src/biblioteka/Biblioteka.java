@@ -155,7 +155,7 @@ public class Biblioteka {
 		BufferedReader citanje = new BufferedReader(new FileReader(file));
 		String line1 = null;
 		while((line1 = citanje.readLine())!= null) {
-			String[]nizClanova = line1.split("|");
+			String[]nizClanova = line1.split("\\|");
 			String id = nizClanova[0];
 			String tip = nizClanova[1];
 			int cena = Integer.parseInt(nizClanova[2]);
@@ -185,7 +185,7 @@ public class Biblioteka {
 		String line = null;
 		ArrayList<String> lista = new ArrayList<>();
 		while((line = citaj.readLine())!= null) {
-			String[] niz = line.split("|");
+			String[] niz = line.split("\\|");
 			System.out.println(niz[6]);
 			System.out.println(id);
 			if(!(id.equals(niz[6]))) {
@@ -208,7 +208,7 @@ public class Biblioteka {
 		String line = null;
 		ArrayList<String> lista = new ArrayList<>();
 		while((line = citaj.readLine())!= null) {
-			String[] niz = line.split("|");
+			String[] niz = line.split("\\|");
 			System.out.println(niz[6]);
 			System.out.println(id);
 			if(!(id.equals(niz[6]))) {
@@ -233,24 +233,24 @@ public class Biblioteka {
 		BufferedReader citaj = new BufferedReader(new FileReader(fajl));
 		String line = null;
 		while((line = citaj.readLine())!= null) {
-			String [] niz = line.split("|");
-			String id  = niz[6];
+			String [] niz = line.split("\\|");
+			String id  = niz[5];
 			String naslov = niz[0];
-			String originalniNaslov = niz[3];
+			String originalniNaslov = niz[1];
 			String pisac = niz[2];
-			int godinaObjavljivanja = Integer.parseInt(niz[4]);
-			String jezikOroginala = niz[5];
+			int godinaObjavljivanja = Integer.parseInt(niz[3]);
+			String jezikOroginala = niz[7];
 			JezikOriginala jezikOriginala = JezikOriginala.Engleski;
 			for (JezikOriginala j: JezikOriginala.values()) {
 				if(j.name().equalsIgnoreCase(jezikOroginala)){
 					jezikOriginala = j;
 				}
 			}
-			String opisKnjige = niz[1];
+			String opisKnjige = niz[4];
 			ArrayList<ZanrKnjige> zanrovi = citajZanr("src/fajlovi/zanrovi.txt");
 			ZanrKnjige zanr = null;
 			for (ZanrKnjige z : zanrovi) {
-				if(z.getId().equals(niz[7])) {
+				if(z.getId().equals(niz[6])) {
 					zanr = z;
 				}
 			}
@@ -260,15 +260,13 @@ public class Biblioteka {
 		citaj.close();
 		return knjige;
 	}
-	public void upisiFajl(Knjiga k) throws IOException{
+	public void upisiFajl(Knjiga k1) throws IOException{
 //		ArrayList<Knjiga> knjige = kjnigeUpis;
 		File file = new File("src/fajlovi/knjige.txt");
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file,true));
-		for (Knjiga k1: knjige) {
-			String sb = k1.getNaslov() +"|"+ k1.getOpisKnjige() + "|"+k1.getPisac()+ "|"+k1.getOriginalniNaslov() +"|"+ k1.getGodinaObjavljivanja()+ "|" +k1.getJezikOriginala() +"|"+k1.getId()+"|"+k1.getZanr();
-			writer.write(sb);
-			writer.newLine();
-		}
+		String sb = k1.getNaslov() +"|"+ k1.getOriginalniNaslov() + "|"+k1.getPisac()+ "|"+k1.getGodinaObjavljivanja() +"|"+ k1.getOpisKnjige()+ "|" + k1.getId()+"|"+k1.getZanr().getId()+"|"+k1.getJezikOriginala();
+		writer.write(sb);
+		writer.newLine();
 		writer.close();
 		
 	}
@@ -279,11 +277,11 @@ public class Biblioteka {
 		BufferedReader citaj = new BufferedReader(new FileReader(fajl));
 		String line = null;
 		while((line = citaj.readLine())!= null) {
-			String [] niz = line.split("|");
-			String id = niz[0];
-			String oznaka = niz[1];
-			String opisZanra = niz[2];
-			ZanrKnjige zanr = new ZanrKnjige(id,oznaka,opisZanra);
+			String [] niz = line.split("\\|");
+			String id = niz[2];
+			String oznaka = niz[0];
+			String opisZanra = niz[1];
+			ZanrKnjige zanr = new ZanrKnjige(oznaka, opisZanra, id);
 			zanrknjige.add(zanr);
 		}
 		citaj.close();
@@ -292,21 +290,19 @@ public class Biblioteka {
 	public void upisiZanr(ZanrKnjige z) throws IOException{
 		File file = new File("src/fajlovi/zanrovi.txt");
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-		String sb = z.getId() + "|"+ z.getOznaka() + "|"+ z.getOpisZanra();
+		String sb = z.getOznaka() + "|"+ z.getOpisZanra() + "|" + z.getId();
 		writer.write(sb);
 		writer.newLine();
 		writer.close();
 	}
 	
 	public void upisiFajl(Biblioteka k ) throws IOException{
-//		ArrayList<Biblioteka> biblioteka = biblUpis;
 		File file = new File("src/fajlovi/biblioteka.txt");
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file,true));
-		//for (Biblioteka k: biblioteka) {
-			String sb = k.getAdresa() +"|"+ k.getId() +"|"+ k.getNaziv() + "|"+k.getTelefon()+ "|"+k.getRadiOd() +"|" +k.getRadiDo();
-			writer.write(sb);
-			writer.newLine();
-		//}
+		
+		String sb = k.getAdresa() +"|"+ k.getId() +"|"+ k.getNaziv() + "|"+k.getTelefon()+ "|"+k.getRadiOd() +"|" +k.getRadiDo();
+		writer.write(sb);
+		writer.newLine();
 		writer.close();
 		
 	}
@@ -317,12 +313,12 @@ public class Biblioteka {
 		BufferedReader citaj = new BufferedReader(new FileReader(fajl));
 		String line = null;
 		while((line = citaj.readLine())!= null) {
-			String [] niz = line.split("|");
-			String id = niz[0];
-			String ime = niz[1];
-			String prezime = niz[2];
-			String jmbg = niz[3];
-			String adresa = niz[4];
+			String [] niz = line.split("\\|");
+			String id = niz[4];
+			String ime = niz[0];
+			String prezime = niz[1];
+			String jmbg = niz[2];
+			String adresa = niz[3];
 			String pol = niz[5];
 			Pol defpol = Pol.MUSKO;
 			for(Pol p:Pol.values()) {
@@ -330,10 +326,9 @@ public class Biblioteka {
 					defpol = p;
 				}
 			}
-			String lozinka = niz[6];
-			String korisnickoIme = niz[7];
+			String lozinka = niz[7];
+			String korisnickoIme = niz[6];
 			int plata = Integer.parseInt(niz[8]);
-			//Error koji se desio pri krajnjim izmenama
 			Administrator admin = new Administrator(ime,prezime,jmbg,adresa,id,defpol,korisnickoIme,lozinka,plata);
 			administartor.add(admin);
 			}
@@ -341,14 +336,11 @@ public class Biblioteka {
 		return administartor;	
 	}
 	public void upisiFajlAdministartor(Administrator a) throws IOException{
-//		ArrayList<Knjiga> knjige = kjnigeUpis;
 		File file = new File("src/fajlovi/administartor.txt");
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file,true));
-//		for (Knjiga k: knjige) {
-			String sb = a.getId() +"|"+ a.getIme() + "|"+a.getPrezime()+ "|"+a.getJmbg() +"|"+ a.getAdresa()+ "|" +a.getPol() +"|"+a.getLozinka()+"|"+a.getKorisnickoIme();
-			writer.write(sb);
-			writer.newLine();
-//		}
+		String sb = a.getId() +"|"+ a.getIme() + "|"+a.getPrezime()+ "|"+a.getJmbg() +"|"+ a.getAdresa()+ "|" +a.getPol() +"|"+a.getLozinka()+"|"+a.getKorisnickoIme();
+		writer.write(sb);
+		writer.newLine();
 		writer.close();
 	}
 	public ArrayList<Bibliotekar> citajBibliotekara(String imeFajla) throws IOException{
@@ -357,12 +349,12 @@ public class Biblioteka {
 		BufferedReader citaj = new BufferedReader(new FileReader(fajl));
 		String line = null;
 		while((line = citaj.readLine())!= null) {
-			String [] niz = line.split("|");
-			String id = niz[0];
-			String ime = niz[1];
-			String prezime = niz[2];
-			String jmbg = niz[3];
-			String adresa = niz[4];
+			String [] niz = line.split("\\|");
+			String id = niz[4];
+			String ime = niz[0];
+			String prezime = niz[1];
+			String jmbg = niz[2];
+			String adresa = niz[3];
 			String poll = niz[5];
 			Pol pol = Pol.MUSKO;
 			for(Pol p:Pol.values()) {
@@ -370,8 +362,8 @@ public class Biblioteka {
 					pol = p;
 				}
 			}
-			String lozinka = niz[6];
-			String korisnickoIme = niz[7];
+			String lozinka = niz[7];
+			String korisnickoIme = niz[6];
 			int plata = Integer.parseInt(niz[8]);
 			Zaposleni bibl = new Bibliotekar(id,ime,prezime,jmbg,adresa,pol,lozinka,korisnickoIme, plata);
 			bibliotekar.add((Bibliotekar) bibl);
@@ -397,12 +389,12 @@ public class Biblioteka {
 		BufferedReader citanje = new BufferedReader(new FileReader(claoviFile));
 		String line1 = null;
 		while((line1 = citanje.readLine())!= null) {
-			String[]nizClanova = line1.split("|");
-			String id = nizClanova[0];
-			String ime = nizClanova[1];
-			String prezime = nizClanova[2];
-			String jmbg = nizClanova[3];
-			String adresa = nizClanova[4];
+			String[]nizClanova = line1.split("\\|");
+			String id = nizClanova[4];
+			String ime = nizClanova[0];
+			String prezime = nizClanova[1];
+			String jmbg = nizClanova[2];
+			String adresa = nizClanova[3];
 			String polClana = nizClanova[5];
 			Pol defpol = Pol.MUSKO;
 			for(Pol pol:Pol.values()) {
@@ -421,7 +413,7 @@ public class Biblioteka {
 					tipClanarinel = t;
 				}
 			}
-			Clan clan = new Clan(id,ime,prezime,jmbg,adresa,defpol,brClanskeKarte,datumUplate,uplacenoMeseci,aktivan, tipClanarinel);
+			Clan clan = new Clan(ime, prezime, jmbg, adresa, id, defpol, brClanskeKarte, datumUplate, uplacenoMeseci, aktivan, tipClanarinel);
 			clanovi.add(clan);
 		}
 		citanje.close();
@@ -446,7 +438,7 @@ public class Biblioteka {
 		BufferedReader citaj = new BufferedReader(new FileReader(fajl));
 		String line = null;
 		while((line = citaj.readLine())!= null) {
-			String [] niz = line.split(",");
+			String [] niz = line.split("\\|");
 			LocalDate datumIznajmljivanja = LocalDate.parse(niz[0]);
 			LocalDate datumVracanja = LocalDate.parse(niz[1]);
 			ArrayList<Clan> clanovi = citajClanove("src/fajlovi/clanbiblioteke.txt");
@@ -466,7 +458,7 @@ public class Biblioteka {
 			if(zaposleni == null) {
 				ArrayList<Administrator> administartor = citajAdministratora("src/fajlovi/administrator.txt");
 				for (Administrator t : administartor) {
-					if(t.getId().equals(niz[2])) {
+					if(t.getId().equals(niz[3])) {
 						zaposleni = t;
 					}
 				}
@@ -509,18 +501,18 @@ public class Biblioteka {
 			String [] niz = line.split(",");
 			String id  = niz[0];
 			int brStrana = Integer.parseInt(niz[1]);
-			boolean tipPoveza= Boolean.parseBoolean(niz[2]);
-			int godinaStampanja = Integer.parseInt(niz[3]);
+			boolean tipPoveza= Boolean.parseBoolean(niz[6]);
+			int godinaStampanja = Integer.parseInt(niz[2]);
 			boolean izdata = Boolean.parseBoolean(niz[4]);
-			ArrayList<Knjiga> knjiga = citajKnjige("src/fajlovi/knjige.txt");
-			Knjiga knjiga1 = null;
-			for (Knjiga k: knjiga) {
+			ArrayList<Knjiga> listaKnjiga = citajKnjige("src/fajlovi/knjige.txt");
+			Knjiga knjiga = null;
+			for (Knjiga k: listaKnjiga) {
 				if(k.getId().equals(niz[5])) {
-					knjiga1 = k;
+					knjiga = k;
 				}
 			}
-			String jezikStampanja = niz[6];
-			PrimerakKnjige primerak = new PrimerakKnjige(id, brStrana, godinaStampanja, jezikStampanja, izdata,knjiga, tipPoveza);
+			String jezikStampanja = niz[3];
+			PrimerakKnjige primerak = new PrimerakKnjige(id, brStrana, godinaStampanja, jezikStampanja, izdata, knjiga, tipPoveza);
 			primerakKnjige.add(primerak);	
 		}
 		citaj.close();

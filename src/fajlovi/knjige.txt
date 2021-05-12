@@ -1,1 +1,2 @@
-p|m|n|z|1|ENGLESKI|1|1|hthtrh|rghtrhb
+Naslov|OrgNaslov|Pisac|1920|Opis|1|1|Engleski
+Naslov|OrgNaslov|Pisac|1920|Opis|1|1|Engleski

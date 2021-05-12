@@ -1,2 +1,2 @@
-1|2|true|1990|false|1|p|z|n|1|ENGLESKI|m
-1|2|true|1990|false|1|p|z|n|1|ENGLESKI|m
+1|2|true|1990|false|1|p|z|n|1|Engleski|m
+1|2|true|1990|false|1|p|z|n|1|Engleski|m

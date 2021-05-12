@@ -1,1 +1,1 @@
-1|Mika|Mikic|8658568568568|ZikeZikica|ZENSKI|vyvbi|2009-02-03|6|true|2
+Ime|Prezime|jmbg|adresa|1|MUSKO|5|2020-05-03|9|True|2
