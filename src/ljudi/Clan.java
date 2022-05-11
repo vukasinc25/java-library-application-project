@@ -2,35 +2,82 @@ package ljudi;
 
 import java.time.LocalDate;
 
-/**
- * 
- */
+
 public class Clan extends Korisnik {
 
-    /**
-     * Default constructor
-     */
+    protected String brClanskeKarte;
+    protected LocalDate datumUplate;
+    protected int uplacenoMeseci;
+    protected boolean aktivan;
+    protected TipClanarine tipClanarine;
+
     public Clan() {
+    	super();
+    	this.brClanskeKarte = "";
+    	this.datumUplate = null;
+    	this.uplacenoMeseci = 0;
+    	this.aktivan =  false;
+    	this.tipClanarine =  null;	
     }
 
-    /**
-     * 
-     */
-    protected String brClanskeKarte;
+    public Clan(String ime, String prezime, String jmbg, String adresa,
+    		String id, Pol pol, String brClanskeKarte, LocalDate datumUplate,
+    		int uplacenoMeseci, boolean aktivan, TipClanarine tipClanarine) {
+    	super(ime, prezime, id, jmbg, adresa, pol);
+    	this.brClanskeKarte = brClanskeKarte;
+    	this.datumUplate = datumUplate;
+    	this.uplacenoMeseci = uplacenoMeseci;
+    	this.aktivan =  aktivan;
+    	this.tipClanarine =  tipClanarine;
+    }
 
-    /**
-     * 
-     */
-    protected LocalDate datumUplate;
+	public String getBrClanskeKarte() {
+		return brClanskeKarte;
+	}
 
-    /**
-     * 
-     */
-    protected int uplacenoMeseci;
+	public void setBrClanskeKarte(String brClanskeKarte) {
+		this.brClanskeKarte = brClanskeKarte;
+	}
 
-    /**
-     * 
-     */
-    protected boolean aktivan;
+	public LocalDate getDatumUplate() {
+		return datumUplate;
+	}
 
+	public void setDatumUplate(LocalDate datumUplate) {
+		this.datumUplate = datumUplate;
+	}
+
+	public int getUplacenoMeseci() {
+		return uplacenoMeseci;
+	}
+
+	public void setUplacenoMeseci(int uplacenoMeseci) {
+		this.uplacenoMeseci = uplacenoMeseci;
+	}
+
+	public boolean isAktivan() {
+		return aktivan;
+	}
+
+	public void setAktivan(boolean aktivan) {
+		this.aktivan = aktivan;
+	}
+
+	public TipClanarine getTipClanarine() {
+		return tipClanarine;
+	}
+
+	public void setTipClanarine(TipClanarine tipClanarine) {
+		this.tipClanarine = tipClanarine;
+	}
+	
+	@Override
+	public String toString() {
+		return id + "|" + ime + "|" + prezime + "|" + jmbg + "|" + 
+	adresa + "|" + pol + "|" + brClanskeKarte + "|" + datumUplate + "|" + 
+				uplacenoMeseci + "|" + aktivan + "|" + tipClanarine; 
+	}
+	
+    
+    
 }
