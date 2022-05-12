@@ -1,0 +1,4 @@
+1|deca|100.0
+2|odrasli|150.0
+3|administaratori|250.0
+4|penzioneri|350.0

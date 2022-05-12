@@ -1,14 +1,22 @@
 package ljudi;
 
+//import java.io.BufferedReader;
+//import java.io.BufferedWriter;
+//import java.io.File;
+//import java.io.FileReader;
+//import java.io.FileWriter;
+//import java.io.IOException;
+//import java.util.ArrayList;
+//import biblioteka.Knjiga;
 
-public class Administator extends Zaposleni {
+public class Administrator extends Zaposleni {
 
    
-    public Administator() {
+    public Administrator() {
     	super();
     }
     
-    public Administator(String ime, String prezime, String jmbg, String adresa,
+    public Administrator(String ime, String prezime, String jmbg, String adresa,
     		String id, Pol pol, String korisnickoIme, String lozinka, int plata) {
     	super(ime, prezime, jmbg, adresa, id, pol, korisnickoIme, lozinka, plata);
     }
@@ -21,5 +29,4 @@ public class Administator extends Zaposleni {
     protected void registrujZaposlenog() {
         // TODO implement here
     }
-
 }

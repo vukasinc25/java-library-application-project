@@ -1,7 +1,5 @@
 package ljudi;
 
-
-
 public abstract class Korisnik {
 
     protected String ime;

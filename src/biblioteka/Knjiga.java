@@ -1,6 +1,5 @@
 package biblioteka;
 
-
 public class Knjiga {
 
     protected String naslov;
@@ -106,6 +105,5 @@ public class Knjiga {
 		return naslov + "|" + originalniNaslov + "|" + pisac + "|" + 
 	godinaObjavljivanja + "|" + opisKnjige + "|" + zanr + "|" + jezikOriginala + "|" + id;
 	}
-    
 
 }

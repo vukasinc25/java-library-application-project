@@ -9,7 +9,7 @@ public class Clan extends Korisnik {
     protected LocalDate datumUplate;
     protected int uplacenoMeseci;
     protected boolean aktivan;
-    protected TipClanarine tipClanarine;
+    protected TipClanarine tipClanarine1;
 
     public Clan() {
     	super();
@@ -17,18 +17,18 @@ public class Clan extends Korisnik {
     	this.datumUplate = null;
     	this.uplacenoMeseci = 0;
     	this.aktivan =  false;
-    	this.tipClanarine =  null;	
+    	this.tipClanarine1 =  null;	
     }
 
     public Clan(String ime, String prezime, String jmbg, String adresa,
     		String id, Pol pol, String brClanskeKarte, LocalDate datumUplate,
-    		int uplacenoMeseci, boolean aktivan, TipClanarine tipClanarine) {
+    		int uplacenoMeseci, boolean aktivan, TipClanarine tipClanarine1) {
     	super(ime, prezime, id, jmbg, adresa, pol);
     	this.brClanskeKarte = brClanskeKarte;
     	this.datumUplate = datumUplate;
     	this.uplacenoMeseci = uplacenoMeseci;
     	this.aktivan =  aktivan;
-    	this.tipClanarine =  tipClanarine;
+    	this.tipClanarine1 =  tipClanarine1;
     }
 
 	public String getBrClanskeKarte() {
@@ -64,18 +64,18 @@ public class Clan extends Korisnik {
 	}
 
 	public TipClanarine getTipClanarine() {
-		return tipClanarine;
+		return tipClanarine1;
 	}
 
 	public void setTipClanarine(TipClanarine tipClanarine) {
-		this.tipClanarine = tipClanarine;
+		this.tipClanarine1 = tipClanarine;
 	}
 	
 	@Override
 	public String toString() {
 		return id + "|" + ime + "|" + prezime + "|" + jmbg + "|" + 
 	adresa + "|" + pol + "|" + brClanskeKarte + "|" + datumUplate + "|" + 
-				uplacenoMeseci + "|" + aktivan + "|" + tipClanarine; 
+				uplacenoMeseci + "|" + aktivan + "|" + tipClanarine1; 
 	}
 	
     

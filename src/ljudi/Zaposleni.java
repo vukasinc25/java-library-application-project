@@ -11,6 +11,7 @@ public abstract class Zaposleni extends Korisnik {
     	super();
     	this.korisnickoIme = "";
     	this.lozinka = "";
+    	this.plata = 0;
     }
     
     public Zaposleni(String ime, String prezime, String jmbg, String adresa,
@@ -18,6 +19,7 @@ public abstract class Zaposleni extends Korisnik {
     	super(id, ime, prezime, jmbg, adresa, pol);
     	this.korisnickoIme = korisnickoIme;
     	this.lozinka = lozinka;
+    	this.plata = plata;
     }
     
     public String getKorisnickoIme() {

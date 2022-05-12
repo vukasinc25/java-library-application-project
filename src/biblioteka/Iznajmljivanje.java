@@ -1,8 +1,14 @@
 package biblioteka;
 
+//import java.io.BufferedReader;
+//import java.io.File;
+//import java.io.FileReader;
+//import java.io.IOException;
 import java.time.LocalDate;
+//import java.util.ArrayList;
 
 import ljudi.Clan;
+//import ljudi.Pol;
 import ljudi.Zaposleni;
 
 
@@ -15,11 +21,13 @@ public class Iznajmljivanje {
     protected Clan clan;
     
     public Iznajmljivanje() {
+    	
     	this.datumIznajmljivanja = null;
     	this.datumVracanja = null;
     	this.zaposleni = null;
     	this.primerak = null;
     	this.clan = null;
+    	
     }
     
     public Iznajmljivanje(LocalDate datumIznajmljivanja, LocalDate datumVracanja, Zaposleni zaposleni, PrimerakKnjige primerak,
@@ -80,4 +88,32 @@ public class Iznajmljivanje {
 	
 	}
 
+//	public ArrayList<Iznajmljivanje> citajFajl(String imeFajla) throws IOException{
+//		ArrayList<Iznajmljivanje> izdknjige = new ArrayList<Iznajmljivanje>();
+//		File fajl = new File(imeFajla);
+//		BufferedReader citaj = new BufferedReader(new FileReader(fajl));
+//		String line = null;
+//		while((line = citaj.readLine())!= null) {
+//			String [] niz = line.split("|");
+//			LocalDate datumIznajmljivanja = LocalDate.parse(niz[0]);
+//			LocalDate datumVracanja = LocalDate.parse(niz[1]);
+//			String id = niz[0];
+//			String ime = niz[1];
+//			String prezime = niz[2];
+//			String jMBG = niz[3];
+//			String adresa = niz[4];
+//			Pol defpol = Pol.MUSKO;
+//			for(Pol pol:Pol.values()) {
+//				if(pol.name().equalsIgnoreCase(polClana)) {
+//					defpol = pol; 
+//				}
+//			Zaposleni zaposleni = new Zaposleni(id,ime,prezime,jMBG,adresa,pol,lozinka,korisnickoIme);
+//			// public Iznajmljivanje(LocalDate datumIznajmljivanja, LocalDate datumVracanja, Zaposleni zaposleni, PrimerakKnjige primerak,
+//		     //Clan clan) {
+//		}
+//		citaj.close();
+//		return izdknjige;
+//		
+//		}
+//	}
 }
