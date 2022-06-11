@@ -19,6 +19,7 @@ public class Iznajmljivanje {
     protected Zaposleni zaposleni;
     protected PrimerakKnjige primerak;
     protected Clan clan;
+    protected boolean obrisan;
     
     public Iznajmljivanje() {
     	
@@ -27,6 +28,7 @@ public class Iznajmljivanje {
     	this.zaposleni = null;
     	this.primerak = null;
     	this.clan = null;
+    	this.obrisan = false;
     	
     }
     
@@ -38,6 +40,7 @@ public class Iznajmljivanje {
     	this.zaposleni = zaposleni;
     	this.primerak = primerak;
     	this.clan = clan;
+    	this.obrisan = false;
     
     }
 
@@ -81,6 +84,13 @@ public class Iznajmljivanje {
 		this.clan = clan;
 	}
 	
+	public boolean isObrisan() {
+		return obrisan;
+	}
+	public void setObrisan(boolean obrisan) {
+		this.obrisan = obrisan;
+	}
+
 	@Override
 	public String toString() {
 		return "Iznajmljivanje [datumIznajmljivanja=" + datumIznajmljivanja + ", datumVracanja=" + datumVracanja

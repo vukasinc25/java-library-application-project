@@ -10,9 +10,10 @@ public class Knjiga {
     protected String id;
     protected ZanrKnjige zanr;
     protected JezikOriginala jezikOriginala;
+    protected boolean obrisan;
     
     public Knjiga(String naslov, String originalniNaslov, String pisac,
-    		int godinaObjavljivanja, String opisKnjige, String id, ZanrKnjige zanr, JezikOriginala jezikOriginala)
+    		int godinaObjavljivanja, String opisKnjige, String id, ZanrKnjige zanr, JezikOriginala jezikOriginala, boolean obrisan)
     {
     	this.naslov = naslov;
     	this.originalniNaslov = originalniNaslov;
@@ -22,6 +23,7 @@ public class Knjiga {
     	this.id = id;
     	this.zanr = zanr;
     	this.jezikOriginala = jezikOriginala;
+    	this.obrisan = false;
     }
     
     public Knjiga() {
@@ -34,6 +36,7 @@ public class Knjiga {
     	this.id = "";
     	this.zanr = null;
     	this.jezikOriginala = null;
+    	this.obrisan = false;
     }
     
     public String getNaslov() {
@@ -99,11 +102,18 @@ public class Knjiga {
 	public void setJezikOriginala(JezikOriginala jezikOriginala) {
 		this.jezikOriginala = jezikOriginala;
 	}
+	
+	public boolean isObrisan() {
+		return obrisan;
+	}
+	public void setObrisan(boolean obrisan) {
+		this.obrisan = obrisan;
+	}
 
 	@Override
 	public String toString() {
 		return naslov + "|" + originalniNaslov + "|" + pisac + "|" + 
-	godinaObjavljivanja + "|" + opisKnjige + "|" + zanr + "|" + jezikOriginala + "|" + id;
+	godinaObjavljivanja + "|" + opisKnjige + "|" + zanr + "|" + jezikOriginala + "|" + id + "|" + obrisan;
 	}
 
 }

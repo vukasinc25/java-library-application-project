@@ -6,6 +6,7 @@ public class ZanrKnjige {
 	protected String id;
     protected String oznaka;
     protected String opisZanra;
+    protected boolean obrisan;
     
     
     public ZanrKnjige() {
@@ -13,14 +14,16 @@ public class ZanrKnjige {
     	this.id = "";
     	this.oznaka = "";
     	this.opisZanra = "";
+    	this.obrisan = false;
     	
     }
 
-    public ZanrKnjige(String oznaka, String opisZanra, String id) {
+    public ZanrKnjige(String oznaka, String opisZanra, String id, boolean obrisan) {
     	
     	this.id = id;
     	this.oznaka = oznaka;
     	this.opisZanra = opisZanra;
+    	this.obrisan = false;
     	
     }
 
@@ -47,10 +50,17 @@ public class ZanrKnjige {
 	public void setOpisZanra(String opisZanra) {
 		this.opisZanra = opisZanra;
 	}
-    
-    @Override
+	
+    public boolean isObrisan() {
+		return obrisan;
+	}
+	public void setObrisan(boolean obrisan) {
+		this.obrisan = obrisan;
+	}
+
+	@Override
     public String toString() {
-    	return oznaka + "|" + opisZanra + "|" + id;
+    	return oznaka + "|" + opisZanra + "|" + id + "|" + obrisan;
     }
     
 }
