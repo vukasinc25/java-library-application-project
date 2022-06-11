@@ -1,5 +1,6 @@
 package ljudi;
 
+import enumeracije.Pol;
 
 public class Bibliotekar extends Zaposleni {
 

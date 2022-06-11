@@ -1,6 +1,7 @@
 package ljudi;
 
 import biblioteka.Biblioteka;
+import enumeracije.Pol;
 
 public abstract class Zaposleni extends Korisnik {
 

@@ -1,5 +1,7 @@
 package ljudi;
 
+import enumeracije.Pol;
+
 public abstract class Korisnik {
 
     protected String ime;

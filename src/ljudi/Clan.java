@@ -2,6 +2,8 @@ package ljudi;
 
 import java.time.LocalDate;
 
+import enumeracije.Pol;
+
 
 public class Clan extends Korisnik {
 

@@ -9,9 +9,9 @@ import biblioteka.JezikOriginala;
 import biblioteka.Knjiga;
 import biblioteka.PrimerakKnjige;
 import biblioteka.ZanrKnjige;
+import enumeracije.Pol;
 import ljudi.Administrator;
 import ljudi.Clan;
-import ljudi.Pol;
 import ljudi.TipClanarine;
 
 public class Main {

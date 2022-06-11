@@ -10,10 +10,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import enumeracije.Pol;
 import ljudi.Administrator;
 import ljudi.Bibliotekar;
 import ljudi.Clan;
-import ljudi.Pol;
 import ljudi.TipClanarine;
 import ljudi.Zaposleni;
 
@@ -167,7 +167,9 @@ public class Biblioteka {
 		this.bibliotekar = bibliotekar;
 	}
 
-	//-----------LOGIN------------///
+	//--------------------------------//
+	//-------------LOGIN--------------//
+	//--------------------------------//
 	public Zaposleni login(String korisnickoIme, String lozinka) {
 			
 			for(Administrator admin : this.admin) {
@@ -185,7 +187,10 @@ public class Biblioteka {
 			return null;
 		}
 	
-	//-----------CLANARINA------------//
+	//------------------------------------//
+	//-------------CLANARINA--------------//
+	//------------------------------------//
+	
 	public void citajClanarine() throws IOException{
 		this.tipClanarine = new ArrayList<TipClanarine>();
 		File file = new File("src/fajlovi/tipclanarine.txt");
@@ -213,7 +218,7 @@ public class Biblioteka {
         File file=new File("src/projekatObjektno/tipclanarine.txt");
         BufferedWriter writer = new BufferedWriter(new FileWriter(file));
         for(TipClanarine c : this.tipClanarine) {
-            String linija = c.getId() + "|" +c.getTip() + "|" +c.getCena();// + "|" + c.isObrisan();
+            String linija = c.getTip() + "|" +c.getId() + "|" +c.getCena();// + "|" + c.isObrisan();
             writer.write(linija);
             writer.newLine();
         }
@@ -224,6 +229,7 @@ public class Biblioteka {
 	//--------------------------------//
 	//------------KNJIGA--------------//
 	//--------------------------------//
+	
 	public ArrayList<Knjiga> citajKnjige(String imeFajla) throws IOException{
 		ArrayList<Knjiga> knjige = new ArrayList<Knjiga>();
 		File fajl = new File(imeFajla);
@@ -403,7 +409,10 @@ public class Biblioteka {
 
 	
 	
-	//----------ADMINISTRATOR------------//
+	//-----------------------------------------//
+	//--------------ADMINISTRATOR--------------//
+	//-----------------------------------------//
+	
 	public void citajAdministratora() throws IOException{
 		this.admin = new ArrayList<Administrator>();
 		File fajl = new File("src/fajlovi/administrator.txt");
@@ -493,7 +502,10 @@ public class Biblioteka {
 	}
 	
 	
+	
+	//-----------------------------------------//
 	//--------------BIBLIOTEKAR----------------//
+	//-----------------------------------------//
 	
 	public void citajBibliotekara() throws IOException{
 		this.bibliotekar = new ArrayList<Bibliotekar>();
@@ -564,7 +576,10 @@ public class Biblioteka {
 		return neobrisani;
 	}
 	
-	//-------------CLANOVI--------------//
+	
+	//------------------------------------//
+	//--------------CLANOVI---------------//
+	
 	public void citajClanove()throws IOException{
 		ArrayList<Clan> clanovi = new ArrayList<Clan>();
 		File claoviFile = new File("src/fajlovi/clanbiblioteke.txt");
@@ -712,8 +727,8 @@ public class Biblioteka {
         File file=new File("src/projekatObjektno/iznajmljivanjeKnjige.txt");
         BufferedWriter writer = new BufferedWriter(new FileWriter(file));
         for(Iznajmljivanje c: this.iznajmljivanjeKnjige) {
-            String linija = c.getDatumIznajmljivanja() + ";" +c.getDatumVracanja() + ";" +c.getZaposleni().getId() + ";" +
-                    c.getClan().getId()+ ";"+c.isObrisan();
+            String linija = c.getDatumIznajmljivanja() + "|" +c.getDatumVracanja() + "|" +c.getZaposleni().getId() + "|" +
+                    c.getClan().getId()+ "|"+c.isObrisan();
             writer.write(linija);
             writer.newLine();
         }
@@ -781,24 +796,16 @@ public class Biblioteka {
 		primerak.setObrisan(true);
 	}
 	
-	public void dodavanjePrimerka(String id, int brStrana, boolean tipPoveza, int godinaStampanja, boolean jeliIznajmljena,
-			Knjiga knjiga,boolean jeObrisan) throws IOException {
-		this.citajPrimerke();
+	public void dodavanjePrimerka(String id, int brStrana, int godinaStampanja, 
+    		String jezikStampanja, boolean izdata, Knjiga knjiga, boolean tipPoveza, boolean obrisan) throws IOException {
+		//this.citajPrimerke();
 		PrimerakKnjige primerakJao = new PrimerakKnjige(id, brStrana, godinaStampanja, jezikStampanja, izdata, knjiga, tipPoveza,obrisan);
 		this.primerakKnjige.add(primerakJao);
 		this.upisiPrimerakKnjige(primerakJao);
 	}
 	
-	public void azurirajPrimerak(String id, HashMap<String,String> parametri) {
-		PrimerakKnjige primerak = null;
-		for(PrimerakKnjige p : this.primerakKnjige) {
-			if(p.getId().equals(id)) {
-				primerak = p;
-			}
-		}
-	}
 	public void sacuvajPrimerke() throws IOException{
-        File file=new File("src/projekatObjektno/primerakKnjige.txt");
+        File file = new File("src/fajlovi/primerakKnjige.txt");
         BufferedWriter writer = new BufferedWriter(new FileWriter(file));
         for(PrimerakKnjige c : this.primerakKnjige) {
             String linija = c.getId() + "|" +c.getBrStrana() + "|" +c.isTipPoveza() + "|" +
@@ -810,9 +817,9 @@ public class Biblioteka {
     }
 	public ArrayList<PrimerakKnjige> sviNeobrisaniPrimerciKnjige() {
 		ArrayList<PrimerakKnjige> neobrisani = new ArrayList<PrimerakKnjige>();
-		for (PrimerakKnjige prime : primerakKnjige) {
-			if(!prime.isObrisan()) {
-				neobrisani.add(prime);
+		for (PrimerakKnjige primerak : primerakKnjige) {
+			if(!primerak.isObrisan()) {
+				neobrisani.add(primerak);
 			}
 		}
 		return neobrisani;
