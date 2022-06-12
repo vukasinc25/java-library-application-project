@@ -54,9 +54,9 @@ public class TipIzmena extends JDialog{
 			public void actionPerformed(ActionEvent e) {
 				String id = txtID.getText().trim();
 				String cena = txtCena.getText().trim();
-				Double cena2 = (double) 0;
+				int cena2 = 0;
 				try {
-					Double cena1 = Double.parseDouble(cena);
+					int cena1 = Integer.parseInt(cena);
 					cena2 = cena1;
 				}catch (Exception e1) {
 					JOptionPane.showMessageDialog(null, "Mora biti numericka vrednost upisana","Greska",JOptionPane.WARNING_MESSAGE);

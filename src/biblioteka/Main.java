@@ -21,12 +21,12 @@ public class Main {
 		Biblioteka biblioteka = new Biblioteka("Naziv","Adresa","Telefon", LocalDate.parse("2007-02-03"),LocalDate.parse("2008-05-05"),"ID");
 		biblioteka.citajAdministratora();
 		biblioteka.citajBibliotekara();
-		biblioteka.citajAdministratora();
 		biblioteka.citajClanarine();
 		biblioteka.citajZanr();
 		biblioteka.citajKnjige();
 		biblioteka.citajPrimerke();
 		biblioteka.citajClanove();
+		biblioteka.citajIznajmljivanje();
 		Login login = new Login(biblioteka);
 		login.setVisible(true);
 		

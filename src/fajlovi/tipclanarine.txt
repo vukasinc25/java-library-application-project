@@ -1,1 +1,2 @@
 1|deca|100
+1|Test Naziv|123

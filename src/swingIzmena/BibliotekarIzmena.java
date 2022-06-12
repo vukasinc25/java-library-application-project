@@ -78,7 +78,14 @@ public class BibliotekarIzmena extends JDialog{
 				String sifra = txtKorisnickaSifra.getText().trim();
 				String koriskickoIme = txtKorisnickoIme.getText().trim();
 				String plata = txtPlata.getText().trim();
-				
+				int plata2 = 0;
+				try {
+					int plata1 = Integer.parseInt(plata);
+					plata2 = plata1;
+				}
+				catch (Exception e1) {
+					JOptionPane.showMessageDialog(null, "Mora biti numericka vrednost upisana","Greska",JOptionPane.WARNING_MESSAGE);
+				}
 				if(id.equals("")||ime.equals("")||prezime.equals("")||JMBG.equals("")||adresa.equals("")||sifra.equals("")||koriskickoIme.equals("")||plata.equals("")) {
 					JOptionPane.showMessageDialog(null, "Niste uneli sve podatke za dodavanje.", "Greska", JOptionPane.WARNING_MESSAGE);
 				}
@@ -97,7 +104,7 @@ public class BibliotekarIzmena extends JDialog{
 						bibliotekar.setPol(pol);
 						bibliotekar.setLozinka(sifra);
 						bibliotekar.setKorisnickoIme(koriskickoIme);
-						bibliotekar.setPlata(plata);
+						bibliotekar.setPlata(plata2);
 					}
 					try {
 						biblioteka.sacuvajBibliotekre();
@@ -147,7 +154,7 @@ public class BibliotekarIzmena extends JDialog{
 			cmbxPol.setSelectedItem(bibliotekar.getPol());
 			txtKorisnickoIme.setText(bibliotekar.getKorisnickoIme());
 			txtKorisnickaSifra.setText(bibliotekar.getLozinka());
-			txtPlata.setText(bibliotekar.getPlata());
+			txtPlata.setText(String.valueOf(bibliotekar.getPlata()));
 		}
 		
 	}

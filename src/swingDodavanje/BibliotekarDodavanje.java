@@ -80,6 +80,14 @@ public class BibliotekarDodavanje extends JFrame{
 				String lozinka = txtKorisnickaSifra.getText().trim();
 				String korisnickoIme = txtKorisnickoIme.getText().trim();
 				String plata = txtPlata.getText().trim();
+				int plata2 = 0;
+				try {
+					int plata1 = Integer.parseInt(plata);
+					plata2 = plata1;
+				}
+				catch (Exception e1) {
+					JOptionPane.showMessageDialog(null, "Mora biti numericka vrednost upisana","Greska",JOptionPane.WARNING_MESSAGE);
+				}
 				
 				if(id.equals("")||ime.equals("")||prezime.equals("")||jmbg.equals("")||adresa.equals("")||lozinka.equals("")||korisnickoIme.equals("")||plata.equals("")) {
 					JOptionPane.showMessageDialog(null, "Niste uneli sve podatke za dodavanje.", "Greska", JOptionPane.WARNING_MESSAGE);
@@ -89,7 +97,7 @@ public class BibliotekarDodavanje extends JFrame{
 						if(biblioteka.pronadjiAdmina(korisnickoIme)!= null) {
 							JOptionPane.showMessageDialog(null, "Korisnicko ime vec postoji!", "Greska",JOptionPane.WARNING_MESSAGE);	
 						}
-						Bibliotekar noviBibliotekar = new Bibliotekar(id,ime,prezime,jmbg,adresa,pol,lozinka,korisnickoIme, plata, obrisan);
+						Bibliotekar noviBibliotekar = new Bibliotekar(id,ime,prezime,jmbg,adresa,pol,lozinka,korisnickoIme, plata2, false);
 						biblioteka.getBibliotekar().add(noviBibliotekar);
 					}
 					else {
@@ -101,7 +109,7 @@ public class BibliotekarDodavanje extends JFrame{
 						bibliotekar.setPol(pol);
 						bibliotekar.setLozinka(lozinka);
 						bibliotekar.setKorisnickoIme(korisnickoIme);
-						bibliotekar.setPlata(plata);
+						bibliotekar.setPlata(plata2);
 					}
 					try {
 						biblioteka.sacuvajBibliotekre();

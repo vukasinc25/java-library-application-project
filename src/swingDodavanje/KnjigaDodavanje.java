@@ -35,8 +35,8 @@ public class KnjigaDodavanje extends JDialog {
 	 private JLabel lblGodinaObjavljivanja = new JLabel("Godina Objavljivanja");
 	 private JTextField txtGodinaObjavljivanja = new JTextField(20);
 	 private JezikOriginala[] jezici=JezikOriginala.values();
-	 private JLabel lblOriginala = new JLabel("Originala:");
-	 private JComboBox cmbxOriginala = new JComboBox(jezici);
+	 private JLabel lblJezik = new JLabel("Jezik:");
+	 private JComboBox cmbxJezik = new JComboBox(jezici);
 	 private JLabel lblOpisKnjige = new JLabel("Opis Knjige");
 	 private JTextField txtOpisKnjige = new JTextField(20);
 	 private JLabel lblZanr = new JLabel("Zanr Knjige");
@@ -71,41 +71,38 @@ public class KnjigaDodavanje extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				String id = txtID.getText().trim();
 				String naslov = txtNaslov.getText().trim();
-				String originalniNalsov = txtOriginalniNalsov.getText().trim();
+				String originalniNaslov = txtOriginalniNalsov.getText().trim();
 				String pisac = txtPisac.getText().trim();
-				String godinaObjavljianja = txtGodinaObjavljivanja.getText().trim();
+				String godinaObjavljivanja = txtGodinaObjavljivanja.getText().trim();
 				int godinaObjavljivanja2 = 0;
 				try {
-					int godinaObjavljivanja1 = Integer.parseInt(godinaObjavljianja);
+					int godinaObjavljivanja1 = Integer.parseInt(godinaObjavljivanja);
 					godinaObjavljivanja2 = godinaObjavljivanja1;
 				}
 				catch (Exception e1) {
 					JOptionPane.showMessageDialog(null, "Mora biti numericka vrednost upisana","Greska",JOptionPane.WARNING_MESSAGE);
 				}
 //				String godinaObjavljivanja = txtGodinaObjavljivanja.getText().trim();
-				String opis = txtOpisKnjige.getText().trim();
+				String opisKnjige = txtOpisKnjige.getText().trim();
 				int zanrId = cmbxZanr.getSelectedIndex();
-				String jezikString = cmbxJezikOriginala.getSelectedItem().toString();
-				JezikOriginala jezik = JezikOriginala.valueOf(jezikString);
+				String jezikString = cmbxJezik.getSelectedItem().toString();
+				JezikOriginala jezikOriginala = JezikOriginala.valueOf(jezikString);
 				ZanrKnjige zanr = biblioteka.pronadjiZanr(Integer.toString(zanrId));
-				if(naslov.equals("")||originalniNalsov.equals("")||pisac.equals("")||opis.equals("")) {
+				if(naslov.equals("")||originalniNaslov.equals("")||pisac.equals("")||opisKnjige.equals("")) {
 					JOptionPane.showMessageDialog(null, "Niste uneli sve podatke za dodavanje", "Greska",JOptionPane.WARNING_MESSAGE);
 				}
 				
 				if(knjiga == null) {
-//					String id, String naslovKnjige, String originalsniNaslovKnjige, String pisac,
-//					int godinaObjavljanjaKnjige, Jezik jezikOriginala, String opisKnjige, ZanrKnjige zanr, boolean jeObrisana
-//					String id = Integer.toString(biblioteka.getKnjige().size());
-					Knjiga novaKnjiga = new Knjiga(id,naslov,originalniNalsov,pisac,godinaObjavljivanja2,jezik,opis,zanr,false);
+					Knjiga novaKnjiga = new Knjiga(naslov, originalniNaslov, pisac, godinaObjavljivanja2, opisKnjige, id, zanr, jezikOriginala, false);
 					biblioteka.getKnjige().add(novaKnjiga);
 				}
 				else {
 					knjiga.setNaslov(naslov);
 					knjiga.setGodinaObjavljivanja(godinaObjavljivanja2);
-					knjiga.setNaslov(originalniNalsov);
-					knjiga.setOpisKnjige(opis);
+					knjiga.setNaslov(originalniNaslov);
+					knjiga.setOpisKnjige(opisKnjige);
 					knjiga.setZanr(zanr);
-					knjiga.setJezikOriginala(jezik);
+					knjiga.setJezikOriginala(jezikOriginala);
 					knjiga.setPisac(pisac);
 				}
 				try {
@@ -137,7 +134,7 @@ public class KnjigaDodavanje extends JDialog {
 		add(txtPisac);
 		add(lblGodinaObjavljivanja);
 		add(txtGodinaObjavljivanja);
-		add(lblJezikOriginala);
+		add(lblJezik);
 		add(cmbxJezik);
 		add(lblOpisKnjige);
 		add(txtOpisKnjige);
@@ -146,14 +143,5 @@ public class KnjigaDodavanje extends JDialog {
 		add(btnSave,"split 2");
 		add(btnSave);
 		add(btnCancel);
-		
-//		if(knjiga != null) {
-//			txtNaslov.setText(knjiga.getNaslovKnjige());
-//			txtOriginalniNalsov.setText(knjiga.getOriginalsniNaslovKnjige());
-//			txtPisac.setText(knjiga.getPisac());
-//			txtGodinaObjavljivanja.setText(Integer.toString(knjiga.getGodinaObjavljanjaKnjige()));
-//			cmbxJezik.setSelectedItem(knjiga.getJezikOriginala());
-//			cmbxZanr.setSelectedItem(knjiga.getZanr().getOpis());
-//		}
 	}
 }

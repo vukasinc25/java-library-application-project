@@ -1,0 +1,2 @@
+Adresa|ID|Ime|Prezime|123456|MUSKO|lozinka2|korisnickoIme|500|false
+Adresa T2|55|ImeT2|PrezimeT2|321313|MUSKO|lozinkaT2|korisnickoImeT2|1000|false

@@ -31,25 +31,12 @@ public class ZanrDodavanje extends JDialog{
 	 private JTextField txtOpis = new JTextField(20);
 	 private JButton btnSave = new JButton("Save");
 	 private JButton btnCancel = new JButton("Cancel");
-	 
-//	 public DijalogDodajZanr(Biblioteka biblioteka,ZanrKnjige zanrKnjige) {
-//		 this.biblioteka = biblioteka;
-//		 this.zanrKnjige= zanrKnjige;
-//		 setTitle("Dodavanje novi zanr");
-//		 setSize(500,500);
-//		 setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-//		 setLocationRelativeTo(null);
-////		 cmbxEmnumPol.setModel(new DefaultComboBoxModel<EmnumPol>(EmnumPol.values()));
-//		 initGUI();
-//		 initActions();
-//		 pack();
-//	 }
-	 
+		 
 	 public ZanrDodavanje(Biblioteka biblioteka) {
 		 this.biblioteka = biblioteka;
 //		 this.zanrKnjige= zanrKnjige;
-		 setTitle("Dodavanje novi zanr");
-		 setSize(300,200);
+		 setTitle("Dodavanje Zanra");
+		 setSize(600,400);
 		 setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		 setLocationRelativeTo(null);
 		 initGUI();

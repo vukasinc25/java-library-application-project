@@ -59,12 +59,10 @@ public class BibliotekarPrikaz extends JFrame{
 		mainToolbar.add(btnIzmeni);
 		mainToolbar.add(btnIzbrisi);
 		
-		String[] zaglavlja = new String[] {"JMBG", "Adresa", "ID", "Ime", "Prezime", "Pol", "Lozinka", "KorisnicoIme","Plata"};
+		String[] zaglavlja = new String[] {"ID","Ime","Prezime","JMBG","Adresa","Pol","Lozinka","Korisnicko Ime","Plata"};
 		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniBibliotekari().size()][zaglavlja.length];
-		
 		for(int i=0; i<biblioteka.sviNeobrisaniBibliotekari().size(); i++) {
 			Bibliotekar clan = biblioteka.sviNeobrisaniBibliotekari().get(i);
-//			Knjiga knjiga = biblioteka.pronadjiDisk(clan);
 			sadrzaj[i][0] = clan.getId();
 			sadrzaj[i][1] = clan.getIme();
 			sadrzaj[i][2] = clan.getPrezime();
@@ -74,7 +72,6 @@ public class BibliotekarPrikaz extends JFrame{
 			sadrzaj[i][6] = clan.getLozinka();
 			sadrzaj[i][7] = clan.getKorisnickoIme();
 			sadrzaj[i][8] = clan.getPlata();
-//			sadrzaj[i][2] = disk == null ? "--" : disk.getNaziv();
 		}
 		
 		tableModel = new DefaultTableModel(sadrzaj, zaglavlja);

@@ -160,6 +160,7 @@ public class Biblioteka {
 		this.zaposleni = zaposleni;
 	}
 	public ArrayList<Bibliotekar> getBibliotekar() {
+		System.out.println(bibliotekar);
 		return bibliotekar;
 	}
 	public void setBibliotekar(ArrayList<Bibliotekar> bibliotekar) {
@@ -215,7 +216,7 @@ public class Biblioteka {
 		writer.close();
 	}
 	public void sacuvajTipClanarine() throws IOException{
-        File file=new File("src/projekatObjektno/tipclanarine.txt");
+        File file=new File("src/fajlovi/tipclanarine.txt");
         BufferedWriter writer = new BufferedWriter(new FileWriter(file));
         for(TipClanarine c : this.tipClanarine) {
             String linija = c.getTip() + "|" +c.getId() + "|" +c.getCena();// + "|" + c.isObrisan();
@@ -292,7 +293,7 @@ public class Biblioteka {
 	}
 	
 	public void sacuvajKnjige() throws IOException{
-        File file=new File("src/projekatObjektno/knjige.txt");
+        File file=new File("src/fajlovi/knjige.txt");
         BufferedWriter writer = new BufferedWriter(new FileWriter(file));
         for(Knjiga c : this.knjige) {
             String linija = c.getId() + "|" +c.getNaslov() + "|" +c.getOriginalniNaslov() + "|" +
@@ -412,7 +413,7 @@ public class Biblioteka {
 		writer.close();
 	}
 	public void sacuvajZanrKnjige() throws IOException{
-        File file=new File("src/projekatObjektno/zanrovi.txt");
+        File file=new File("src/fajlovi/zanrovi.txt");
         BufferedWriter writer = new BufferedWriter(new FileWriter(file));
         for(ZanrKnjige c : this.zanrovi) {
             String linija = c.getId() + "|" +c.getOznaka() + "|" +c.getOpisZanra() + "|" + c.isObrisan();
@@ -512,7 +513,7 @@ public class Biblioteka {
 	}
 	
 	public void sacuvajAdministatore() throws IOException{
-        File file=new File("src/projekatObjektno/administrator.txt");
+        File file=new File("src/fajlovi/administrator.txt");
         BufferedWriter writer = new BufferedWriter(new FileWriter(file));
         for(Administrator c : this.admin) {
             String linija = c.getId() + "|" +c.getIme() + "|" +c.getPrezime() + "|" +
@@ -587,7 +588,7 @@ public class Biblioteka {
 	}
 	
 	public void sacuvajBibliotekre() throws IOException{
-        File file=new File("src/projekatObjektno/bibliotekar.txt");
+        File file=new File("src/fajlovi/bibliotekar.txt");
         BufferedWriter writer = new BufferedWriter(new FileWriter(file));
         for(Bibliotekar c : this.bibliotekar) {
             String linija = c.getId() + "|" +c.getIme() + "|" +c.getPrezime() + "|" +
@@ -682,7 +683,7 @@ public class Biblioteka {
 		}
 		
 		public void sacuvajClanove() throws IOException{
-	        File file=new File("src/projekatObjektno/clanbiblioteke.txt");
+	        File file=new File("src/fajlovi/clanbiblioteke.txt");
 	        BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 	        for(Clan c : this.clanBiblioteke) {
 	            String linija = c.getId() + "|" +c.getIme() + "|" +c.getPrezime() + "|" +
@@ -716,7 +717,7 @@ public class Biblioteka {
 	
 	//---------------IZNAJMLJIVANJE-------------------//
 	public void citajIznajmljivanje() throws IOException{
-		//ArrayList<Iznajmljivanje> izdknjige = new ArrayList<Iznajmljivanje>();
+		this.iznajmljivanjeKnjige = new ArrayList<Iznajmljivanje>();
 		File fajl = new File("src/fajlovi/iznajmljivanjeKnjige.txt");
 		BufferedReader citaj = new BufferedReader(new FileReader(fajl));
 		String line = null;
@@ -755,7 +756,7 @@ public class Biblioteka {
 				}
 			}
 			Iznajmljivanje iznajmljivanje = new Iznajmljivanje(datumIznajmljivanja,datumVracanja,zaposleni,primerak,clan);
-			this.iznajmljivanjeKnjige.add(iznajmljivanje);//
+			this.iznajmljivanjeKnjige.add(iznajmljivanje);
 		}
 		citaj.close();		
 	}
@@ -772,7 +773,7 @@ public class Biblioteka {
 	}
 	
 	public void sacuvajIznajmljivanje() throws IOException{
-        File file=new File("src/projekatObjektno/iznajmljivanjeKnjige.txt");
+        File file=new File("src/fajlovi/iznajmljivanjeKnjige.txt");
         BufferedWriter writer = new BufferedWriter(new FileWriter(file));
         for(Iznajmljivanje c: this.iznajmljivanjeKnjige) {
             String linija = c.getDatumIznajmljivanja() + "|" +c.getDatumVracanja() + "|" +c.getZaposleni().getId() + "|" +
@@ -818,7 +819,7 @@ public class Biblioteka {
 			}
 			boolean tipPoveza= Boolean.parseBoolean(niz[6]);
 			Boolean obrisan = Boolean.parseBoolean(niz[7]);
-			PrimerakKnjige primerak = new PrimerakKnjige(id, brStrana, godinaStampanja, jezikStampanja, izdata, knjiga, tipPoveza, obrisan);
+			PrimerakKnjige primerak = new PrimerakKnjige(id, brStrana, godinaStampanja,izdata, knjiga, tipPoveza, obrisan);
 			primerakKnjige.add(primerak);	
 		}
 		citaj.close();
@@ -847,7 +848,7 @@ public class Biblioteka {
 	public void dodavanjePrimerka(String id, int brStrana, int godinaStampanja, 
     		String jezikStampanja, boolean izdata, Knjiga knjiga, boolean tipPoveza, boolean obrisan) throws IOException {
 		//this.citajPrimerke();
-		PrimerakKnjige primerakJao = new PrimerakKnjige(id, brStrana, godinaStampanja, jezikStampanja, izdata, knjiga, tipPoveza,obrisan);
+		PrimerakKnjige primerakJao = new PrimerakKnjige(id, brStrana, godinaStampanja, izdata, knjiga, tipPoveza,obrisan);
 		this.primerakKnjige.add(primerakJao);
 		this.upisiPrimerakKnjige(primerakJao);
 	}

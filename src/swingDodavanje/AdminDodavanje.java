@@ -20,7 +20,8 @@ import ljudi.Administrator;
 import net.miginfocom.swing.MigLayout;
 
 public class AdminDodavanje extends JDialog{
-	 private Biblioteka biblioteka;
+	private static final long serialVersionUID = 1L;
+	private Biblioteka biblioteka;
 	 private Administrator administrator;
 //	 int index;
 	 
@@ -49,7 +50,7 @@ public class AdminDodavanje extends JDialog{
 	 public AdminDodavanje(Biblioteka biblioteka) {
 		 this.biblioteka = biblioteka;
 		 setTitle("Dodavanje novog administratora");
-		 setSize(500,500);
+		 setSize(600,400);
 		 setResizable(false);
 		 setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		 setLocationRelativeTo(null);
@@ -108,6 +109,14 @@ public class AdminDodavanje extends JDialog{
 				String korisnickoIme = txtKorisnickoIme.getText().trim();
 				String lozinka = txtKorisnickaSifra.getText().trim();
 				String plata = txtPlata.getText().trim();
+				int plata2 = 0;
+				try {
+					int plata1 = Integer.parseInt(plata);
+					plata2 = plata1;
+				}
+				catch (Exception e1) {
+					JOptionPane.showMessageDialog(null, "Mora biti numericka vrednost upisana","Greska",JOptionPane.WARNING_MESSAGE);
+				}
 				
 				if(id.equals("")||ime.equals("")||prezime.equals("")||jmbg.equals("")||adresa.equals("")||lozinka.equals("")||korisnickoIme.equals("")||plata.equals("")) {
 					JOptionPane.showMessageDialog(null, "Niste uneli sve podatke za dodavanje.", "Greska", JOptionPane.WARNING_MESSAGE);
@@ -117,7 +126,7 @@ public class AdminDodavanje extends JDialog{
 						if(biblioteka.pronadjiAdmina(korisnickoIme)!= null) {
 							JOptionPane.showMessageDialog(null, "Korisnicko ime vec postoji!", "Greska",JOptionPane.WARNING_MESSAGE);	
 						}
-						Administrator noviadmin= new Administrator(ime,prezime,jmbg,adresa,id,defpol,korisnickoIme,lozinka,plata, obrisan);
+						Administrator noviadmin= new Administrator(ime,prezime,jmbg,adresa,id,defpol,korisnickoIme,lozinka,plata2, false);
 						biblioteka.getAdmin().add(noviadmin);
 					}
 //					else {

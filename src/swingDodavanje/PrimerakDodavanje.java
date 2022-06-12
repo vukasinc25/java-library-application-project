@@ -20,12 +20,9 @@ import biblioteka.PrimerakKnjige;
 import net.miginfocom.swing.MigLayout;
 
 public class PrimerakDodavanje extends JDialog{
-//	String id, int brStrana, boolean tipPoveza, int godinaStampanja, boolean jeliIznajmljena,
-//	Knjiga knjiga,boolean jeObrisan
 	 private Biblioteka biblioteka;
 	 private PrimerakKnjige primerak;
-	 
-	 
+	  
 	 private JLabel lblID = new JLabel("ID");
 	 private JTextField txtID = new JTextField(20);
 	 private JLabel lblBrStrana = new JLabel("Broj Strana");
@@ -62,8 +59,6 @@ public class PrimerakDodavanje extends JDialog{
 			}
 		});
 		btnSave.addActionListener(new ActionListener() {
-//			String id, int brStrana, boolean tipPoveza, int godinaStampanja, boolean jeliIznajmljena,
-//			Knjiga knjiga,boolean jeObrisan
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String id = txtID.getText().trim();
@@ -86,16 +81,18 @@ public class PrimerakDodavanje extends JDialog{
 				catch (Exception e1) {
 					JOptionPane.showMessageDialog(null, "Mora biti numericka vrednost upisana","Greska",JOptionPane.WARNING_MESSAGE);
 				}
-				boolean isAktivan = txtjeliIznajmljena.isSelected();
+				boolean jelIznajmljena = txtjeliIznajmljena.isSelected();
 				int knjigaid = cmbxKnjiga.getSelectedIndex();
 				Knjiga knjiga = biblioteka.sveNeobrisaneKnjige().get(knjigaid);
 				
 				if(id.equals("")||brStrana.equals("")||godinaStampanja.equals("")) {
 					JOptionPane.showMessageDialog(null, "Moraju sva polja da budu popunjena","Greska",JOptionPane.WARNING_MESSAGE);
 				}
+				//String id, int brStrana, int godinaStampanja, 
+	    		//String jezikStampanja, boolean izdata, Knjiga knjiga, boolean tipPoveza, boolean obrisan
 				else {
 					if(primerak == null) {
-						PrimerakKnjige priSmerak = new PrimerakKnjige(id,brStrana1,tipPoveza,godinaStampanja1,isAktivan,knjiga,false);
+						PrimerakKnjige priSmerak = new PrimerakKnjige(id, brStrana1, godinaStampanja1, jelIznajmljena, knjiga, tipPoveza, false);
 						biblioteka.getPrimerakKnjige().add(primerak);
 					}
 					else {
@@ -103,7 +100,7 @@ public class PrimerakDodavanje extends JDialog{
 						primerak.setBrStrana(brStrana1);
 						primerak.setTipPoveza(tipPoveza);
 						primerak.setGodinaStampanja(godinaStampanja1);
-						primerak.setIzdata(isAktivan);
+						primerak.setIzdata(jelIznajmljena);
 						primerak.setKnjiga(knjiga);
 					}
 					try {

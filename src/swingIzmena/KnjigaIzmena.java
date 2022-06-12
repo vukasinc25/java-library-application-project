@@ -27,8 +27,8 @@ public class KnjigaIzmena extends JDialog{
 	 private JTextField txtID = new JTextField(20);
 	 private JLabel lblINaslov = new JLabel("Naslov Knjige");
 	 private JTextField txtNaslov = new JTextField(20);
-	 private JLabel lblOriginalniNalsov = new JLabel("Originalsni Naslov");
-	 private JTextField txtOriginalniNalsov = new JTextField(20);
+	 private JLabel lbloriginalniNaslov = new JLabel("Originalsni Naslov");
+	 private JTextField txtoriginalniNaslov = new JTextField(20);
 	 private JLabel lblPisac = new JLabel("Pisac");
 	 private JTextField txtPisac = new JTextField(20);
 	 private JLabel lblGodinaObjavljivanja = new JLabel("Godina Objavljivanja");
@@ -47,8 +47,8 @@ public class KnjigaIzmena extends JDialog{
 	 public KnjigaIzmena (Biblioteka biblioteka,Knjiga knjiga) {
 		 this.biblioteka = biblioteka;
 		 this.knjiga = knjiga;
-		 setTitle("Dodavanje nove knjige:");
-		 setSize(500,500);
+		 setTitle("Dodavanje Knjige");
+		 setSize(600,400);
 		 setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		 setLocationRelativeTo(null);
 		 initGUI();
@@ -71,7 +71,7 @@ public class KnjigaIzmena extends JDialog{
 			public void actionPerformed(ActionEvent e) {
 				String id = txtID.getText().trim();
 				String naslov = txtNaslov.getText().trim();
-				String originalniNalsov = txtOriginalniNalsov.getText().trim();
+				String originalniNaslov = txtoriginalniNaslov.getText().trim();
 				String pisac = txtPisac.getText().trim();
 				String godinaObjavljianja = txtGodinaObjavljivanja.getText().trim();
 				int godinaObjavljivanja2 = 0;
@@ -82,26 +82,26 @@ public class KnjigaIzmena extends JDialog{
 				catch (Exception e1) {
 					JOptionPane.showMessageDialog(null, "Mora biti numericka vrednost upisana","Greska",JOptionPane.WARNING_MESSAGE);
 				}
-				String opis = txtOpisKnjige.getText().trim();
+				String opisKnjige = txtOpisKnjige.getText().trim();
 				int zanrId = cmbxZanr.getSelectedIndex();
 				String jezikString = cmbxJezik.getSelectedItem().toString();
-				JezikOriginala JezikOriginala = JezikOriginala.valueOf(jezikString);
+				JezikOriginala jezikOriginala = JezikOriginala.valueOf(jezikString);
 				ZanrKnjige zanr = biblioteka.pronadjiZanr(Integer.toString(zanrId));
-				if(naslov.equals("")||originalniNalsov.equals("")||pisac.equals("")||opis.equals("")) {
+				if(naslov.equals("")||originalniNaslov.equals("")||pisac.equals("")||opisKnjige.equals("")) {
 					JOptionPane.showMessageDialog(null, "Niste uneli sve podatke za dodavanje", "Greska",JOptionPane.WARNING_MESSAGE);
 				}
 				
 				if(knjiga == null) {
-					Knjiga novaKnjiga = new Knjiga(id,naslov,originalniNalsov,pisac,godinaObjavljivanja2,jezikString,opis,zanr,false);
+					Knjiga novaKnjiga = new Knjiga(naslov, originalniNaslov, pisac, godinaObjavljivanja2, opisKnjige, id, zanr, jezikOriginala, false);
 					biblioteka.getKnjige().add(novaKnjiga);
 				}
 				else {
 					knjiga.setNaslov(naslov);
 					knjiga.setGodinaObjavljivanja(godinaObjavljivanja2);
-					knjiga.setNaslov(originalniNalsov);
-					knjiga.setOpisKnjige(opis);
+					knjiga.setNaslov(originalniNaslov);
+					knjiga.setOpisKnjige(opisKnjige);
 					knjiga.setZanr(zanr);
-					knjiga.setJezikOriginala(JezikOriginala);
+					knjiga.setJezikOriginala(jezikOriginala);
 					knjiga.setPisac(pisac);
 				}
 				try {
@@ -124,8 +124,8 @@ public class KnjigaIzmena extends JDialog{
 		txtID.setEditable(false);
 		add(lblINaslov);
 		add(txtNaslov);
-		add(lblOriginalniNalsov);
-		add(txtOriginalniNalsov);
+		add(lbloriginalniNaslov);
+		add(txtoriginalniNaslov);
 		add(lblPisac);
 		add(txtPisac);
 		add(lblGodinaObjavljivanja);
@@ -148,7 +148,7 @@ public class KnjigaIzmena extends JDialog{
 		if(knjiga != null) {
 			txtID.setText(knjiga.getId());
 			txtNaslov.setText(knjiga.getNaslov());
-			txtOriginalniNalsov.setText(knjiga.getNaslov());
+			txtoriginalniNaslov.setText(knjiga.getNaslov());
 			txtPisac.setText(knjiga.getPisac());
 			txtGodinaObjavljivanja.setText(Integer.toString(knjiga.getGodinaObjavljivanja()));
 			cmbxJezik.setSelectedItem(knjiga.getJezikOriginala());

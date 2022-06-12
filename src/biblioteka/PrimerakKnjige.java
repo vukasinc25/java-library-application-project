@@ -13,20 +13,19 @@ public class PrimerakKnjige {
     protected String id;
     protected int brStrana;
     protected int godinaStampanja;
-    protected String jezikStampanja;
+    //protected String jezikStampanja;
     protected boolean izdata;
     protected Knjiga knjiga;
     protected boolean tipPoveza;
     protected boolean obrisan;
 
     
-    public PrimerakKnjige(String id, int brStrana, int godinaStampanja, 
-    		String jezikStampanja, boolean izdata, Knjiga knjiga, boolean tipPoveza, boolean obrisan) {
+    public PrimerakKnjige(String id, int brStrana, int godinaStampanja, boolean izdata, Knjiga knjiga, boolean tipPoveza, boolean obrisan) {
     	
     	this.id = id;
     	this.brStrana = brStrana;
     	this.godinaStampanja = godinaStampanja;
-    	this.jezikStampanja = jezikStampanja;
+    	//this.jezikStampanja = jezikStampanja;
     	this.izdata = izdata;
     	this.tipPoveza = tipPoveza;
     	this.obrisan = false;
@@ -37,7 +36,7 @@ public class PrimerakKnjige {
     	this.id = "";
     	this.brStrana = 0;
     	this.godinaStampanja = 0;
-    	this.jezikStampanja = "";
+    	//this.jezikStampanja = "";
     	this.izdata = false;
     	this.tipPoveza = false;
     	this.obrisan = false;
@@ -67,13 +66,13 @@ public class PrimerakKnjige {
 		this.godinaStampanja = godinaStampanja;
 	}
 
-	public String getJezikStampanja() {
-		return jezikStampanja;
-	}
-
-	public void setJezikStampanja(String jezikStampanja) {
-		this.jezikStampanja = jezikStampanja;
-	}
+//	public String getJezikStampanja() {
+//		return jezikStampanja;
+//	}
+//
+//	public void setJezikStampanja(String jezikStampanja) {
+//		this.jezikStampanja = jezikStampanja;
+//	}
 
 	public boolean isIzdata() {
 		return izdata;
@@ -109,6 +108,6 @@ public class PrimerakKnjige {
 	@Override
     public String toString() {
     	return knjiga + "|" + id + "|" + brStrana + "|" + tipPoveza + "|" + 
-    			godinaStampanja + "|" + izdata + "|" + jezikStampanja;
+    			godinaStampanja + "|" + izdata; //+ "|" + jezikStampanja;
     }
 }

@@ -56,17 +56,14 @@ public class TipClanarinePrikaz extends JFrame{
 		mainToolbar.add(btnIzbrisi);
 		setIconImage(ikonica.getImage());
 
-//		String id, String naziv, double cena,boolean jeObrisan
-		String[] zaglavlja = new String[] {"Id", "Naziv", "Cena"};
+		String[] zaglavlja = new String[] {"Naziv","ID", "Cena"};
 		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniTipovi().size()][zaglavlja.length];
 		
 		for(int i=0; i<biblioteka.sviNeobrisaniTipovi().size(); i++) {
 			TipClanarine clan = biblioteka.sviNeobrisaniTipovi().get(i);
-//			Knjiga knjiga = biblioteka.pronadjiDisk(clan);
 			sadrzaj[i][0] = clan.getId();
 			sadrzaj[i][1] = clan.getTip();
 			sadrzaj[i][2] = clan.getCena();
-//			sadrzaj[i][2] = disk == null ? "--" : disk.getNaziv();
 		}
 		
 		tableModel = new DefaultTableModel(sadrzaj, zaglavlja);
@@ -93,9 +90,8 @@ public class TipClanarinePrikaz extends JFrame{
 					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.","Greska",JOptionPane.WARNING_MESSAGE);
 				}
 				else {
-					int id = Integer.parseInt(tableModel.getValueAt(red, 0).toString());
-					String naziv = tableModel.getValueAt(red, 1).toString();
-					
+					int id = Integer.parseInt(tableModel.getValueAt(red, 1).toString());
+					String naziv = tableModel.getValueAt(red, 0).toString();		
 					int izbor = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da zelite da obrisete clana?",naziv + "- Potvrda brisanja",JOptionPane.YES_NO_OPTION);
 					if(izbor == JOptionPane.YES_NO_OPTION) {
 						TipClanarine c = biblioteka.getTipClanarine().get(id);

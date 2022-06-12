@@ -82,7 +82,7 @@ public class PrimerakIzmena extends JDialog{
 				catch (Exception e1) {
 					JOptionPane.showMessageDialog(null, "Mora biti numericka vrednost upisana","Greska",JOptionPane.WARNING_MESSAGE);
 				}
-				boolean isAktivan = txtjeliIznajmljena.isSelected();
+				boolean jelIznajmljena = txtjeliIznajmljena.isSelected();
 				int knjigaid = cmbxKnjiga.getSelectedIndex();
 				Knjiga knjiga = biblioteka.sveNeobrisaneKnjige().get(knjigaid);
 				
@@ -91,7 +91,7 @@ public class PrimerakIzmena extends JDialog{
 				}
 				else {
 					if(primerak == null) {
-						PrimerakKnjige primerak = new PrimerakKnjige(id,brStrana1,tipPoveza,godinaStampanja1,isAktivan,knjiga,false);
+						PrimerakKnjige primerak = new PrimerakKnjige(id, brStrana1, godinaStampanja1, jelIznajmljena, knjiga, tipPoveza, false);
 						biblioteka.getPrimerakKnjige().add(primerak);
 					}
 					else {
@@ -99,7 +99,7 @@ public class PrimerakIzmena extends JDialog{
 						primerak.setBrStrana(brStrana1);
 						primerak.setTipPoveza(tipPoveza);
 						primerak.setGodinaStampanja(godinaStampanja1);
-						primerak.setIzdata(isAktivan);
+						primerak.setIzdata(jelIznajmljena);
 						primerak.setKnjiga(knjiga);
 					}
 					try {

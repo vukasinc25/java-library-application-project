@@ -45,8 +45,8 @@ public class AdminIzmena extends JDialog{
 	 public AdminIzmena(Biblioteka biblioteka, Administrator administrator) {
 		 this.biblioteka = biblioteka;
 		 this.administrator = administrator;
-		 setTitle("Dodavanje novog administratora");
-		 setSize(500,500);
+		 setTitle("Dodavanje Admina");
+		 setSize(600,400);
 		 setResizable(false);
 		 setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		 setLocationRelativeTo(null);
@@ -92,7 +92,7 @@ public class AdminIzmena extends JDialog{
 			txtKorisnickoIme.setText(administrator.getKorisnickoIme());
 			txtKorisnickoIme.setEnabled(false);
 			txtKorisnickaSifra.setText(administrator.getLozinka());
-			txtPlata.setText(administrator.getPlata());
+			txtPlata.setText(String.valueOf(administrator.getPlata()));
 		}
 	}
 
@@ -119,6 +119,14 @@ public class AdminIzmena extends JDialog{
 				String sifra = txtKorisnickaSifra.getText().trim();
 				String koriskickoIme = txtKorisnickoIme.getText().trim();
 				String plata = txtPlata.getText().trim();
+				int plata2 = 0;
+				try {
+					int plata1 = Integer.parseInt(plata);
+					plata2 = plata1;
+				}
+				catch (Exception e1) {
+					JOptionPane.showMessageDialog(null, "Mora biti numericka vrednost upisana","Greska",JOptionPane.WARNING_MESSAGE);
+				}
 				
 				if(id.equals("")||ime.equals("")||prezime.equals("")||JMBG.equals("")||adresa.equals("")||sifra.equals("")||koriskickoIme.equals("")||plata.equals("")) {
 					JOptionPane.showMessageDialog(null, "Niste uneli sve podatke za dodavanje.", "Greska", JOptionPane.WARNING_MESSAGE);
@@ -137,7 +145,7 @@ public class AdminIzmena extends JDialog{
 						administrator.setPol(pol);
 						administrator.setLozinka(sifra);
 						administrator.setKorisnickoIme(koriskickoIme);
-						administrator.setPlata(plata);
+						administrator.setPlata(plata2);
 					}
 					try {
 						biblioteka.sacuvajAdministatore();

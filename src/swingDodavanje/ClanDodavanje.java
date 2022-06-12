@@ -25,10 +25,6 @@ public class ClanDodavanje extends JDialog{
 	private Biblioteka biblioteka;
 	private Clan clan;
 	
-//	String id, String ime, String prezime, String jMBG, String adresa, Pol pol,
-//	String brClankarte, LocalDate datumPoslednjeUplate, int brojMeseciClanarine, boolean aktivan,
-//	TipClanarine tipClanarine,boolean jeObrisan
-	
 	 private JLabel lblID = new JLabel("ID");
 	 private JTextField txtID = new JTextField(20);
 	 private JLabel lblIme = new JLabel("Ime");
@@ -77,9 +73,6 @@ public class ClanDodavanje extends JDialog{
 				ClanDodavanje.this.setVisible(false);
 			}
 		});
-//		String id, String ime, String prezime, String jMBG, String adresa, Pol pol,
-//		String brClankarte, LocalDate datumPoslednjeUplate, int brojMeseciClanarine, boolean aktivan,
-//		TipClanarine tipClanarine,boolean jeObrisan
 		btnSave.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

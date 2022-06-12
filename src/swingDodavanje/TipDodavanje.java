@@ -19,8 +19,6 @@ public class TipDodavanje extends JDialog{
 	private Biblioteka biblioteka;
 	private TipClanarine tipClanarine;
 
-	
-//	String id, String naziv, double cena
 	 private JLabel lblID = new JLabel("ID");
 	 private JTextField txtID = new JTextField(20);
 	 private JLabel lblNaziv = new JLabel("Naziv");
@@ -32,11 +30,10 @@ public class TipDodavanje extends JDialog{
 	 
 	 public TipDodavanje(Biblioteka biblioteka) {
 		 this.biblioteka = biblioteka;
-		 setTitle("Dodavanje novi zanr");
-		 setSize(500,500);
+		 setTitle("Dodavaj Zanr");
+		 setSize(600,400);
 		 setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		 setLocationRelativeTo(null);
-//		 cmbxEmnumPol.setModel(new DefaultComboBoxModel<EmnumPol>(EmnumPol.values()));
 		 initGUI();
 		 initActions();
 	 }
@@ -56,11 +53,12 @@ public class TipDodavanje extends JDialog{
 			public void actionPerformed(ActionEvent e) {
 				String id = txtID.getText().trim();
 				String cena = txtCena.getText().trim();
-				Double cena2 = (double) 0;
+				int cena2 = 0;
 				try {
-					Double cena1 = Double.parseDouble(cena);
+					int cena1 = Integer.parseInt(cena);
 					cena2 = cena1;
-				}catch (Exception e1) {
+				}
+				catch (Exception e1) {
 					JOptionPane.showMessageDialog(null, "Mora biti numericka vrednost upisana","Greska",JOptionPane.WARNING_MESSAGE);
 				}
 				String naziv = txtNaziv.getText().trim();
