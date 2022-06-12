@@ -5,18 +5,30 @@ import java.time.LocalDate;
 
 import biblioteka.Biblioteka;
 import biblioteka.Iznajmljivanje;
-import biblioteka.JezikOriginala;
 import biblioteka.Knjiga;
 import biblioteka.PrimerakKnjige;
 import biblioteka.ZanrKnjige;
+import enumeracije.JezikOriginala;
 import enumeracije.Pol;
 import ljudi.Administrator;
 import ljudi.Clan;
 import ljudi.TipClanarine;
+import swingMain.Login;
 
 public class Main {
 
 	public static void main(String[] args) throws IOException {
+		Biblioteka biblioteka = new Biblioteka("Naziv","Adresa","Telefon", LocalDate.parse("2007-02-03"),LocalDate.parse("2008-05-05"),"ID");
+		biblioteka.citajAdministratora();
+		biblioteka.citajBibliotekara();
+		biblioteka.citajAdministratora();
+		biblioteka.citajClanarine();
+		biblioteka.citajZanr();
+		biblioteka.citajKnjige();
+		biblioteka.citajPrimerke();
+		Login login = new Login(biblioteka);
+		login.setVisible(true);
+		
 //		Biblioteka biblioteka = new Biblioteka("a","b","c",LocalDate.parse("2007-02-03"),LocalDate.parse("2008-05-05"),"d");
 //		try {
 //			biblioteka.upisiFajl(biblioteka);
@@ -36,8 +48,8 @@ public class Main {
 		//}
 		//biblioteka.azurirajKnjige("2");
 		
-//		Administrator admin = new Administrator("Jovan", "Jovanovic","123456789","MarsalaTita5","1",Pol.ZENSKO,"joca123","jocasifra2", 2000);
-//		biblioteka.upisiFajlAdministartor(admin);
+		//Administrator admin = new Administrator("Jovan", "Jovanovic","123456789","MarsalaTita5","1",Pol.ZENSKO,"joca123","jocasifra2", 2000, false);
+		//biblioteka.upisiFajlAdministartor();
 //		System.out.println(biblioteka.citajKnjige("src/fajlovi/knjige.txt"));
 //		TipClanarine tip = new TipClanarine("nvjvr","nvjnvje",0);
 //		biblioteka.upisiTipClanarine(tip);

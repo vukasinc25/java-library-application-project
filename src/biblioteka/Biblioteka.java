@@ -8,14 +8,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
-
+import enumeracije.JezikOriginala;
 import enumeracije.Pol;
 import ljudi.Administrator;
 import ljudi.Bibliotekar;
 import ljudi.Clan;
 import ljudi.TipClanarine;
 import ljudi.Zaposleni;
+import projekatObjektno.Knjiga;
+import projekatObjektno.ZanrKnjige;
 
 public class Biblioteka {	
 
@@ -171,24 +172,30 @@ public class Biblioteka {
 	//-------------LOGIN--------------//
 	//--------------------------------//
 	public Zaposleni login(String korisnickoIme, String lozinka) {
-			
-			for(Administrator admin : this.admin) {
-				if(admin.getKorisnickoIme().equalsIgnoreCase(korisnickoIme) &&
-						admin.getLozinka().equals(lozinka) && !admin.isObrisan()) {
-					return admin;
-				}
-			}
-			for (Bibliotekar bibliotekar:this.bibliotekar) {
+		//System.out.println(this.bibliotekar);
+		//System.out.println(this.admin);
+			for (Bibliotekar bibliotekar : this.bibliotekar) {
+				System.out.println(bibliotekar);
+				System.out.println(bibliotekar.getKorisnickoIme());
 				if(bibliotekar.getKorisnickoIme().equalsIgnoreCase(korisnickoIme)&& bibliotekar.getLozinka().equals(lozinka) && 
 						!bibliotekar.isObrisan()) {
 					return bibliotekar;
+				}
+			}
+			for(Administrator admin : this.admin) {
+				System.out.println(admin);
+				System.out.println(admin.getKorisnickoIme());
+				System.out.println(admin.getLozinka());
+				if(admin.getKorisnickoIme().equalsIgnoreCase(korisnickoIme) &&
+						admin.getLozinka().equals(lozinka) && !admin.isObrisan()) {
+					return admin;
 				}
 			}
 			return null;
 		}
 	
 	//------------------------------------//
-	//-------------CLANARINA--------------//
+	//-------------TIP CLANARINA--------------//
 	//------------------------------------//
 	
 	public void citajClanarine() throws IOException{
@@ -201,7 +208,7 @@ public class Biblioteka {
 			String id = nizClanova[0];
 			String tip = nizClanova[1];
 			int cena = Integer.parseInt(nizClanova[2]);
-			TipClanarine tip2  = new TipClanarine(id, tip, cena);
+			TipClanarine tip2  = new TipClanarine(id, tip, cena, false);
 			tipClanarine.add(tip2);
 		}
 		citanje.close();
@@ -224,15 +231,32 @@ public class Biblioteka {
         }
         writer.close();
     }
+	public ArrayList<TipClanarine> sviNeobrisaniTipovi() {
+		ArrayList<TipClanarine> neobrisani = new ArrayList<TipClanarine>();
+		for (TipClanarine tipovi : tipClanarine) {
+			if(!tipovi.isObrisan()) {
+				neobrisani.add(tipovi);
+			}
+		}
+		return neobrisani;
+	}
+	public TipClanarine pronadjiTip(String id) {
+		for (TipClanarine tip : this.tipClanarine) {
+			if(tip.getId().equals(id)) {
+				return tip;
+			}
+		}
+		return null;
+	}
 	
 	
 	//--------------------------------//
 	//------------KNJIGA--------------//
 	//--------------------------------//
 	
-	public ArrayList<Knjiga> citajKnjige(String imeFajla) throws IOException{
-		ArrayList<Knjiga> knjige = new ArrayList<Knjiga>();
-		File fajl = new File(imeFajla);
+	public void citajKnjige() throws IOException{
+		this.knjige = new ArrayList<Knjiga>();
+		File fajl = new File("src/fajlovi/knjige.txt");
 		BufferedReader citaj = new BufferedReader(new FileReader(fajl));
 		String line = null;
 		while((line = citaj.readLine())!= null) {
@@ -262,7 +286,6 @@ public class Biblioteka {
 			knjige.add(knjiga);
 		}
 		citaj.close();
-		return knjige;
 	}
 	
 	public void obrisiKnjigu(String id) throws IOException {
@@ -329,6 +352,14 @@ public class Biblioteka {
 		writer.newLine();
 		writer.close();
 		
+	}
+	public Knjiga pronadjiKnjigu(String id) {
+		for (Knjiga knjiga : knjige) {
+			if(knjiga.getId().equals(id)) {
+				return knjiga;
+			}
+		}
+		return null;
 	}
 	
 	//-----------------------------------------//
@@ -406,7 +437,14 @@ public class Biblioteka {
 		}
 		return neobrisani;
 	}
-
+	public ZanrKnjige pronadjiZanr(String id) {
+		for (ZanrKnjige zanr : zanrovi) {
+			if(zanr.getId().equals(id)) {
+				return zanr;
+			}
+		}
+		return null;
+	}
 	
 	
 	//-----------------------------------------//
@@ -415,7 +453,7 @@ public class Biblioteka {
 	
 	public void citajAdministratora() throws IOException{
 		this.admin = new ArrayList<Administrator>();
-		File fajl = new File("src/fajlovi/administrator.txt");
+		File fajl = new File("src/fajlovi/administartor.txt");
 		BufferedReader citaj = new BufferedReader(new FileReader(fajl));
 		String line = null;
 		while((line = citaj.readLine())!= null) {
@@ -575,6 +613,14 @@ public class Biblioteka {
 		}
 		return neobrisani;
 	}
+	public Bibliotekar pronadjiBibliotekara(String id) {
+		for (Bibliotekar bibliotekar : this.bibliotekar) {
+			if(bibliotekar.getId().equals(id)) {
+				return bibliotekar;
+			}
+		}
+		return null;
+	}
 	
 	
 	//------------------------------------//
@@ -663,13 +709,20 @@ public class Biblioteka {
 			}
 			return neobrisani;
 		}
-		
+		public Clan pronadjiClana(String id) {
+			for (Clan clan : this.clanBiblioteke) {
+				if(clan.getId().equals(id)) {
+					return clan;
+				}
+			}
+			return null;
+		}
 		
 	
 	//---------------IZNAJMLJIVANJE-------------------//
 	public void citajIznajmljivanje() throws IOException{
 		//ArrayList<Iznajmljivanje> izdknjige = new ArrayList<Iznajmljivanje>();
-		File fajl = new File("src/fajlovi/iznajmljivanjeKnjige");
+		File fajl = new File("src/fajlovi/iznajmljivanjeKnjige.txt");
 		BufferedReader citaj = new BufferedReader(new FileReader(fajl));
 		String line = null;
 		while((line = citaj.readLine())!= null) {
@@ -746,12 +799,13 @@ public class Biblioteka {
 	
 	
 	//-------------------------------------//
-	//---------------PRIMERCI--------------//
+	//---------------PRIMERAK--------------//
 	//-------------------------------------//
 	
 	public void citajPrimerke() throws IOException{
 		this.primerakKnjige = new ArrayList<PrimerakKnjige>();
-		File fajl = new File("src/fajlovi/primearkKnjige");
+		this.citajKnjige();
+		File fajl = new File("src/fajlovi/primerakKnjige.txt");
 		BufferedReader citaj = new BufferedReader(new FileReader(fajl));
 		String line = null;
 		while((line = citaj.readLine())!= null) {
@@ -761,9 +815,8 @@ public class Biblioteka {
 			int godinaStampanja = Integer.parseInt(niz[2]);
 			String jezikStampanja = niz[3];
 			boolean izdata = Boolean.parseBoolean(niz[4]);
-			ArrayList<Knjiga> listaKnjiga = citajKnjige("src/fajlovi/knjige.txt");
 			Knjiga knjiga = null;
-			for (Knjiga k: listaKnjiga) {
+			for (Knjiga k: this.knjige) {
 				if(k.getId().equals(niz[5])) {
 					knjiga = k;
 				}
@@ -824,6 +877,12 @@ public class Biblioteka {
 		}
 		return neobrisani;
 	}
-	//-----------------------------//
-	
+	public PrimerakKnjige pronadjiPrimerak(String id) {
+		for (PrimerakKnjige primerak : this.primerakKnjige) {
+			if(primerak.getId().equals(id)) {
+				return primerak;
+			}
+		}
+		return null;
+	}
 }

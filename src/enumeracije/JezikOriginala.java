@@ -1,4 +1,4 @@
-package biblioteka;
+package enumeracije;
 
 public enum JezikOriginala {
     Srpski,

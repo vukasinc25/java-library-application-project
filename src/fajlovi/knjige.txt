@@ -1,2 +1,2 @@
-Naslov|OrgNaslov|Pisac|1920|Opis|1|1|Engleski
-Naslov|OrgNaslov|Pisac|1920|Opis|1|1|Engleski
+Naslov|OrgNaslov|Pisac|1920|Opis|1|1|Engleski|false
+Naslov|OrgNaslov|Pisac|1920|Opis|1|1|Engleski|false

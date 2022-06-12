@@ -1,1 +1,1 @@
-Jovan|Jovanovic|123456789|MarsalaTita5|1|ZENSKO|jocasifra2|joca123|500
+Ime|Prezime|123456|Adresa|ID|MUSKI|korisnickoIme|lozinka2|500|False

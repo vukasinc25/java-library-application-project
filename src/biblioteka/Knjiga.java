@@ -1,5 +1,7 @@
 package biblioteka;
 
+import enumeracije.JezikOriginala;
+
 public class Knjiga {
 
     protected String naslov;
