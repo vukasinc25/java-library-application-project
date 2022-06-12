@@ -1,1 +1,1 @@
-1|25|1980|ENGLESKI|true|p|true|false|
+1|25|true|1920|true|1|false

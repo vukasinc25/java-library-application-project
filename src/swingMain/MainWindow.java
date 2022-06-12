@@ -2,6 +2,7 @@ package swingMain;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -139,8 +140,14 @@ public class MainWindow extends JFrame{
 		primerciItem.addActionListener(new ActionListener() { /*PrimerakKnjige*/
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				PrimerakKnjigePrikaz kp = new PrimerakKnjigePrikaz(biblioteka,prijavljeniKorisnik);
-				kp.setVisible(true);
+				PrimerakKnjigePrikaz kp;
+				try {
+					kp = new PrimerakKnjigePrikaz(biblioteka,prijavljeniKorisnik);
+					kp.setVisible(true);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		

@@ -1,2 +1,2 @@
-zanrtest|test|zanr|false
-Test opis 2|2|DA|false
+1|zanrtest|test|false
+2|Test opis 2|Dobar Opis|false

@@ -38,9 +38,11 @@ public class PrimerakKnjigePrikaz extends JFrame {
 	private Biblioteka biblioteka;
 	private PrimerakKnjige primerak;
 
-	public PrimerakKnjigePrikaz (Biblioteka biblioteka, Zaposleni zaposleni) {
+	public PrimerakKnjigePrikaz (Biblioteka biblioteka, Zaposleni zaposleni) throws IOException {
 		this.biblioteka = biblioteka;
 		this.zaposleni = zaposleni;
+		this.biblioteka.citajZanr();
+		this.biblioteka.citajKnjige();
 		setTitle("Kompozicije");
 		setSize(600,400);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -49,7 +51,7 @@ public class PrimerakKnjigePrikaz extends JFrame {
 		initActions();
 	}
 
-	private void initGUI() {
+	private void initGUI() throws IOException {
 		setIconImage(ikonica.getImage());
 		getContentPane().add(mainToolbar, BorderLayout.SOUTH);		
 		mainToolbar.setBackground(Color.LIGHT_GRAY);
@@ -60,12 +62,13 @@ public class PrimerakKnjigePrikaz extends JFrame {
 		mainToolbar.add(btnIzmeni);
 		mainToolbar.add(btnIzbrisi);
 		
-		
+		biblioteka.citajKnjige();
 		String[] zaglavlja = new String[] {"Id", "Br.Strana", "TipPoveza", "GodinaStampanja", "Iznajmljena","Knjiga"};
 		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniPrimerciKnjige().size()][zaglavlja.length];
 		System.out.println(biblioteka.sviNeobrisaniPrimerciKnjige());
 		for(int i=0; i<biblioteka.sviNeobrisaniPrimerciKnjige().size(); i++) {
 			PrimerakKnjige primerak = biblioteka.sviNeobrisaniPrimerciKnjige().get(i);
+			System.out.println(biblioteka.getKnjige());
 			sadrzaj[i][0] = primerak.getId();
 			sadrzaj[i][1] = primerak.getBrStrana();
 			sadrzaj[i][2] = primerak.isTipPoveza();

@@ -756,7 +756,7 @@ public class Biblioteka {
 				}
 			}
 			Iznajmljivanje iznajmljivanje = new Iznajmljivanje(datumIznajmljivanja,datumVracanja,zaposleni,primerak,clan);
-			this.iznajmljivanjeKnjige.add(iznajmljivanje);
+			this.iznajmljivanjeKnjige.add(iznajmljivanje);//
 		}
 		citaj.close();		
 	}
@@ -808,8 +808,8 @@ public class Biblioteka {
 			String [] niz = line.split("\\|");
 			String id  = niz[0];
 			int brStrana = Integer.parseInt(niz[1]);
-			int godinaStampanja = Integer.parseInt(niz[2]);
-			String jezikStampanja = niz[3];
+			boolean tipPoveza= Boolean.parseBoolean(niz[2]);
+			int godinaStampanja = Integer.parseInt(niz[3]);
 			boolean izdata = Boolean.parseBoolean(niz[4]);
 			Knjiga knjiga = null;
 			for (Knjiga k: this.knjige) {
@@ -817,8 +817,7 @@ public class Biblioteka {
 					knjiga = k;
 				}
 			}
-			boolean tipPoveza= Boolean.parseBoolean(niz[6]);
-			Boolean obrisan = Boolean.parseBoolean(niz[7]);
+			Boolean obrisan = Boolean.parseBoolean(niz[6]);
 			PrimerakKnjige primerak = new PrimerakKnjige(id, brStrana, godinaStampanja,izdata, knjiga, tipPoveza, obrisan);
 			primerakKnjige.add(primerak);	
 		}
@@ -828,7 +827,7 @@ public class Biblioteka {
 		File file = new File("src/fajlovi/primerakKnjige.txt");
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file,true));
 //		for(PrimerakKnjige p: primerak) {
-			String output = p.getId()+ "|"+ p.getBrStrana()+"|"+p.isTipPoveza()+"|"+p.getGodinaStampanja()+"|"+p.isIzdata()+"|"+p.getKnjiga();
+			String output = p.getId()+ "|"+ p.getBrStrana()+"|"+p.isTipPoveza()+"|"+p.getGodinaStampanja()+"|"+p.isIzdata()+"|"+p.getKnjiga().getId() + "|" + p.isObrisan();
 			writer.write(output);
 			writer.newLine();
 // 		}

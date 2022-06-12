@@ -97,7 +97,7 @@ public class BibliotekarPrikaz extends JFrame{
 					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.","Greska",JOptionPane.WARNING_MESSAGE);
 				}
 				else {
-					int id = Integer.parseInt(tableModel.getValueAt(red, 0).toString());
+					int id = Integer.parseInt(tableModel.getValueAt(red, 3).toString());
 					String naziv = tableModel.getValueAt(red, 1).toString();
 					
 					int izbor = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da zelite da obrisete clana?",naziv + "- Potvrda brisanja",JOptionPane.YES_NO_OPTION);

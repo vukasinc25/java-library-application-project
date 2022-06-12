@@ -1,2 +1,2 @@
-1|deca|100
-1|Test Naziv|123
+Dobar Naziv|1|150
+Test Naziv|1|123

@@ -37,7 +37,7 @@ public class ZanrKnjigePrikaz extends JFrame{
 	public ZanrKnjigePrikaz (Biblioteka biblioteka,Zaposleni zaposleni) {
 		this.biblioteka = biblioteka;
 		this.zaposleni = zaposleni;
-		setTitle("Kompozicije");
+		setTitle("Zanrovi");
 		setSize(600,400);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
