@@ -57,7 +57,6 @@ public class MainWindow extends JFrame{
 	private boolean isAdmin;
 	private final JTextPane txtpnSada = new JTextPane();
 	ImageIcon ikonica = new ImageIcon("src/slike/knjiga.png");
-	private final JLabel lblNewLabel = new JLabel("JAO MAMA");
 	private final JLabel label = new JLabel("");
 	
 	public MainWindow(Biblioteka biblioteka, Zaposleni prijavljeniKorisnik,boolean isAdmin) {
@@ -95,7 +94,6 @@ public class MainWindow extends JFrame{
 		txtpnSada.setBackground(Color.LIGHT_GRAY);
 		txtpnSada.setText("Ulogovan Zaposleni: " + prijavljeniKorisnik.getKorisnickoIme());
 		
-		getContentPane().add(lblNewLabel, "cell 0 1,grow");
 		
 		getContentPane().add(label, "cell 0 2,grow");
 		if(isAdmin) {
@@ -106,14 +104,14 @@ public class MainWindow extends JFrame{
 	}
 	
 	private void initActions() {
-		bibliotekarItem.addActionListener(new ActionListener() { /*Bibliotekar*/
+		bibliotekarItem.addActionListener(new ActionListener() { 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				BibliotekarPrikaz pp = new BibliotekarPrikaz(biblioteka,prijavljeniKorisnik);
 				pp.setVisible(true);
 			}
 		});
-		iznajmljivanjeKnjigeItem.addActionListener(new ActionListener() { /*Bibliotekar*/
+		iznajmljivanjeKnjigeItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				IznajmljivanjePrikaz pp = new IznajmljivanjePrikaz(biblioteka,prijavljeniKorisnik);
@@ -121,7 +119,7 @@ public class MainWindow extends JFrame{
 			}
 		});
 		
-		tipClanarinejeItem.addActionListener(new ActionListener() { /*TipClanarine*/
+		tipClanarinejeItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				TipClanarinePrikaz pp = new TipClanarinePrikaz(biblioteka,prijavljeniKorisnik);
@@ -129,7 +127,7 @@ public class MainWindow extends JFrame{
 			}
 		});
 		
-		administratorItem.addActionListener(new ActionListener() { /*Administratori*/
+		administratorItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				AdminPrikaz pp = new AdminPrikaz(biblioteka,prijavljeniKorisnik);
@@ -137,7 +135,7 @@ public class MainWindow extends JFrame{
 			}
 		});
 		
-		primerciItem.addActionListener(new ActionListener() { /*PrimerakKnjige*/
+		primerciItem.addActionListener(new ActionListener() { 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				PrimerakKnjigePrikaz kp;
@@ -145,13 +143,12 @@ public class MainWindow extends JFrame{
 					kp = new PrimerakKnjigePrikaz(biblioteka,prijavljeniKorisnik);
 					kp.setVisible(true);
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
 		});
 		
-		clanItem.addActionListener(new ActionListener() { /*ClanBiblioteke*/
+		clanItem.addActionListener(new ActionListener() { 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ClanPrikaz dp = new ClanPrikaz(biblioteka,prijavljeniKorisnik);
@@ -159,7 +156,7 @@ public class MainWindow extends JFrame{
 			}
 		});
 		
-		knjigeItem.addActionListener(new ActionListener() { /*Knjige*/
+		knjigeItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				KnjigePrikaz kp = new KnjigePrikaz(biblioteka,prijavljeniKorisnik);
@@ -167,7 +164,7 @@ public class MainWindow extends JFrame{
 			}
 		});
 		
-		zanrKnjigeItem.addActionListener(new ActionListener() { /*ZanrKnjige*/
+		zanrKnjigeItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ZanrKnjigePrikaz kp = new ZanrKnjigePrikaz(biblioteka,prijavljeniKorisnik);
