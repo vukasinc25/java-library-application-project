@@ -93,7 +93,7 @@ public class AdminDodavanje extends JDialog{
 				AdminDodavanje.this.setVisible(false);
 			}
 		});
-		
+		//ANDRIJA
 		btnSave.addActionListener(new ActionListener() {
 			
 			@Override
