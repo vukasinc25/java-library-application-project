@@ -26,6 +26,7 @@ public class Main {
 		biblioteka.citajZanr();
 		biblioteka.citajKnjige();
 		biblioteka.citajPrimerke();
+		biblioteka.citajClanove();
 		Login login = new Login(biblioteka);
 		login.setVisible(true);
 		

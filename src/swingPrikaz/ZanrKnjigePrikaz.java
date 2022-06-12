@@ -1,5 +1,6 @@
 package swingPrikaz;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -22,11 +23,11 @@ import swingIzmena.ZanrIzmena;
 
 public class ZanrKnjigePrikaz extends JFrame{
 	private JToolBar mainToolbar = new JToolBar();
-	private JButton btnAdd = new JButton();
-	private JButton btnEdit = new JButton();
-	private JButton btnDelete = new JButton();
+	private final JButton btnDodaj = new JButton("Dodaj Zanr");
+	private final JButton btnIzmeni = new JButton("Izmeni Zanr");
+	private final JButton btnIzbrisi = new JButton("Izbrisi Zanr");
 	private Zaposleni zaposleni;
-	
+	ImageIcon ikonica = new ImageIcon("src/slike/knjiga.png");
 	private DefaultTableModel tableModel;
 	private JTable zanroviTabela;
 	
@@ -37,7 +38,7 @@ public class ZanrKnjigePrikaz extends JFrame{
 		this.biblioteka = biblioteka;
 		this.zaposleni = zaposleni;
 		setTitle("Kompozicije");
-		setSize(300, 300);
+		setSize(600,400);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		initGUI();
@@ -45,17 +46,15 @@ public class ZanrKnjigePrikaz extends JFrame{
 	}
 
 	private void initGUI() {
-		ImageIcon addIcon = new ImageIcon(getClass().getResource("/slike/add.gif"));
-		btnAdd.setIcon(addIcon);
-		ImageIcon editIcon = new ImageIcon(getClass().getResource("/slike/edit.gif"));
-		btnEdit.setIcon(editIcon);
-		ImageIcon deleteIcon = new ImageIcon(getClass().getResource("/slike/remove.gif"));
-		btnDelete.setIcon(deleteIcon);
-		
-		mainToolbar.add(btnAdd);
-		mainToolbar.add(btnEdit);
-		mainToolbar.add(btnDelete);
-		add(mainToolbar, BorderLayout.NORTH);
+		setIconImage(ikonica.getImage());
+		getContentPane().add(mainToolbar, BorderLayout.SOUTH);		
+		mainToolbar.setBackground(Color.LIGHT_GRAY);
+		btnDodaj.setBackground(Color.LIGHT_GRAY);
+		btnIzmeni.setBackground(Color.LIGHT_GRAY);
+		btnIzbrisi.setBackground(Color.LIGHT_GRAY);
+		mainToolbar.add(btnDodaj);
+		mainToolbar.add(btnIzmeni);
+		mainToolbar.add(btnIzbrisi);
 
 		String[] zaglavlja = new String[] {"Id", "Opis", "Oznaka"};
 		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniZanrovi().size()][zaglavlja.length];
@@ -84,7 +83,7 @@ public class ZanrKnjigePrikaz extends JFrame{
 	}
 
 	private void initActions() {
-		btnDelete.addActionListener(new ActionListener() {
+		btnIzbrisi.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -113,7 +112,7 @@ public class ZanrKnjigePrikaz extends JFrame{
 			}
 		});
 		
-		btnAdd.addActionListener(new ActionListener() {
+		btnDodaj.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -123,7 +122,7 @@ public class ZanrKnjigePrikaz extends JFrame{
 				ZanrKnjigePrikaz.this.setVisible(false);
 			}
 		});
-		btnEdit.addActionListener(new ActionListener() {
+		btnIzmeni.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {

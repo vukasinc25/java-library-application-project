@@ -1,6 +1,7 @@
 package swingPrikaz;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -19,13 +20,14 @@ import ljudi.Zaposleni;
 
 public class IznajmljivanjePrikaz extends JFrame{
 	private JToolBar mainToolbar = new JToolBar();
-	private JButton btnAdd = new JButton();
-	private JButton btnEdit = new JButton();
-	private JButton btnDelete = new JButton();
+	private final JButton btnDodaj = new JButton("Dodaj Bibliotekara");
+	private final JButton btnIzmeni = new JButton("Izmeni Bibliotekara");
+	private final JButton btnIzbrisi = new JButton("Izbrisi Bibliotekara");
 	private Zaposleni zaposleni;
 	
 	private DefaultTableModel tableModel;
 	private JTable izdavanjeknjigaTabela;
+	ImageIcon ikonica = new ImageIcon("src/slike/knjiga.png");
 	
 	private Biblioteka biblioteka;
 
@@ -33,7 +35,7 @@ public class IznajmljivanjePrikaz extends JFrame{
 		this.biblioteka = biblioteka;
 		this.zaposleni = zaposleni;
 		setTitle("Kompozicije");
-		setSize(300, 300);
+		setSize(600,400);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		initGUI();
@@ -41,21 +43,15 @@ public class IznajmljivanjePrikaz extends JFrame{
 	}
 
 	private void initGUI() {
-		ImageIcon addIcon = new ImageIcon(getClass().getResource("/slike/add.gif"));
-		btnAdd.setIcon(addIcon);
-		ImageIcon editIcon = new ImageIcon(getClass().getResource("/slike/edit.gif"));
-		btnEdit.setIcon(editIcon);
-		ImageIcon deleteIcon = new ImageIcon(getClass().getResource("/slike/remove.gif"));
-		btnDelete.setIcon(deleteIcon);
-		
-		mainToolbar.add(btnAdd);
-		mainToolbar.add(btnEdit);
-		mainToolbar.add(btnDelete);
-		add(mainToolbar, BorderLayout.NORTH);
-
-//		LocalDate datumIznajmljivanja, LocalDate datumVracanja, Zaposleni zaposleni,
-//		ClanBiblioteke clan, ArrayList<PrimerakKnjige> primerak,boolean jeObrisan
-		
+		getContentPane().add(mainToolbar, BorderLayout.SOUTH);
+		mainToolbar.setBackground(Color.LIGHT_GRAY);
+		btnDodaj.setBackground(Color.LIGHT_GRAY);
+		btnIzmeni.setBackground(Color.LIGHT_GRAY);
+		btnIzbrisi.setBackground(Color.LIGHT_GRAY);
+		mainToolbar.add(btnDodaj);
+		mainToolbar.add(btnIzmeni);
+		mainToolbar.add(btnIzbrisi);
+		setIconImage(ikonica.getImage());
 		
 		String[] zaglavlja = new String[] {"DatumIznajmljivanja", "DatumVracanja", "Zaposleni", "Clanovi", "Primerci"};
 		Object[][] sadrzaj = new Object[biblioteka.svaNeobrisanaIzdavanja().size()][zaglavlja.length];

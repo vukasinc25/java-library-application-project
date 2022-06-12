@@ -1,5 +1,6 @@
 package swingPrikaz;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -25,9 +26,10 @@ import swingIzmena.PrimerakIzmena;
 
 public class PrimerakKnjigePrikaz extends JFrame {
 	private JToolBar mainToolbar = new JToolBar();
-	private JButton btnAdd = new JButton();
-	private JButton btnEdit = new JButton();
-	private JButton btnDelete = new JButton();
+	private final JButton btnDodaj = new JButton("Dodaj Primerak");
+	private final JButton btnIzmeni = new JButton("Izmeni Primerak");
+	private final JButton btnIzbrisi = new JButton("Izbrisi Primerak");
+	ImageIcon ikonica = new ImageIcon("src/slike/knjiga.png");
 	private Zaposleni zaposleni;
 	
 	private DefaultTableModel tableModel;
@@ -40,7 +42,7 @@ public class PrimerakKnjigePrikaz extends JFrame {
 		this.biblioteka = biblioteka;
 		this.zaposleni = zaposleni;
 		setTitle("Kompozicije");
-		setSize(300, 300);
+		setSize(600,400);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		initGUI();
@@ -48,17 +50,16 @@ public class PrimerakKnjigePrikaz extends JFrame {
 	}
 
 	private void initGUI() {
-		ImageIcon addIcon = new ImageIcon(getClass().getResource("/slike/add.gif"));
-		btnAdd.setIcon(addIcon);
-		ImageIcon editIcon = new ImageIcon(getClass().getResource("/slike/edit.gif"));
-		btnEdit.setIcon(editIcon);
-		ImageIcon deleteIcon = new ImageIcon(getClass().getResource("/slike/remove.gif"));
-		btnDelete.setIcon(deleteIcon);
+		setIconImage(ikonica.getImage());
+		getContentPane().add(mainToolbar, BorderLayout.SOUTH);		
+		mainToolbar.setBackground(Color.LIGHT_GRAY);
+		btnDodaj.setBackground(Color.LIGHT_GRAY);
+		btnIzmeni.setBackground(Color.LIGHT_GRAY);
+		btnIzbrisi.setBackground(Color.LIGHT_GRAY);
+		mainToolbar.add(btnDodaj);
+		mainToolbar.add(btnIzmeni);
+		mainToolbar.add(btnIzbrisi);
 		
-		mainToolbar.add(btnAdd);
-		mainToolbar.add(btnEdit);
-		mainToolbar.add(btnDelete);
-		add(mainToolbar, BorderLayout.NORTH);
 		
 		String[] zaglavlja = new String[] {"Id", "Br.Strana", "TipPoveza", "GodinaStampanja", "Iznajmljena","Knjiga"};
 		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniPrimerciKnjige().size()][zaglavlja.length];
@@ -88,7 +89,7 @@ public class PrimerakKnjigePrikaz extends JFrame {
 	}
 
 	private void initActions() {
-		btnDelete.addActionListener(new ActionListener() {
+		btnIzbrisi.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -116,7 +117,7 @@ public class PrimerakKnjigePrikaz extends JFrame {
 				}
 			}
 		});
-		btnAdd.addActionListener(new ActionListener() {
+		btnDodaj.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -126,7 +127,7 @@ public class PrimerakKnjigePrikaz extends JFrame {
 				PrimerakKnjigePrikaz.this.setVisible(false);
 			}
 		});
-		btnEdit.addActionListener(new ActionListener() {
+		btnIzmeni.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {

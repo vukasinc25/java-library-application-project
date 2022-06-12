@@ -68,6 +68,7 @@ public class Clan extends Korisnik {
 		this.tipClanarine1 = tipClanarine;
 	}
 	public boolean isObrisan() {
+		System.out.println(obrisan);
 		return obrisan;
 	}
 	public void setObrisan(boolean obrisan) {
