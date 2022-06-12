@@ -1,6 +1,7 @@
 package swingPrikaz;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -24,21 +25,22 @@ import swingIzmena.ClanIzmena;
 
 public class ClanPrikaz extends JFrame{
 	private JToolBar mainToolbar = new JToolBar();
-	private JButton btnAdd = new JButton();
-	private JButton btnEdit = new JButton();
-	private JButton btnDelete = new JButton();
 	private Zaposleni zaposleni;
 	private DefaultTableModel tableModel;
 	private JTable clanoviTabela;
 	
 	private Biblioteka biblioteka;
 	private Clan clan;
+	
+	private final JButton btnDodaj = new JButton("Dodaj Clana");
+	private final JButton btnIzmeni = new JButton("Izmeni Clana");
+	private final JButton btnIzbrisi = new JButton("Izbrisi Clana");
 
 	public ClanPrikaz (Biblioteka biblioteka,Zaposleni zaposleni) {
 		this.biblioteka = biblioteka;
 		this.zaposleni = zaposleni;
-		setTitle("Kompozicije");
-		setSize(300, 300);
+		setTitle("Clanovi");
+		setSize(600,400);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		initGUI();
@@ -46,17 +48,14 @@ public class ClanPrikaz extends JFrame{
 	}
 
 	private void initGUI() {
-		ImageIcon addIcon = new ImageIcon(getClass().getResource("/slike/add.gif"));
-		btnAdd.setIcon(addIcon);
-		ImageIcon editIcon = new ImageIcon(getClass().getResource("/slike/edit.gif"));
-		btnEdit.setIcon(editIcon);
-		ImageIcon deleteIcon = new ImageIcon(getClass().getResource("/slike/remove.gif"));
-		btnDelete.setIcon(deleteIcon);
-		
-		mainToolbar.add(btnAdd);
-		mainToolbar.add(btnEdit);
-		mainToolbar.add(btnDelete);
-		add(mainToolbar, BorderLayout.NORTH);
+		getContentPane().add(mainToolbar, BorderLayout.SOUTH);		
+		mainToolbar.setBackground(Color.LIGHT_GRAY);
+		btnDodaj.setBackground(Color.LIGHT_GRAY);
+		btnIzmeni.setBackground(Color.LIGHT_GRAY);
+		btnIzbrisi.setBackground(Color.LIGHT_GRAY);
+		mainToolbar.add(btnDodaj);
+		mainToolbar.add(btnIzmeni);
+		mainToolbar.add(btnIzbrisi);
 
 		
 		String[] zaglavlja = new String[] {"Id", "Ime", "Prezime", "JMBG", "POL", "BR.ClanskeKarte", "DatumPoslednje uplate", "BrojMEseciClanarine","TipClanarine"};
@@ -92,7 +91,7 @@ public class ClanPrikaz extends JFrame{
 	}
 
 	private void initActions() {
-		btnDelete.addActionListener(new ActionListener() {
+		btnIzbrisi.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -106,9 +105,9 @@ public class ClanPrikaz extends JFrame{
 					
 					int izbor = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da zelite da obrisete clana?",naziv + "- Potvrda brisanja",JOptionPane.YES_NO_OPTION);
 					if(izbor == JOptionPane.YES_NO_OPTION) {
-						Clan c = biblioteka.getClan().get(id);
+						Clan c = biblioteka.getClanBiblioteke().get(id);
 						c.setObrisan(true);
-						System.out.println(biblioteka.getClan().toString());
+						System.out.println(biblioteka.getClanBiblioteke().toString());
 						try {
 							biblioteka.sacuvajClanove();
 						}
@@ -121,7 +120,7 @@ public class ClanPrikaz extends JFrame{
 				
 			}
 		});
-		btnAdd.addActionListener(new ActionListener() {
+		btnDodaj.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -132,7 +131,7 @@ public class ClanPrikaz extends JFrame{
 			}
 		});
 		
-		btnEdit.addActionListener(new ActionListener() {
+		btnIzmeni.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {

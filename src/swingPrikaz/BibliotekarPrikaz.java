@@ -1,6 +1,7 @@
 package swingPrikaz;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -20,12 +21,10 @@ import ljudi.Bibliotekar;
 import ljudi.Zaposleni;
 import swingDodavanje.BibliotekarDodavanje;
 import swingIzmena.BibliotekarIzmena;
+import javax.swing.SwingConstants;
 
 public class BibliotekarPrikaz extends JFrame{
 	private JToolBar mainToolbar = new JToolBar();
-	private JButton btnAdd = new JButton();
-	private JButton btnEdit = new JButton();
-	private JButton btnDelete = new JButton();
 	private Zaposleni zaposleni;
 	
 	private DefaultTableModel tableModel;
@@ -33,12 +32,17 @@ public class BibliotekarPrikaz extends JFrame{
 	
 	private Biblioteka biblioteka;
 	private Bibliotekar bibliotekar;
+	private final JButton btnDodaj = new JButton("Dodaj Bibliotekara");
+	private final JButton btnIzmeni = new JButton("Izmeni Bibliotekara");
+	private final JButton btnIzbrisi = new JButton("Izbrisi Bibliotekara");
+	ImageIcon ikonica = new ImageIcon("src/slike/knjiga.png");
 
 	public BibliotekarPrikaz (Biblioteka biblioteka,Zaposleni zaposleni) {
 		this.biblioteka = biblioteka;
 		this.zaposleni = zaposleni;
 		setTitle("Bibliotekari");
-		setSize(300, 300);
+		setSize(600, 400);
+		setIconImage(ikonica.getImage());
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		initGUI();
@@ -46,23 +50,16 @@ public class BibliotekarPrikaz extends JFrame{
 	}
 
 	private void initGUI() {
-		ImageIcon addIcon = new ImageIcon(getClass().getResource("/slike/add.gif"));
-		btnAdd.setIcon(addIcon);
-		ImageIcon editIcon = new ImageIcon(getClass().getResource("/slike/edit.gif"));
-		btnEdit.setIcon(editIcon);
-		ImageIcon deleteIcon = new ImageIcon(getClass().getResource("/slike/remove.gif"));
-		btnDelete.setIcon(deleteIcon);
+		getContentPane().add(mainToolbar, BorderLayout.SOUTH);		
+		mainToolbar.setBackground(Color.LIGHT_GRAY);
+		btnDodaj.setBackground(Color.LIGHT_GRAY);
+		btnIzmeni.setBackground(Color.LIGHT_GRAY);
+		btnIzbrisi.setBackground(Color.LIGHT_GRAY);
+		mainToolbar.add(btnDodaj);
+		mainToolbar.add(btnIzmeni);
+		mainToolbar.add(btnIzbrisi);
 		
-		mainToolbar.add(btnAdd);
-		mainToolbar.add(btnEdit);
-		mainToolbar.add(btnDelete);
-		add(mainToolbar, BorderLayout.NORTH);
-		
-//		String id, String ime, String prezime, String jMBG, String adresa, EmnumPol pol,
-//		String korisnickaSifra, String korisnickoIme,double plata,boolean jeObrisan
-		
-		
-		String[] zaglavlja = new String[] {"Id", "Ime", "Prezime", "JMBG", "Adresa", "POL", "KorisnickaSifra", "KorisnicoIme","Plata"};
+		String[] zaglavlja = new String[] {"JMBG", "Adresa", "ID", "Ime", "Prezime", "Pol", "Lozinka", "KorisnicoIme","Plata"};
 		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniBibliotekari().size()][zaglavlja.length];
 		
 		for(int i=0; i<biblioteka.sviNeobrisaniBibliotekari().size(); i++) {
@@ -90,11 +87,11 @@ public class BibliotekarPrikaz extends JFrame{
 		bibiliotekariTabela.getTableHeader().setReorderingAllowed(false);
 		
 		JScrollPane scrollPane = new JScrollPane(bibiliotekariTabela);
-		add(scrollPane, BorderLayout.CENTER);
+		getContentPane().add(scrollPane, BorderLayout.CENTER);
 	}
 
 	private void initActions() {
-		btnDelete.addActionListener(new ActionListener() {
+		btnIzbrisi.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -123,7 +120,7 @@ public class BibliotekarPrikaz extends JFrame{
 			}
 		});
 		
-		btnAdd.addActionListener(new ActionListener() {
+		btnDodaj.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -134,7 +131,7 @@ public class BibliotekarPrikaz extends JFrame{
 			}
 		});
 		
-		btnEdit.addActionListener(new ActionListener() {
+		btnIzmeni.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {

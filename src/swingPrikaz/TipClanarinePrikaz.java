@@ -1,6 +1,7 @@
 package swingPrikaz;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -23,21 +24,21 @@ import swingIzmena.TipIzmena;
 
 public class TipClanarinePrikaz extends JFrame{
 	private JToolBar mainToolbar = new JToolBar();
-	private JButton btnAdd = new JButton();
-	private JButton btnEdit = new JButton();
-	private JButton btnDelete = new JButton();
+	private final JButton btnDodaj = new JButton("Dodaj Tip");
+	private final JButton btnIzmeni = new JButton("Izmeni Tip");
+	private final JButton btnIzbrisi = new JButton("Izbrisi Tip");
 	private Zaposleni zaposleni;
 	private DefaultTableModel tableModel;
 	private JTable tipclanarineTabela;
-	
+	ImageIcon ikonica = new ImageIcon("src/slike/knjiga.png");
 	private Biblioteka biblioteka;
 	private TipClanarine tipClanarine;
 
 	public TipClanarinePrikaz (Biblioteka biblioteka,Zaposleni zaposleni) {
 		this.biblioteka = biblioteka;
 		this.zaposleni = zaposleni;
-		setTitle("TipoviClanarine");
-		setSize(300, 300);
+		setTitle("Tipovi Clanarine");
+		setSize(600, 400);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		initGUI();
@@ -45,17 +46,15 @@ public class TipClanarinePrikaz extends JFrame{
 	}
 
 	private void initGUI() {
-		ImageIcon addIcon = new ImageIcon(getClass().getResource("/slike/add.gif"));
-		btnAdd.setIcon(addIcon);
-		ImageIcon editIcon = new ImageIcon(getClass().getResource("/slike/edit.gif"));
-		btnEdit.setIcon(editIcon);
-		ImageIcon deleteIcon = new ImageIcon(getClass().getResource("/slike/remove.gif"));
-		btnDelete.setIcon(deleteIcon);
-		
-		mainToolbar.add(btnAdd);
-		mainToolbar.add(btnEdit);
-		mainToolbar.add(btnDelete);
-		add(mainToolbar, BorderLayout.NORTH);
+		getContentPane().add(mainToolbar, BorderLayout.SOUTH);		
+		mainToolbar.setBackground(Color.LIGHT_GRAY);
+		btnDodaj.setBackground(Color.LIGHT_GRAY);
+		btnIzmeni.setBackground(Color.LIGHT_GRAY);
+		btnIzbrisi.setBackground(Color.LIGHT_GRAY);
+		mainToolbar.add(btnDodaj);
+		mainToolbar.add(btnIzmeni);
+		mainToolbar.add(btnIzbrisi);
+		setIconImage(ikonica.getImage());
 
 //		String id, String naziv, double cena,boolean jeObrisan
 		String[] zaglavlja = new String[] {"Id", "Naziv", "Cena"};
@@ -85,7 +84,7 @@ public class TipClanarinePrikaz extends JFrame{
 	}
 
 	private void initActions() {
-		btnDelete.addActionListener(new ActionListener() {
+		btnIzbrisi.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -114,7 +113,7 @@ public class TipClanarinePrikaz extends JFrame{
 			}
 		});
 		
-		btnAdd.addActionListener(new ActionListener() {
+		btnDodaj.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -125,7 +124,7 @@ public class TipClanarinePrikaz extends JFrame{
 			}
 		});
 		
-		btnEdit.addActionListener(new ActionListener() {
+		btnIzmeni.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {

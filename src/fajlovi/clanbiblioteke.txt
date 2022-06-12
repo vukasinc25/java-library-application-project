@@ -1,1 +1,1 @@
-Ime|Prezime|jmbg|adresa|1|MUSKO|5|2020-05-03|9|True|2|false
+Ime|Prezime|jmbg|adresa|1|MUSKO|5|2020-05-03|9|false|2|false

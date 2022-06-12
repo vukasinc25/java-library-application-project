@@ -15,8 +15,6 @@ import ljudi.Bibliotekar;
 import ljudi.Clan;
 import ljudi.TipClanarine;
 import ljudi.Zaposleni;
-import projekatObjektno.Knjiga;
-import projekatObjektno.ZanrKnjige;
 
 public class Biblioteka {	
 
@@ -175,17 +173,12 @@ public class Biblioteka {
 		//System.out.println(this.bibliotekar);
 		//System.out.println(this.admin);
 			for (Bibliotekar bibliotekar : this.bibliotekar) {
-				System.out.println(bibliotekar);
-				System.out.println(bibliotekar.getKorisnickoIme());
 				if(bibliotekar.getKorisnickoIme().equalsIgnoreCase(korisnickoIme)&& bibliotekar.getLozinka().equals(lozinka) && 
 						!bibliotekar.isObrisan()) {
 					return bibliotekar;
 				}
 			}
 			for(Administrator admin : this.admin) {
-				System.out.println(admin);
-				System.out.println(admin.getKorisnickoIme());
-				System.out.println(admin.getLozinka());
 				if(admin.getKorisnickoIme().equalsIgnoreCase(korisnickoIme) &&
 						admin.getLozinka().equals(lozinka) && !admin.isObrisan()) {
 					return admin;
@@ -700,15 +693,6 @@ public class Biblioteka {
 	        }
 	        writer.close();
 	    }
-		public ArrayList<Clan> sviNeobrisaniClanoviBiblioteke() {
-			ArrayList<Clan> neobrisani = new ArrayList<Clan>();
-			for (Clan clan : clanBiblioteke) {
-				if(!clan.isObrisan()) {
-					neobrisani.add(clan);
-				}
-			}
-			return neobrisani;
-		}
 		public Clan pronadjiClana(String id) {
 			for (Clan clan : this.clanBiblioteke) {
 				if(clan.getId().equals(id)) {
@@ -717,6 +701,17 @@ public class Biblioteka {
 			}
 			return null;
 		}
+		public ArrayList<Clan> sviNeobrisaniClanoviBiblioteke() {
+			ArrayList<Clan> neobrisani = new ArrayList<Clan>();
+			for (Clan clan : clanBiblioteke) {
+				if(!clan.isObrisan()) {
+					neobrisani.add(clan);
+				}
+			}
+			System.out.println(neobrisani);
+			return neobrisani;
+		}
+		
 		
 	
 	//---------------IZNAJMLJIVANJE-------------------//

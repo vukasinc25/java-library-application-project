@@ -18,53 +18,51 @@ import javax.swing.table.DefaultTableModel;
 import ljudi.Administrator;
 import biblioteka.Biblioteka;
 import swingIzmena.AdminIzmena;
-import ljudi.Clan;
 import ljudi.Zaposleni;
 //import projekatObjektno.ClanBiblioteke;
 //import projekatObjektno.EmnumPol;
 import swingDodavanje.AdminDodavanje;
+import java.awt.Color;
 
 public class AdminPrikaz extends JFrame{
 	private JToolBar mainToolbar = new JToolBar();
-	private JButton btnAdd = new JButton();
-	private JButton btnEdit = new JButton();
-	private JButton btnDelete = new JButton();
 	private Zaposleni zaposleni;
+	ImageIcon ikonica = new ImageIcon("src/slike/knjiga.png");
 	
 	private DefaultTableModel tableModel;
 	private JTable administratoriTabela;
 	
 	private Biblioteka biblioteka;
 	private Administrator admin;
+	
+	private final JButton btnDodaj = new JButton("Dodaj Admina");
+	private final JButton btnIzmeni = new JButton("Izmeni Admina");
+	private final JButton btnIzbrisi = new JButton("Izbrisi Admina");
 
 	public AdminPrikaz (Biblioteka biblioteka,Zaposleni zaposleni) {
 		this.biblioteka = biblioteka;
 		this.zaposleni = zaposleni;
-		setTitle("Administratori:");
-		setSize(300, 300);
+		setTitle("Administratori");
+		setSize(600,400);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
+		setIconImage(ikonica.getImage());
 		initGui();
 		initActions();
 	}
 	private void initGui() {
-		ImageIcon addIcon = new ImageIcon(getClass().getResource("/slike/add.gif"));
-		btnAdd.setIcon(addIcon);
-		ImageIcon editIcon = new ImageIcon(getClass().getResource("/slike/edit.gif"));
-		btnEdit.setIcon(editIcon);
-		ImageIcon deleteIcon = new ImageIcon(getClass().getResource("/slike/remove.gif"));
-		btnDelete.setIcon(deleteIcon);
+		mainToolbar.setBackground(Color.LIGHT_GRAY);
 		
-		mainToolbar.add(btnAdd);
-		mainToolbar.add(btnEdit);
-		mainToolbar.add(btnDelete);
-		add(mainToolbar, BorderLayout.NORTH);
+		getContentPane().add(mainToolbar, BorderLayout.SOUTH);		
+		btnDodaj.setBackground(Color.LIGHT_GRAY);
 		
-//		String id, String ime, String prezime, String jMBG, String adresa, EmnumPol pol,
-//		String korisnickaSifra, String korisnickoIme,double plata,boolean jeObrisan
-		
-		
-		String[] zaglavlja = new String[] {"Id", "Ime", "Prezime", "JMBG", "Adresa", "POL", "KorisnickaSifra", "KorisnicoIme","Plata"};
+		mainToolbar.add(btnDodaj);
+		btnIzmeni.setBackground(Color.LIGHT_GRAY);
+		mainToolbar.add(btnIzmeni);
+		btnIzbrisi.setBackground(Color.LIGHT_GRAY);
+		mainToolbar.add(btnIzbrisi);
+			
+		String[] zaglavlja = new String[] {"Adresa", "ID", "Ime", "Prezime", "JMBG", "Pol", "Lozinka", "KorisnicoIme","Plata"};
 		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniAdministatori().size()][zaglavlja.length];
 		
 		for(int i=0; i<biblioteka.sviNeobrisaniAdministatori().size(); i++) {
@@ -93,11 +91,11 @@ public class AdminPrikaz extends JFrame{
 		administratoriTabela.getTableHeader().setReorderingAllowed(false);
 		
 		JScrollPane scrollPane = new JScrollPane(administratoriTabela);
-		add(scrollPane, BorderLayout.CENTER);
+		getContentPane().add(scrollPane, BorderLayout.CENTER);
 
 	}
 	private void initActions() {
-		btnEdit.addActionListener(new ActionListener() {
+		btnIzmeni.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -114,7 +112,7 @@ public class AdminPrikaz extends JFrame{
 				}
 			}
 		});
-		btnDelete.addActionListener(new ActionListener() {
+		btnIzbrisi.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -143,7 +141,7 @@ public class AdminPrikaz extends JFrame{
 				
 			}
 		});
-		btnAdd.addActionListener(new ActionListener() {
+		btnDodaj.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {

@@ -13,15 +13,7 @@ import biblioteka.Biblioteka;
 import ljudi.Bibliotekar;
 import biblioteka.Iznajmljivanje;
 import ljudi.Zaposleni;
-//import gui.formeZaPrikaz.AdministratorProzor;
-//import gui.formeZaPrikaz.BibliotekarProzor;
-//import gui.formeZaPrikaz.BibliotekarPrzor;
-//import gui.formeZaPrikaz.ClanBibliotekeProzor;
-//import gui.formeZaPrikaz.IzdavanjeknjigeProzor;
-//import gui.formeZaPrikaz.KnjigeProzor;
-//import gui.formeZaPrikaz.PrimerakKnjigeProzor;
-//import gui.formeZaPrikaz.TipClanarineProzor;
-//import gui.formeZaPrikaz.ZanrKnjigeProzor;
+
 import ljudi.Bibliotekar;
 import biblioteka.Biblioteka;
 import java.awt.Component;
@@ -29,11 +21,18 @@ import javax.swing.JTextPane;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import net.miginfocom.swing.MigLayout;
+import swingPrikaz.AdminPrikaz;
+import swingPrikaz.BibliotekarPrikaz;
+import swingPrikaz.ClanPrikaz;
+import swingPrikaz.IznajmljivanjePrikaz;
+import swingPrikaz.KnjigePrikaz;
+import swingPrikaz.PrimerakKnjigePrikaz;
+import swingPrikaz.TipClanarinePrikaz;
+import swingPrikaz.ZanrKnjigePrikaz;
+
 import javax.swing.JLabel;
 import java.awt.GridLayout;
-//import gui.formeZaPrikaz.KnjigeProzor;
-//import gui.formeZaPrikaz.KompozicijeProzor;
-//import gui.formeZaPrikaz.ProdavciProzor;
+
 //import osobe.Prodavac;
 //import prodavnica.Prodavnica;
 
@@ -43,13 +42,13 @@ public class MainWindow extends JFrame{
 	private JMenuBar mainMenu = new JMenuBar();
 	private JMenu knjigeMenu = new JMenu("Knjige");
 	private JMenu ljudiMenu = new JMenu("Clanovi");
-	private JMenuItem diskoviItem = new JMenuItem("ClanBiblioteke");
+	private JMenuItem clanItem = new JMenuItem("Clan Biblioteke");
 	private JMenuItem knjigeItem = new JMenuItem("Sve Knjige");
-	private JMenuItem kompozicijeItem = new JMenuItem("Primerci");
+	private JMenuItem primerciItem = new JMenuItem("Primerci");
 	private JMenuItem zanrKnjigeItem = new JMenuItem("Zanrovi");
 	private JMenuItem tipClanarinejeItem = new JMenuItem("Tip Clanarine");
-	private JMenuItem izdavanjeKnjigeItem = new JMenuItem("Iznajmljivanje");
-	private JMenu prodavciMenu = new JMenu("Zaposleni");
+	private JMenuItem iznajmljivanjeKnjigeItem = new JMenuItem("Iznajmljivanje");
+	private JMenu zaposleniMenu = new JMenu("Zaposleni");
 	private JMenuItem bibliotekarItem = new JMenuItem("Bibliotekari");
 	private JMenuItem administratorItem = new JMenuItem("Administartori");
 	private Biblioteka biblioteka;
@@ -72,7 +71,7 @@ public class MainWindow extends JFrame{
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		initMenu();
-		//initActions();
+		initActions();
 	}
 	
 	private void initMenu() {
@@ -83,12 +82,12 @@ public class MainWindow extends JFrame{
 		setJMenuBar(mainMenu);
 		mainMenu.add(knjigeMenu);
 		knjigeMenu.add(knjigeItem);
-		knjigeMenu.add(kompozicijeItem);
+		knjigeMenu.add(primerciItem);
 		knjigeMenu.add(zanrKnjigeItem);
-		knjigeMenu.add(izdavanjeKnjigeItem);
-		knjigeMenu.add(tipClanarinejeItem);
+		knjigeMenu.add(iznajmljivanjeKnjigeItem);
 		mainMenu.add(ljudiMenu);
-		ljudiMenu.add(diskoviItem);
+		ljudiMenu.add(tipClanarinejeItem);
+		ljudiMenu.add(clanItem);
 		getContentPane().setLayout(new MigLayout("", "[784px]", "[179px][179px][179px]"));
 		getContentPane().add(txtpnSada, "cell 0 0,grow");
 		txtpnSada.setEditable(false);
@@ -99,74 +98,74 @@ public class MainWindow extends JFrame{
 		
 		getContentPane().add(label, "cell 0 2,grow");
 		if(isAdmin) {
-			mainMenu.add(prodavciMenu);
-			prodavciMenu.add(bibliotekarItem);
-			prodavciMenu.add(administratorItem);
+			mainMenu.add(zaposleniMenu);
+			zaposleniMenu.add(bibliotekarItem);
+			zaposleniMenu.add(administratorItem);
 		}
 	}
 	
-//	private void initActions() {
-//		bibliotekarItem.addActionListener(new ActionListener() { /*Bibliotekar*/
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				BibliotekarProzor pp = new BibliotekarProzor(biblioteka,prijavljeniKorisnik);
-//				pp.setVisible(true);
-//			}
-//		});
-//		izdavanjeKnjigeItem.addActionListener(new ActionListener() { /*Bibliotekar*/
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				IzdavanjeknjigeProzor pp = new IzdavanjeknjigeProzor(biblioteka,prijavljeniKorisnik);
-//				pp.setVisible(true);
-//			}
-//		});
-//		
-//		tipClanarinejeItem.addActionListener(new ActionListener() { /*TipClanarine*/
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				TipClanarineProzor pp = new TipClanarineProzor(biblioteka,prijavljeniKorisnik);
-//				pp.setVisible(true);
-//			}
-//		});
-//		
-//		administratorItem.addActionListener(new ActionListener() { /*Administratori*/
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				AdministratorProzor pp = new AdministratorProzor(biblioteka,prijavljeniKorisnik);
-//				pp.setVisible(true);
-//			}
-//		});
-//		
-//		kompozicijeItem.addActionListener(new ActionListener() { /*PrimerakKnjige*/
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				PrimerakKnjigeProzor kp = new PrimerakKnjigeProzor(biblioteka,prijavljeniKorisnik);
-//				kp.setVisible(true);
-//			}
-//		});
-//		
-//		diskoviItem.addActionListener(new ActionListener() { /*ClanBiblioteke*/
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				ClanBibliotekeProzor dp = new ClanBibliotekeProzor(biblioteka,prijavljeniKorisnik);
-//				dp.setVisible(true);
-//			}
-//		});
-//		
-//		knjigeItem.addActionListener(new ActionListener() { /*Knjige*/
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				KnjigeProzor kp = new KnjigeProzor(biblioteka,prijavljeniKorisnik);
-//				kp.setVisible(true);
-//			}
-//		});
-//		
-//		zanrKnjigeItem.addActionListener(new ActionListener() { /*ZanrKnjige*/
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				ZanrKnjigeProzor kp = new ZanrKnjigeProzor(biblioteka,prijavljeniKorisnik);
-//				kp.setVisible(true);
-//			}
-//		});
-//	}
+	private void initActions() {
+		bibliotekarItem.addActionListener(new ActionListener() { /*Bibliotekar*/
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				BibliotekarPrikaz pp = new BibliotekarPrikaz(biblioteka,prijavljeniKorisnik);
+				pp.setVisible(true);
+			}
+		});
+		iznajmljivanjeKnjigeItem.addActionListener(new ActionListener() { /*Bibliotekar*/
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				IznajmljivanjePrikaz pp = new IznajmljivanjePrikaz(biblioteka,prijavljeniKorisnik);
+				pp.setVisible(true);
+			}
+		});
+		
+		tipClanarinejeItem.addActionListener(new ActionListener() { /*TipClanarine*/
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				TipClanarinePrikaz pp = new TipClanarinePrikaz(biblioteka,prijavljeniKorisnik);
+				pp.setVisible(true);
+			}
+		});
+		
+		administratorItem.addActionListener(new ActionListener() { /*Administratori*/
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				AdminPrikaz pp = new AdminPrikaz(biblioteka,prijavljeniKorisnik);
+				pp.setVisible(true);
+			}
+		});
+		
+		primerciItem.addActionListener(new ActionListener() { /*PrimerakKnjige*/
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				PrimerakKnjigePrikaz kp = new PrimerakKnjigePrikaz(biblioteka,prijavljeniKorisnik);
+				kp.setVisible(true);
+			}
+		});
+		
+		clanItem.addActionListener(new ActionListener() { /*ClanBiblioteke*/
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ClanPrikaz dp = new ClanPrikaz(biblioteka,prijavljeniKorisnik);
+				dp.setVisible(true);
+			}
+		});
+		
+		knjigeItem.addActionListener(new ActionListener() { /*Knjige*/
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				KnjigePrikaz kp = new KnjigePrikaz(biblioteka,prijavljeniKorisnik);
+				kp.setVisible(true);
+			}
+		});
+		
+		zanrKnjigeItem.addActionListener(new ActionListener() { /*ZanrKnjige*/
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ZanrKnjigePrikaz kp = new ZanrKnjigePrikaz(biblioteka,prijavljeniKorisnik);
+				kp.setVisible(true);
+			}
+		});
+	}
 }
