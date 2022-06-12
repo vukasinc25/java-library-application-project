@@ -56,7 +56,7 @@ public class ZanrKnjigePrikaz extends JFrame{
 		mainToolbar.add(btnIzmeni);
 		mainToolbar.add(btnIzbrisi);
 
-		String[] zaglavlja = new String[] {"Id", "Opis", "Oznaka"};
+		String[] zaglavlja = new String[] {"Naziv", "Opis", "ID"};
 		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniZanrovi().size()][zaglavlja.length];
 		
 		for(int i=0; i<biblioteka.sviNeobrisaniZanrovi().size(); i++) {
@@ -92,8 +92,8 @@ public class ZanrKnjigePrikaz extends JFrame{
 					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.","Greska",JOptionPane.WARNING_MESSAGE);
 				}
 				else {
-					int id = Integer.parseInt(tableModel.getValueAt(red, 0).toString());
-					String naziv = tableModel.getValueAt(red, 1).toString();
+					int id = Integer.parseInt(tableModel.getValueAt(red, 2).toString());
+					String naziv = tableModel.getValueAt(red, 0).toString();
 					
 					int izbor = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da zelite da obrisete clana?",naziv + "- Potvrda brisanja",JOptionPane.YES_NO_OPTION);
 					if(izbor == JOptionPane.YES_NO_OPTION) {

@@ -1,1 +1,2 @@
-Ime|Prezime|jmbg|adresa|1|MUSKO|5|2020-05-03|9|false|2|false
+1|adresa|Ime|jmbg|Prezime|MUSKO|5|2020-05-03|9|false|Dobar Naziv|false
+123456|2|TestIme|TestAdresa|TestPrezime|MUSKO|2|2012-03-04|5|true|Dobar Naziv|false

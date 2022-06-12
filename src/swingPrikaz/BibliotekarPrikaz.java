@@ -59,7 +59,7 @@ public class BibliotekarPrikaz extends JFrame{
 		mainToolbar.add(btnIzmeni);
 		mainToolbar.add(btnIzbrisi);
 		
-		String[] zaglavlja = new String[] {"ID","Ime","Prezime","JMBG","Adresa","Pol","Lozinka","Korisnicko Ime","Plata"};
+		String[] zaglavlja = new String[] {"Adresa","Jmbg","ID","Ime","Prezime","Pol","Lozinka","Korisnicko Ime","Plata"};
 		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniBibliotekari().size()][zaglavlja.length];
 		for(int i=0; i<biblioteka.sviNeobrisaniBibliotekari().size(); i++) {
 			Bibliotekar clan = biblioteka.sviNeobrisaniBibliotekari().get(i);
@@ -97,14 +97,13 @@ public class BibliotekarPrikaz extends JFrame{
 					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.","Greska",JOptionPane.WARNING_MESSAGE);
 				}
 				else {
-					int id = Integer.parseInt(tableModel.getValueAt(red, 3).toString());
-					String naziv = tableModel.getValueAt(red, 1).toString();
+					int id = Integer.parseInt(tableModel.getValueAt(red, 2).toString());
+					String naziv = tableModel.getValueAt(red, 4).toString();
 					
 					int izbor = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da zelite da obrisete clana?",naziv + "- Potvrda brisanja",JOptionPane.YES_NO_OPTION);
 					if(izbor == JOptionPane.YES_NO_OPTION) {
 						Bibliotekar c = biblioteka.getBibliotekar().get(id);
 						c.setObrisan(true);
-						System.out.println(biblioteka.getBibliotekar().toString());
 						try {
 							biblioteka.sacuvajBibliotekre();
 						}
@@ -138,7 +137,6 @@ public class BibliotekarPrikaz extends JFrame{
 				}
 				String id = tableModel.getValueAt(row, 0).toString();
 				Bibliotekar bibliotekar = biblioteka.pronadjiBibliotekara(id);
-				System.out.println(bibliotekar);
 				BibliotekarIzmena edit = new BibliotekarIzmena(biblioteka,bibliotekar);
 				edit.setVisible(true);
 			}

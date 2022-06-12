@@ -38,18 +38,6 @@ public class Login extends JFrame {
 	
 	ImageIcon ikonica = new ImageIcon("src/slike/ikonicaKnjige.png");
 	
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					Login frame = new Login();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 	public Login(Biblioteka biblioteka) {
 		this.biblioteka = biblioteka;
 		setIconImage(ikonica.getImage());

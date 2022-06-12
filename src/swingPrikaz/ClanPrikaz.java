@@ -35,6 +35,8 @@ public class ClanPrikaz extends JFrame{
 	private final JButton btnDodaj = new JButton("Dodaj Clana");
 	private final JButton btnIzmeni = new JButton("Izmeni Clana");
 	private final JButton btnIzbrisi = new JButton("Izbrisi Clana");
+	
+	ImageIcon ikonica = new ImageIcon("src/slike/knjiga.png");
 
 	public ClanPrikaz (Biblioteka biblioteka,Zaposleni zaposleni) {
 		this.biblioteka = biblioteka;
@@ -48,6 +50,7 @@ public class ClanPrikaz extends JFrame{
 	}
 
 	private void initGUI() {
+		setIconImage(ikonica.getImage());
 		getContentPane().add(mainToolbar, BorderLayout.SOUTH);		
 		mainToolbar.setBackground(Color.LIGHT_GRAY);
 		btnDodaj.setBackground(Color.LIGHT_GRAY);
@@ -65,6 +68,7 @@ public class ClanPrikaz extends JFrame{
 			Clan clan = biblioteka.sviNeobrisaniClanoviBiblioteke().get(i);
 //			Knjiga knjiga = biblioteka.pronadjiDisk(clan);
 			sadrzaj[i][0] = clan.getId();
+			System.out.print("clan id    " + clan.getId());
 			sadrzaj[i][1] = clan.getIme();
 			sadrzaj[i][2] = clan.getPrezime();
 			sadrzaj[i][3] = clan.getJmbg();

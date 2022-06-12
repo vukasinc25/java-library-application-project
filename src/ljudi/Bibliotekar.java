@@ -9,9 +9,9 @@ public class Bibliotekar extends Zaposleni {
     	super();
     }
     
-    public Bibliotekar(String ime, String prezime, String jmbg, String adresa,
-    		String id, Pol pol, String korisnickoIme, String lozinka, int plata, boolean obrisan) {
-    	super(ime, prezime, jmbg, adresa, id, pol, korisnickoIme, lozinka, plata, obrisan);
+    public Bibliotekar(String id, String prezime, String jmbg, String adresa,
+    		String ime, Pol pol, String korisnickoIme, String lozinka, int plata, boolean obrisan) {
+    	super(id, prezime, jmbg, adresa,ime , pol, korisnickoIme, lozinka, plata, obrisan);
     }
     
     @Override

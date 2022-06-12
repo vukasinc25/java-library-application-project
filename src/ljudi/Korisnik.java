@@ -22,7 +22,7 @@ public abstract class Korisnik {
     }
     
 
-	public Korisnik(String ime, String prezime, String jmbg, String adresa, String id, Pol pol) {
+	public Korisnik( String id, String prezime, String jmbg, String adresa, String ime, Pol pol) {
 		super();
 		this.ime = ime;
 		this.prezime = prezime;
@@ -65,6 +65,7 @@ public abstract class Korisnik {
 	}
 
 	public String getId() {
+		System.out.println(id);
 		return id;
 	}
 

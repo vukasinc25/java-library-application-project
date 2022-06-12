@@ -20,9 +20,9 @@ import ljudi.Zaposleni;
 
 public class IznajmljivanjePrikaz extends JFrame{
 	private JToolBar mainToolbar = new JToolBar();
-	private final JButton btnDodaj = new JButton("Dodaj Bibliotekara");
-	private final JButton btnIzmeni = new JButton("Izmeni Bibliotekara");
-	private final JButton btnIzbrisi = new JButton("Izbrisi Bibliotekara");
+	private final JButton btnDodaj = new JButton("Iznajmi Knjigu");
+	private final JButton btnIzmeni = new JButton("Vrati Knjigu");
+	//private final JButton btnIzbrisi = new JButton("Izbrisi Bibliotekara");
 	private Zaposleni zaposleni;
 	
 	private DefaultTableModel tableModel;
@@ -34,7 +34,7 @@ public class IznajmljivanjePrikaz extends JFrame{
 	public IznajmljivanjePrikaz(Biblioteka biblioteka,Zaposleni zaposleni) {
 		this.biblioteka = biblioteka;
 		this.zaposleni = zaposleni;
-		setTitle("Kompozicije");
+		setTitle("Iznajmljivanje");
 		setSize(600,400);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -47,10 +47,10 @@ public class IznajmljivanjePrikaz extends JFrame{
 		mainToolbar.setBackground(Color.LIGHT_GRAY);
 		btnDodaj.setBackground(Color.LIGHT_GRAY);
 		btnIzmeni.setBackground(Color.LIGHT_GRAY);
-		btnIzbrisi.setBackground(Color.LIGHT_GRAY);
+		//btnIzbrisi.setBackground(Color.LIGHT_GRAY);
 		mainToolbar.add(btnDodaj);
 		mainToolbar.add(btnIzmeni);
-		mainToolbar.add(btnIzbrisi);
+		//mainToolbar.add(btnIzbrisi);
 		setIconImage(ikonica.getImage());
 		
 		String[] zaglavlja = new String[] {"DatumIznajmljivanja", "DatumVracanja", "Zaposleni", "Clanovi", "Primerci"};
@@ -61,8 +61,8 @@ public class IznajmljivanjePrikaz extends JFrame{
 //			Knjiga knjiga = biblioteka.pronadjiDisk(clan);
 			sadrzaj[i][0] = clan.getDatumIznajmljivanja();
 			sadrzaj[i][1] = clan.getDatumVracanja();
-			sadrzaj[i][2] = clan.getZaposleni().getId();
-			sadrzaj[i][3] = clan.getClan().getId();
+			sadrzaj[i][2] = clan.getZaposleni();//.getId();
+			sadrzaj[i][3] = clan.getClan();//.getId();
 			sadrzaj[i][4] = clan.getPrimerak();
 			
 //			sadrzaj[i][2] = disk == null ? "--" : disk.getNaziv();

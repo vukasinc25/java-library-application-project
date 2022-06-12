@@ -62,7 +62,7 @@ public class AdminPrikaz extends JFrame{
 		btnIzbrisi.setBackground(Color.LIGHT_GRAY);
 		mainToolbar.add(btnIzbrisi);
 			
-		String[] zaglavlja = new String[] {"Adresa", "ID", "Ime", "Prezime", "JMBG", "Pol", "Lozinka", "KorisnicoIme","Plata"};
+		String[] zaglavlja = new String[] {"ID", "Adresa", "Ime", "Prezime", "JMBG", "Pol", "Lozinka", "KorisnicoIme","Plata"};
 		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniAdministatori().size()][zaglavlja.length];
 		
 		for(int i=0; i<biblioteka.sviNeobrisaniAdministatori().size(); i++) {
@@ -121,7 +121,7 @@ public class AdminPrikaz extends JFrame{
 					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.","Greska",JOptionPane.WARNING_MESSAGE);
 				}
 				else {
-					int id = Integer.parseInt(tableModel.getValueAt(red, 3).toString());
+					int id = Integer.parseInt(tableModel.getValueAt(red, 0).toString());
 					String naziv = tableModel.getValueAt(red, 1).toString();
 					
 					int izbor = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da zelite da obrisete clana?",naziv + "- Potvrda brisanja",JOptionPane.YES_NO_OPTION);

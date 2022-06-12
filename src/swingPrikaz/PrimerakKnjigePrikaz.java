@@ -43,7 +43,7 @@ public class PrimerakKnjigePrikaz extends JFrame {
 		this.zaposleni = zaposleni;
 		this.biblioteka.citajZanr();
 		this.biblioteka.citajKnjige();
-		setTitle("Kompozicije");
+		setTitle("Primerci Knjige");
 		setSize(600,400);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -74,7 +74,7 @@ public class PrimerakKnjigePrikaz extends JFrame {
 			sadrzaj[i][2] = primerak.isTipPoveza();
 			sadrzaj[i][3] = primerak.getGodinaStampanja();
 			sadrzaj[i][4] = primerak.isIzdata();
-			sadrzaj[i][5] = primerak.getKnjiga().getId();
+			sadrzaj[i][5] = primerak.getKnjiga();//.getId();
 		}
 		
 		tableModel = new DefaultTableModel(sadrzaj, zaglavlja);

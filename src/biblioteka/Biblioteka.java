@@ -546,11 +546,11 @@ public class Biblioteka {
 		String line = null;
 		while((line = citaj.readLine())!= null) {
 			String [] niz = line.split("\\|");
-			String ime = niz[0];
-			String prezime = niz[1];
-			String jmbg = niz[2];
-			String adresa = niz[3];
-			String id = niz[4];
+			String ime = niz[2];
+			String prezime = niz[3];
+			String jmbg = niz[4];
+			String adresa = niz[0];
+			String id = niz[1];
 			String poll = niz[5];
 			Pol pol = Pol.MUSKO;
 			for(Pol p:Pol.values()) {
@@ -621,7 +621,7 @@ public class Biblioteka {
 	//--------------CLANOVI---------------//
 	
 	public void citajClanove()throws IOException{
-		ArrayList<Clan> clanovi = new ArrayList<Clan>();
+		this.clanBiblioteke = new ArrayList<Clan>();
 		File claoviFile = new File("src/fajlovi/clanbiblioteke.txt");
 		BufferedReader citanje = new BufferedReader(new FileReader(claoviFile));
 		String line1 = null;
@@ -651,7 +651,7 @@ public class Biblioteka {
 			}
 			Boolean obrisan = Boolean.parseBoolean(nizClanova[11]);
 			Clan clan = new Clan(ime, prezime, jmbg, adresa, id, defpol, brClanskeKarte, datumUplate, uplacenoMeseci, aktivan, tipClanarinel, obrisan);
-			clanovi.add(clan);
+			this.clanBiblioteke.add(clan);
 		}
 		citanje.close();
 	}
@@ -686,6 +686,7 @@ public class Biblioteka {
 	        File file=new File("src/fajlovi/clanbiblioteke.txt");
 	        BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 	        for(Clan c : this.clanBiblioteke) {
+	        	System.out.println("sacuvajClanove test:   "  +  c.getId());
 	            String linija = c.getId() + "|" +c.getIme() + "|" +c.getPrezime() + "|" +
 	                    c.getJmbg()+ "|"+ c.getAdresa()+ "|" +c.getPol() + "|" + c.getBrClanskeKarte() + "|" + c.getDatumUplate() + "|" + c.getUplacenoMeseci() + "|" + c.isAktivan() + "|"
 	                    +c.getTipClanarine().getId()+"|"+c.isObrisan();
@@ -705,11 +706,11 @@ public class Biblioteka {
 		public ArrayList<Clan> sviNeobrisaniClanoviBiblioteke() {
 			ArrayList<Clan> neobrisani = new ArrayList<Clan>();
 			for (Clan clan : clanBiblioteke) {
+				//System.out.println(clanBiblioteke);
 				if(!clan.isObrisan()) {
 					neobrisani.add(clan);
 				}
 			}
-			System.out.println(neobrisani);
 			return neobrisani;
 		}
 		
@@ -812,9 +813,12 @@ public class Biblioteka {
 			int godinaStampanja = Integer.parseInt(niz[3]);
 			boolean izdata = Boolean.parseBoolean(niz[4]);
 			Knjiga knjiga = null;
+			System.out.println(niz[5]);
 			for (Knjiga k: this.knjige) {
+				System.out.println(k.getId());
 				if(k.getId().equals(niz[5])) {
 					knjiga = k;
+					System.out.println(knjiga);
 				}
 			}
 			Boolean obrisan = Boolean.parseBoolean(niz[6]);
