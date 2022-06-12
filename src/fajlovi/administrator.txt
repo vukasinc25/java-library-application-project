@@ -1,2 +1,2 @@
-ID|Adresa|Ime|Prezime|123456|MUSKO|lozinka2|korisnickoIme|500|false
-1|Adresa|Ime|Prezime|JMBG|MUSKO|aksdosa|skodsa|500|false
+0|Adresa|Ime|Prezime|123456|MUSKO|lozinka2|korisnickoIme|500|false
+1|asdas|sad|sadas|21321|MUSKO|dasdsa|sadas|121|false

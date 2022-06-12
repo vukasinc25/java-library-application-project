@@ -1,2 +1,2 @@
-Dobar Naziv|1|150
+Dobar Naziv|0|150
 Test Naziv|1|123

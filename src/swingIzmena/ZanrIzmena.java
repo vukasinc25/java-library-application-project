@@ -108,9 +108,9 @@ public class ZanrIzmena extends JDialog{
 		add(btnCancel);
 		
 		if(zanrKnjige != null) {
-			txtID.setText(zanrKnjige.getId());
+			txtID.setText(zanrKnjige.getOznaka());
 			txtOpis.setText(zanrKnjige.getOpisZanra());
-			txtOznaka.setText(zanrKnjige.getOznaka());
+			txtOznaka.setText(zanrKnjige.getId());
 		}
 		
 	}

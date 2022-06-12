@@ -102,8 +102,8 @@ public class TipIzmena extends JDialog{
 		add(btnCancel);
 		
 		if(tipClanarine != null) {
-			txtID.setText(tipClanarine.getId());
-			txtNaziv.setText(tipClanarine.getTip());
+			txtID.setText(tipClanarine.getTip());
+			txtNaziv.setText(tipClanarine.getId());
 			txtCena.setText(Double.toString(tipClanarine.getCena()));
 		}
 		

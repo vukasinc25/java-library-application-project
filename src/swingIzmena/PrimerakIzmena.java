@@ -147,7 +147,7 @@ public class PrimerakIzmena extends JDialog{
 			txtTipPoveza.setSelected(primerak.isTipPoveza());
 			txtGodinaSt.setText(Integer.toString(primerak.getGodinaStampanja()));
 			txtjeliIznajmljena.setSelected(primerak.isIzdata());
-			cmbxKnjiga.setSelectedItem(primerak.getKnjiga().getNaslov());
+			cmbxKnjiga.setSelectedItem(primerak.getKnjiga());//.getNaslov());
 			
 		}
 	}

@@ -1,2 +1,2 @@
-MarsalaTita5|1|Jovan|Jovanovic|123456789|ZENSKO|jocasifra2|joca123|550|false
-AdresaT|2|ImeT|PrezimeT|2321321|MUSKO|korisnikT|lozinkaT|500|false
+MarsalaTita5|0|Jovan|Jovanovic|123456789|ZENSKO|jocasifra2|joca123|550|false
+AdresaT|1|ImeT|PrezimeT|2321321|MUSKO|korisnikT|lozinkaT|500|false

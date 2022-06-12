@@ -1,1 +1,1 @@
-Naslovt|OrgT|pisacT|1920|opisT|1|test|SRSPKI|false
+Naslovt|OrgT|pisacT|1920|opisT|0|test|SRSPKI|false

@@ -82,7 +82,7 @@ public class AdminIzmena extends JDialog{
 		add(btnSave);
 		add(btnCancel);
 		
-		//if(administrator != null) {
+		if(administrator != null) {
 			txtID.setText(administrator.getId());
 			txtIme.setText(administrator.getIme());
 			txtPrezime.setText(administrator.getPrezime());
@@ -93,7 +93,7 @@ public class AdminIzmena extends JDialog{
 			txtKorisnickoIme.setEnabled(false);
 			txtKorisnickaSifra.setText(administrator.getLozinka());
 			txtPlata.setText(String.valueOf(administrator.getPlata()));
-		//}
+		}
 	}
 
 	private void initActions() { 

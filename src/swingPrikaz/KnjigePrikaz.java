@@ -23,9 +23,9 @@ import swingIzmena.KnjigaIzmena;
 
 public class KnjigePrikaz extends JFrame{
 	private JToolBar mainToolbar = new JToolBar();
-	private final JButton btnDodaj = new JButton("Dodaj Bibliotekara");
-	private final JButton btnIzmeni = new JButton("Izmeni Bibliotekara");
-	private final JButton btnIzbrisi = new JButton("Izbrisi Bibliotekara");
+	private final JButton btnDodaj = new JButton("Dodaj Knjigu");
+	private final JButton btnIzmeni = new JButton("Izmeni Knjigu");
+	private final JButton btnIzbrisi = new JButton("Izbrisi Knjigu");
 	private Zaposleni zaposleni;
 	ImageIcon ikonica = new ImageIcon("src/slike/knjiga.png");
 	private DefaultTableModel tableModel;
@@ -37,7 +37,7 @@ public class KnjigePrikaz extends JFrame{
 	public KnjigePrikaz (Biblioteka biblioteka,Zaposleni zaposleni) {
 		this.biblioteka = biblioteka;
 		this.zaposleni = zaposleni;
-		setTitle("Kompozicije");
+		setTitle("Knjige");
 		setSize(600,400);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
