@@ -146,11 +146,11 @@ public class BibliotekarIzmena extends JDialog{
 		add(btnCancel);
 		
 		if(bibliotekar != null) {
-			txtID.setText(bibliotekar.getId());
-			txtIme.setText(bibliotekar.getIme());
-			txtPrezime.setText(bibliotekar.getPrezime());
-			txtJMBG.setText(bibliotekar.getJmbg());
-			txtAdresa.setText(bibliotekar.getAdresa());
+			txtID.setText(bibliotekar.getPrezime());
+			txtIme.setText(bibliotekar.getJmbg());
+			txtPrezime.setText(bibliotekar.getAdresa());
+			txtJMBG.setText(bibliotekar.getIme());
+			txtAdresa.setText(bibliotekar.getId());
 			cmbxPol.setSelectedItem(bibliotekar.getPol());
 			txtKorisnickoIme.setText(bibliotekar.getKorisnickoIme());
 			txtKorisnickaSifra.setText(bibliotekar.getLozinka());
