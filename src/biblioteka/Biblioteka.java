@@ -55,7 +55,7 @@ public class Biblioteka {
     
     }
     
-    public Biblioteka(String naziv, String adresa, String telefon, LocalDate radiOd, LocalDate radiDo, String id) {
+    public Biblioteka(String id, String naziv, String adresa, String telefon, LocalDate radiOd, LocalDate radiDo) {
     	
     	super();
     	this.naziv = naziv;
@@ -219,7 +219,7 @@ public class Biblioteka {
         File file=new File("src/fajlovi/tipclanarine.txt");
         BufferedWriter writer = new BufferedWriter(new FileWriter(file));
         for(TipClanarine c : this.tipClanarine) {
-            String linija = c.getTip() + "|" +c.getId() + "|" +c.getCena();// + "|" + c.isObrisan();
+            String linija = c.getId() + "|" +c.getTip() + "|" +c.getCena() + "|" + c.isObrisan();
             writer.write(linija);
             writer.newLine();
         }

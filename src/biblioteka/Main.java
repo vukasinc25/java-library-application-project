@@ -18,7 +18,7 @@ import swingMain.Login;
 public class Main {
 
 	public static void main(String[] args) throws IOException {
-		Biblioteka biblioteka = new Biblioteka("Naziv","Adresa","Telefon", LocalDate.parse("2007-02-03"),LocalDate.parse("2008-05-05"),"ID");
+		Biblioteka biblioteka = new Biblioteka("ID", "Naziv","Adresa","Telefon", LocalDate.parse("2007-02-03"),LocalDate.parse("2008-05-05"));
 		biblioteka.citajAdministratora();
 		biblioteka.citajBibliotekara();
 		biblioteka.citajClanarine();
