@@ -7,10 +7,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -32,6 +34,11 @@ public class IznajmljivanjeDodavanje  extends JFrame{
 	private JLabel lblIznajmio=new JLabel("Iznajmio: ");
 	private JComboBox cbIznajmio=new JComboBox();
 	private JLabel lblPrimerak=new JLabel("Primerak: ");
+	
+	DefaultListModel model = new DefaultListModel();
+	private JList listPrimerak = new JList(model);
+	
+	
 	private JComboBox cbPrimerak=new JComboBox();
 	private JButton btnOk = new JButton("OK");
 	private JButton btnCancel = new JButton("Cancel");
@@ -43,7 +50,7 @@ public class IznajmljivanjeDodavanje  extends JFrame{
 	public IznajmljivanjeDodavanje(Biblioteka biblioteka,Zaposleni prijavljeni) {
 		this.biblioteka=biblioteka;
 		this.prijavljeni=prijavljeni;
-		setSize(500,1000);
+		setSize(1000,1000);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -56,7 +63,7 @@ public class IznajmljivanjeDodavanje  extends JFrame{
 		this.prijavljeni=prijavljeni;
 		this.iznajmljivanje=iznajmljivanje;
 		setTitle("Dodavanje");
-		setSize(500,1000);
+		setSize(1000,1000);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -69,9 +76,13 @@ public class IznajmljivanjeDodavanje  extends JFrame{
 		for(Clan clan:clanovi) {
 			cbIznajmio.addItem(clan.getBrojClanskeKarte());
 		}
+//		ArrayList<Primerak> primerci=biblioteka.sviNeobrisaniPrimerci();
+//		for(Primerak primerak:primerci) {
+//			cbPrimerak.addItem(primerak.getId());
+//		}
 		ArrayList<Primerak> primerci=biblioteka.sviNeobrisaniPrimerci();
 		for(Primerak primerak:primerci) {
-			cbPrimerak.addItem(primerak.getId());
+			model.addElement(primerak.getId());
 		}
 		txtIzdao.setText(prijavljeni.getKorisnickoIme());
 	
@@ -80,7 +91,8 @@ public class IznajmljivanjeDodavanje  extends JFrame{
 		
 		
 		add(lblPrimerak);
-		add(cbPrimerak);
+		add(listPrimerak);
+		//add(cbPrimerak);
 		add(lblIzdao);
 		add(txtIzdao);
 		add(lblIznajmio);

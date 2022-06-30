@@ -66,7 +66,6 @@ public class IznajmljivanjePrikaz extends JFrame{
 		for(int i=0; i<neobrisanaIznajmljivanja.size(); i++) {
 			
 			Iznajmljivanje iznajmljivanje = neobrisanaIznajmljivanja.get(i);
-			System.out.println(iznajmljivanje);
 			sadrzaj[i][0] = iznajmljivanje.getId();
 			sadrzaj[i][1] = iznajmljivanje.getPrimerak().getKnjiga().getNaslov();
 			sadrzaj[i][2] = iznajmljivanje.getClan().getIme();

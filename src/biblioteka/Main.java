@@ -14,11 +14,11 @@ public class Main {
 	public static String PATH_TO_TIP= "src/fajlovi/tip.txt";
 	public static String PATH_TO_ZANR = "src/fajlovi/zanr.txt";
 	public static String PATH_TO_BIBLIOTEKA= "src/fajlovi/biblioteka.txt";
+	
 	public static void main(String[] args) throws IOException {
 		Biblioteka biblioteka = new Biblioteka();
 		biblioteka.citajBiblioteku(PATH_TO_BIBLIOTEKA);
 		biblioteka.citajClanarine(PATH_TO_TIP);
-//		biblioteka.proveriAktivnost(PATH_TO_CLANOVI);
 		biblioteka.citajClanove(PATH_TO_CLANOVI);
 		biblioteka.citajAdministratora(PATH_TO_ADMIN);
 		biblioteka.citajBibliotekare(PATH_TO_BIBLIOTEKAR);
@@ -26,11 +26,9 @@ public class Main {
 		biblioteka.citajKnjige(PATH_TO_KNJIGE);
 		biblioteka.citajPrimerke(PATH_TO_PRIMERAK);
 		biblioteka.citajIzdavanjeKnjige(PATH_TO_IZNAJMLJIVANJE);
-//		biblioteka.proveriAktivnost(PATH_TO_CLANOVI);
 		Login loginProzor= new Login(biblioteka);
 		loginProzor.setVisible(true);
-//		addKnjige prozor=new addKnjige(biblioteka);
-//		prozor.setVisible(true);
+
 }
 
 		
