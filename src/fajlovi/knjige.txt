@@ -1,2 +1,2 @@
-0|Ana Karenjina|anna|Tolstoj|2006|opis|SRPSKI|2|false
-1|Mali Princ|princ|Egziperi|2006|opis|ENGLESKI|1|false
+0|KNaziv1|Original1|Pisac1|1980|Opis1|SRPSKI|2|false
+1|KNaziv2|Original2|Pisac2|1920|Opis2|ENGLESKI|1|false

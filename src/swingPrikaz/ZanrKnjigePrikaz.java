@@ -1,11 +1,13 @@
 package swingPrikaz;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -25,6 +27,8 @@ public class ZanrKnjigePrikaz extends JFrame {
 	private JButton btnEdit = new JButton("Izmeni");
 	private JButton btnDelete = new JButton("Obrisi");
 	
+	ImageIcon ikonica = new ImageIcon("src/slike/knjiga.png");
+	
 	private DefaultTableModel tableModel;
 	private JTable zanroviTabela;
 	 
@@ -36,6 +40,15 @@ public class ZanrKnjigePrikaz extends JFrame {
 		setSize(600, 300);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
+		getContentPane().add(mainToolbar, BorderLayout.SOUTH);		
+		mainToolbar.setBackground(Color.LIGHT_GRAY);
+		btnAdd.setBackground(Color.LIGHT_GRAY);
+		btnEdit.setBackground(Color.LIGHT_GRAY);
+		btnDelete.setBackground(Color.LIGHT_GRAY);
+		mainToolbar.add(btnAdd);
+		mainToolbar.add(btnEdit);
+		mainToolbar.add(btnDelete);
+		setIconImage(ikonica.getImage());
 		initGUI();
 		initActions();
 		}
@@ -43,7 +56,7 @@ public class ZanrKnjigePrikaz extends JFrame {
 		mainToolbar.add(btnAdd);
 		mainToolbar.add(btnEdit);		 
 		mainToolbar.add(btnDelete);		
-		add(mainToolbar, BorderLayout.NORTH);
+		add(mainToolbar, BorderLayout.SOUTH);
 		
 		ArrayList<Zanr>neobrisaniZanrovi=biblioteka.sviNeobrisaniZanrovi();
 		String[] zaglavlja = new String[] {"Id", "Opis", "Oznaka"};

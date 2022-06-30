@@ -131,18 +131,18 @@ public class ClanDodavanje extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 //				String brojClanskeKarte=txtBrojClanskeKarte.getText().trim();
-				String BrMeseci=txtBrMeseci.getText().trim();
-				String datumPoslednjeUplateString=txtDatumPoslednjeUplate.getText().trim();
 				DateTimeFormatter dateFormatter= DateTimeFormatter.ofPattern("yyyy-MM-dd");
+				String datumPoslednjeUplateString=txtDatumPoslednjeUplate.getText().trim();
 				LocalDate datumPoslednjeUplate=LocalDate.parse(datumPoslednjeUplateString,dateFormatter);
 				int tipid = cbTipClanarine.getSelectedIndex();
+				String BrMeseci=txtBrMeseci.getText().trim();
 				TipClanarine tipClanarine=biblioteka.sviNeobrisaniTipovi().get(tipid);
-				boolean isSelected = chbAktivnost.isSelected();
 				String ime=txtIme.getText().trim();
 				String prezime=txtPrezime.getText().trim();
+				String polString=cbPol.getSelectedItem().toString();
 				String JMBG=txtJMBG.getText().trim();
 				String adresa=txtAdresa.getText().trim();
-				String polString=cbPol.getSelectedItem().toString();
+				boolean isSelected = chbAktivnost.isSelected();
 				Pol pol=Pol.valueOf(polString);
 
 				if(ime.equals("") || prezime.equals("") || adresa.equals("") || JMBG.equals("")
@@ -181,7 +181,6 @@ public class ClanDodavanje extends JFrame {
 						biblioteka.sacuvajClanove();
 						ClanDodavanje.this.setVisible(false);
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}

@@ -1,7 +1,6 @@
-0|0|brStr|2011|MEKE|SRPSKI|true|false
-1|1|brStr|2011|MEKE|SRPSKI|false|true
-2|0|brStr|2011|MEKE|SRPSKI|true|false
-3|1|brStr|2011|MEKE|SRPSKI|true|true
+0|0|105|2011|MEKE|SRPSKI|true|false
+1|1|105|2011|MEKE|SRPSKI|false|true
+2|0|105|2011|MEKE|SRPSKI|true|false
+3|1|105|2011|MEKE|SRPSKI|true|true
 4|1|24|2021|MEKE|NEMACKI|false|false
-5|0|||MEKE|SRPSKI|false|false
 6|1|255|2019|MEKE|SRPSKI|true|false
