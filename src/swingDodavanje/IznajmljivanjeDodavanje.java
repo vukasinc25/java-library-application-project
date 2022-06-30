@@ -37,7 +37,7 @@ public class IznajmljivanjeDodavanje  extends JFrame{
 	
 	DefaultListModel model = new DefaultListModel();
 	private JList listPrimerak = new JList(model);
-	
+	ArrayList<Primerak> primerakA = new ArrayList<Primerak>();
 	
 	private JComboBox cbPrimerak=new JComboBox();
 	private JButton btnOk = new JButton("OK");
@@ -105,8 +105,11 @@ public class IznajmljivanjeDodavanje  extends JFrame{
 		add(btnCancel);
 		
 		txtIzdao.setText(prijavljeni.getKorisnickoIme());
+		//ArrayList<Primerak> primerak = new ArrayList<Primerak>();
 		if(iznajmljivanje!=null) {
-			cbPrimerak.setSelectedItem(iznajmljivanje.getPrimerak().getId());
+			
+			
+			//cbPrimerak.setSelectedItem(iznajmljivanje.getPrimerak().getId());
 			cbIznajmio.setSelectedItem(iznajmljivanje.getClan().getBrojClanskeKarte());
 			String datumIznajmljivanja =iznajmljivanje.getDatumIznajmljivanja().toString();
 			txtDatumIznajmljivanja.setText(datumIznajmljivanja);
@@ -128,10 +131,17 @@ public class IznajmljivanjeDodavanje  extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				int primerakId=cbPrimerak.getSelectedIndex();
-				Primerak primerak=biblioteka.sviNeobrisaniPrimerci().get(primerakId);
-//				ArrayList<Primerak>primerci=new ArrayList<Primerak>();
-//				int [] odabraniPrimerci=
+				//int primerakId=cbPrimerak.getSelectedIndex();
+				int[] indeks = listPrimerak.getSelectedIndices();
+				//System.out.println(indeks);
+				//int counter = 0;
+				for (int i:indeks) {
+					primerakA.add(biblioteka.sviNeobrisaniPrimerci().get(i));
+					//counter += 1;
+				}
+				System.out.println(primerakA);
+				Primerak primerak = primerakA.get(0);
+				
 				int iznajmioId=cbIznajmio.getSelectedIndex();
 				Clan clan=biblioteka.sviNeobrisaniClanovi().get(iznajmioId);
 				DateTimeFormatter dateFormatter= DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -159,7 +169,6 @@ public class IznajmljivanjeDodavanje  extends JFrame{
 						biblioteka.sacuvajIznajmljivanje();
 						IznajmljivanjeDodavanje.this.setVisible(false);
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}

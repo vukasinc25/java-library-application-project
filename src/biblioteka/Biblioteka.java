@@ -196,7 +196,6 @@ public class Biblioteka {
 	}
 
 
-	//--------------------CLAN------------------------------------------------------------------------------------------------
 	
 	public void upisClanova(Clan cl) throws IOException{
 
@@ -240,7 +239,6 @@ public class Biblioteka {
 		}
 		return null;
 	}
-	//-----------------BIBLIOTEKAR----------------------------------------------------------------------------------------
 	
 	public void upisBibliotekara(Bibliotekar b) throws IOException{
 		File file=new File("src/txt/bibliotekar.txt");
@@ -283,8 +281,6 @@ public class Biblioteka {
 		}
 		return null;
 	}
-	//---------------
-	//----------------ADMINISTRATOR-----------------------------------------------------------------------------------
 	public void upisAdministratora(Admin a) throws IOException{
 
 		File file=new File("src/txt/administrator.txt");
@@ -328,7 +324,6 @@ public class Biblioteka {
 		}
 		return null;
 	}
-	//------------------PRIMERAK----------------------------------------------------------------------------------
 
 	public void upisPrimerka(Primerak p) throws IOException{
 		File file=new File("src/txt/primerak.txt");
@@ -362,7 +357,6 @@ public class Biblioteka {
 		}
 		return null;
 	}
-	//------------------KNJIGA-----------------------------------------------------------------------------------------------
 	public void upisKnjige(Knjiga t) throws IOException{
 		File file=new File("src/txt/knjige.txt");
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file,true));
@@ -397,7 +391,6 @@ public class Biblioteka {
 		}
 		return null;
 	}
-	//-------------------ZANR-----------------------------------------------------------------------------------------------
 
 	public void upisZanra(Zanr zanr) throws IOException{
 		File file=new File("src/txt/zanr.txt");
@@ -432,7 +425,6 @@ public class Biblioteka {
 		}
 		return neobrisani;
 	}
-	//--------------------TIP-----------------------------------------------------------------------------------------------
 	public void upisTipa(TipClanarine c) throws IOException{
 		File file=new File("src/txt/tip.txt");
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file,true));
@@ -465,7 +457,6 @@ public class Biblioteka {
 		}
 		return neobrisani;
 	}
-	//---------------IZNAJMLJIVANJE-------------------------------------------------------------------------------------------------
 
 	public void upisiIznajmljivanje(Iznajmljivanje i) throws IOException{
 		File file=new File("src/txt/iznajmljivanje.txt");
@@ -501,7 +492,6 @@ public class Biblioteka {
 	}
 	
 	
-	//-------------------------------------------------------------------------------------------------------------
 
 	
 	public Zaposleni login(String korisnickoIme, String lozinka) {
@@ -556,7 +546,6 @@ public class Biblioteka {
 			citaj.close();
 		}
 	
-	//-----------------------------------------------------------------------------------------------------------------
 
 	public void citajZanroveIzFajla(String string) throws IOException{
 		File fajl = new File(string);
@@ -575,7 +564,6 @@ public class Biblioteka {
 		citaj.close();
 	}
 	
-//	-----------------------------------------------------------------------------------------------------------
 	public void citajAdministratora(String imeFajla) throws IOException{
 		File fajl = new File(imeFajla);
 		BufferedReader citaj = new BufferedReader(new FileReader(fajl));
@@ -604,7 +592,6 @@ public class Biblioteka {
 			}
 		citaj.close();	
 	}
-	//-----------------------------------------------------------------------------------------------------------------
 
 	public void citajClanove(String fajlClanovi)throws IOException{
 		File claoviFile = new File(fajlClanovi);
@@ -643,7 +630,6 @@ public class Biblioteka {
 		citanje.close();
 		
 	}
-//-----------------------------------------------------------------------------------------------
 	public void citajClanarine(String fajlClanovi) throws IOException{
 		File file = new File(fajlClanovi);
 		BufferedReader citanje = new BufferedReader(new FileReader(file));
@@ -664,8 +650,6 @@ public class Biblioteka {
 		
 	}
 	
-//---------------------------------------------------------------------
-//---------------------------------------------------------------------------
 	public void citajBiblioteku(String imeFajla) throws IOException{
 		File fajl = new File(imeFajla);
 		BufferedReader citaj = new BufferedReader(new FileReader(fajl));
@@ -689,7 +673,7 @@ public class Biblioteka {
 		
 	}
 	public void sacuvajBilioteku() throws IOException {
-		File file=new File(Main.PATH_TO_BIBLIOTEKA);
+		File file=new File(Main.lokacijaBiblioteka);
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 			String linija= this.getId()+ "|" +this.getNaziv() + "|" + this.getAdresa() + "|" + this.getTelefon() + "|" + this.getRadnoVremeOd() + "|" + this.getRadnoVremeDo();
 			writer.write(linija);
@@ -698,7 +682,6 @@ public class Biblioteka {
 
 		writer.close();
 	}
-//	--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	public void citajBibliotekare(String imeFajla) throws IOException{
 		File fajl = new File(imeFajla);
 		BufferedReader citaj = new BufferedReader(new FileReader(fajl));
@@ -726,7 +709,6 @@ public class Biblioteka {
 		
 	}
 
-	//--------------------------------------------------------------------------------------------------------------
 	public void citajIzdavanjeKnjige(String imeFajla) throws IOException{
 		File fajl = new File(imeFajla);
 		BufferedReader citaj = new BufferedReader(new FileReader(fajl));
@@ -754,7 +736,6 @@ public class Biblioteka {
 		
 		
 	}
-//		-------------------------------------------------------------
 	public void citajPrimerke(String fajlPrimerci) throws IOException{
 		File file= new File(fajlPrimerci);
 		BufferedReader citanje= new BufferedReader(new FileReader(file));
@@ -790,7 +771,7 @@ public class Biblioteka {
 	}
 
 	public void sacuvajPrimerke() throws IOException {
-		File file=new File(Main.PATH_TO_PRIMERAK);
+		File file=new File(Main.lokacijaPrimerak);
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 		for(Primerak p:primerci) {
 			String linija=p.getId() + "|" + p.getKnjiga().getId() + "|" +p.getBrStrana() + "|" +  p.getGodStampanja() + "|" +
@@ -803,7 +784,7 @@ public class Biblioteka {
 	}
 	
 	public void sacuvajKnjige() throws IOException{
-		File file=new File(Main.PATH_TO_KNJIGE);
+		File file=new File(Main.lokacijaKnjige);
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 		for(Knjiga t : knjige) {
 			String linija=t.getId() + "|" +t.getNaslov() + "|" +t.getOriginal()+ "|" +t.getPisac() + "|" + t.getGodinaObjavljivanja() + "|" +
@@ -815,7 +796,7 @@ public class Biblioteka {
 	}
 
 	public void sacuvajClanove() throws IOException{
-		File file=new File(Main.PATH_TO_CLANOVI);
+		File file=new File(Main.lokacijaClanovi);
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 		for(Clan c : clanovi) {
 			String linija=c.getBrojClanskeKarte() + "|" +c.getDatPoslednjeUplate() + "|" +c.getBrMeseci() + "|" +
@@ -828,7 +809,7 @@ public class Biblioteka {
 	}
 	
 	public void sacuvajZanrove() throws IOException{
-		File file=new File(Main.PATH_TO_ZANR);
+		File file=new File(Main.lokacijaZanr);
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 		for(Zanr z : zanrovi) {
 			String linija= z.getId()+"|" +z.getOpis()+ "|" + z.getOznaka() +"|"+ z.getObrisan();
@@ -839,7 +820,7 @@ public class Biblioteka {
 	}
 	
 	public void sacuvajTipoveClanarine() throws IOException{
-		File file=new File(Main.PATH_TO_TIP);
+		File file=new File(Main.lokacijaTip);
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 		for(TipClanarine c : tipovi) {
 			String linija=c.getId()+ "|" + c.getOpis() + "|" + c.getCena() + "|" + c.getObrisan();
@@ -850,7 +831,7 @@ public class Biblioteka {
 	}
 	
 	public void sacuvajAdmine() throws IOException{
-		File file=new File(Main.PATH_TO_ADMIN);
+		File file=new File(Main.lokacijaAdmin);
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 		for(Admin a : administratori) {
 			String linija= a.getId() + "|" +a.getIme() + "|" + a.getPrezime() + "|" +a.getAdresa() + "|"+ a.getJMBG() + "|"  +
@@ -863,7 +844,7 @@ public class Biblioteka {
 	}
 	
 	public void sacuvajBibliotekare() throws IOException{
-		File file=new File(Main.PATH_TO_BIBLIOTEKAR);
+		File file=new File(Main.lokacijaBibliotekar);
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 		for(Bibliotekar b : bibliotekari) {
 			String linija= b.getId() + "|" +b.getIme() + "|" + b.getPrezime() + "|" +b.getAdresa() + "|"+ b.getJMBG() + "|"  +
@@ -878,7 +859,7 @@ public class Biblioteka {
 
 	
 public void sacuvajIznajmljivanje() throws IOException {
-	File file=new File(Main.PATH_TO_IZNAJMLJIVANJE);
+	File file=new File(Main.lokacijaIznajmljivanje);
 	BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 	for(Iznajmljivanje i:iznajmljivanja) {
 		String linija= i.getId() + "|" + i.getPrimerak().getId() + "|" + i.getClan().getIme() + "|" + i.getDatumIznajmljivanja()+ "|" + 
