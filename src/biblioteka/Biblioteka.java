@@ -121,6 +121,15 @@ public class Biblioteka {
 	}
 	
 
+	@Override
+	public String toString() {
+		return "\nNaziv: " + naziv
+			 + "\nAdresa: " + adresa
+			 + "\nTelefon: " + telefon
+			 + "\nId: " + id
+			 +"\nRadno vreme od: " + radnoVremeOd
+			 +" do: " + radnoVremeDo;
+	}
 
 	public ArrayList<Admin> getAdministratori() {
 		return administratori;
@@ -186,135 +195,6 @@ public class Biblioteka {
 		this.iznajmljivanja = iznajmljivanja;
 	}
 
-	@Override
-	public String toString() {
-		return "\nNaziv: " + naziv
-				+ "\nAdresa: " + adresa
-				+ "\nTelefon: " + telefon
-				+ "\nId: " + id
-				+"\nRadno vreme od: " + radnoVremeOd
-				+" do: " + radnoVremeDo;
-	}
-	
-	public void sacuvajPrimerke() throws IOException {
-		File file=new File("src/fajlovi/primerak.txt");
-		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-		for(Primerak p:primerci) {
-			String linija=p.getId() + "|" + p.getKnjiga().getId() + "|" +p.getBrStrana() + "|" +  p.getGodStampanja() + "|" +
-					p.getKorica()+"|"+  p.getJezikk() + "|" + p.getIznajmljena() + "|" + p.getObrisan();
-			writer.write(linija);
-			writer.newLine();
-		}
-
-		writer.close();
-	}
-	
-	public void sacuvajKnjige() throws IOException{
-		File file=new File("src/fajlovi/knjige.txt");
-		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-		for(Knjiga t : knjige) {
-			String linija=t.getId() + "|" +t.getNaslov() + "|" +t.getOriginal()+ "|" +t.getPisac() + "|" + t.getGodinaObjavljivanja() + "|" +
-					  t.getOpis() + "|" + t.getJezikk() + "|" + t.getZanr().getId() + "|" + t.isObrisan();
-			writer.write(linija);
-			writer.newLine();
-		}
-		writer.close();
-	}
-
-	public void sacuvajClanove() throws IOException{
-		File file=new File("src/fajlovi/clanovi.txt");
-		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-		for(Clan c : clanovi) {
-			String linija=c.getBrojClanskeKarte() + "|" +c.getDatPoslednjeUplate() + "|" +c.getBrMeseci() + "|" +
-					c.getTip().getId()+ "|"+ c.getAktivnost()+ "|" +c.getIme() + "|" + c.getPrezime() + "|" + c.getJMBG() + "|" + c.getAdresa() + "|" + c.getPol() + "|"
-					+c.isObrisan() ;
-			writer.write(linija);
-			writer.newLine();
-		}
-		writer.close();
-	}
-	
-	public void sacuvajZanrove() throws IOException{
-		File file=new File("src/fajlovi/zanr.txt");
-		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-		for(Zanr z : zanrovi) {
-			String linija= z.getId()+"|" +z.getOpis()+ "|" + z.getOznaka() +"|"+ z.getObrisan();
-			writer.write(linija);
-			writer.newLine();
-		}
-		writer.close();
-	}
-	
-	public void sacuvajTipoveClanarine() throws IOException{
-		File file=new File("src/fajlovi/tip.txt");
-		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-		for(TipClanarine c : tipovi) {
-			String linija=c.getId()+ "|" + c.getOpis() + "|" + c.getCena() + "|" + c.getObrisan();
-			writer.write(linija);
-			writer.newLine();
-		}
-		writer.close();
-	}
-	
-	public void sacuvajAdmine() throws IOException{
-		File file=new File("src/fajlovi/administratori.txt");
-		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-		for(Admin a : administratori) {
-			String linija= a.getId() + "|" +a.getIme() + "|" + a.getPrezime() + "|" +a.getAdresa() + "|"+ a.getJMBG() + "|"  +
-					 a.getPlata() + "|" +a.getKorisnickoIme() + "|" + a.getLozinka() + "|" +a.getPol() +   "|"  +
-					a.isObrisan();
-			writer.write(linija);
-			writer.newLine();
-		}
-		writer.close();
-	}
-	
-	public void sacuvajBibliotekare() throws IOException{
-		File file=new File("src/fajlovi/bibliotekari.txt");
-		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-		for(Bibliotekar b : bibliotekari) {
-			String linija= b.getId() + "|" +b.getIme() + "|" + b.getPrezime() + "|" +b.getAdresa() + "|"+ b.getJMBG() + "|"  +
-					 b.getPlata() + "|" +b.getKorisnickoIme() + "|" + b.getLozinka() + "|" +b.getPol() +   "|"  +
-					b.isObrisan();
-			writer.write(linija);
-			writer.newLine();
-		}
-		writer.close();
-	}
-
-
-	
-public void sacuvajIznajmljivanje() throws IOException {
-	File file=new File("src/fajlovi/iznajmljivanje.txt");
-	BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-	for(Iznajmljivanje i:iznajmljivanja) {
-		String linija= i.getId() + "|" + i.getPrimerak().getId() + "|" + i.getClan().getIme() + "|" + i.getDatumIznajmljivanja()+ "|" + 
-				i.getDatumVracanja() + "|" + i.getZaposleni().getKorisnickoIme() + "|" + i.getObrisan();
-		writer.write(linija);
-		writer.newLine();
-	}
-
-	writer.close();
-}
-
-
-public void proveriAktivnost() throws IOException{
-	LocalDate trenutniDatum=LocalDate.now();
-	for(Clan clan:clanovi) {
-		LocalDate datum = clan.getDatPoslednjeUplate();
-		String brMeseci=clan.getBrMeseci();
-		int brojMeseci=Integer.parseInt(brMeseci);
-		LocalDate noviDatum=datum.plusMonths(brojMeseci);
-		boolean isAfter = trenutniDatum.isAfter(noviDatum);
-		if(isAfter==true) {
-			clan.setAktivnost(false);
-		}
-		else {
-			clan.setAktivnost(true);	
-		}
-		;
-	}
-}
 
 	//--------------------CLAN------------------------------------------------------------------------------------------------
 	
@@ -809,7 +689,7 @@ public void proveriAktivnost() throws IOException{
 		
 	}
 	public void sacuvajBilioteku() throws IOException {
-		File file=new File("src/fajlovi/biblioteka.txt");
+		File file=new File(Main.PATH_TO_BIBLIOTEKA);
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 			String linija= this.getId()+ "|" +this.getNaziv() + "|" + this.getAdresa() + "|" + this.getTelefon() + "|" + this.getRadnoVremeOd() + "|" + this.getRadnoVremeDo();
 			writer.write(linija);
@@ -908,6 +788,126 @@ public void proveriAktivnost() throws IOException{
 		}
 		citanje.close();
 	}
+
+	public void sacuvajPrimerke() throws IOException {
+		File file=new File(Main.PATH_TO_PRIMERAK);
+		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+		for(Primerak p:primerci) {
+			String linija=p.getId() + "|" + p.getKnjiga().getId() + "|" +p.getBrStrana() + "|" +  p.getGodStampanja() + "|" +
+					p.getKorica()+"|"+  p.getJezikk() + "|" + p.getIznajmljena() + "|" + p.getObrisan();
+			writer.write(linija);
+			writer.newLine();
+		}
+
+		writer.close();
+	}
+	
+	public void sacuvajKnjige() throws IOException{
+		File file=new File(Main.PATH_TO_KNJIGE);
+		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+		for(Knjiga t : knjige) {
+			String linija=t.getId() + "|" +t.getNaslov() + "|" +t.getOriginal()+ "|" +t.getPisac() + "|" + t.getGodinaObjavljivanja() + "|" +
+					  t.getOpis() + "|" + t.getJezikk() + "|" + t.getZanr().getId() + "|" + t.isObrisan();
+			writer.write(linija);
+			writer.newLine();
+		}
+		writer.close();
+	}
+
+	public void sacuvajClanove() throws IOException{
+		File file=new File(Main.PATH_TO_CLANOVI);
+		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+		for(Clan c : clanovi) {
+			String linija=c.getBrojClanskeKarte() + "|" +c.getDatPoslednjeUplate() + "|" +c.getBrMeseci() + "|" +
+					c.getTip().getId()+ "|"+ c.getAktivnost()+ "|" +c.getIme() + "|" + c.getPrezime() + "|" + c.getJMBG() + "|" + c.getAdresa() + "|" + c.getPol() + "|"
+					+c.isObrisan() ;
+			writer.write(linija);
+			writer.newLine();
+		}
+		writer.close();
+	}
+	
+	public void sacuvajZanrove() throws IOException{
+		File file=new File(Main.PATH_TO_ZANR);
+		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+		for(Zanr z : zanrovi) {
+			String linija= z.getId()+"|" +z.getOpis()+ "|" + z.getOznaka() +"|"+ z.getObrisan();
+			writer.write(linija);
+			writer.newLine();
+		}
+		writer.close();
+	}
+	
+	public void sacuvajTipoveClanarine() throws IOException{
+		File file=new File(Main.PATH_TO_TIP);
+		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+		for(TipClanarine c : tipovi) {
+			String linija=c.getId()+ "|" + c.getOpis() + "|" + c.getCena() + "|" + c.getObrisan();
+			writer.write(linija);
+			writer.newLine();
+		}
+		writer.close();
+	}
+	
+	public void sacuvajAdmine() throws IOException{
+		File file=new File(Main.PATH_TO_ADMIN);
+		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+		for(Admin a : administratori) {
+			String linija= a.getId() + "|" +a.getIme() + "|" + a.getPrezime() + "|" +a.getAdresa() + "|"+ a.getJMBG() + "|"  +
+					 a.getPlata() + "|" +a.getKorisnickoIme() + "|" + a.getLozinka() + "|" +a.getPol() +   "|"  +
+					a.isObrisan();
+			writer.write(linija);
+			writer.newLine();
+		}
+		writer.close();
+	}
+	
+	public void sacuvajBibliotekare() throws IOException{
+		File file=new File(Main.PATH_TO_BIBLIOTEKAR);
+		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+		for(Bibliotekar b : bibliotekari) {
+			String linija= b.getId() + "|" +b.getIme() + "|" + b.getPrezime() + "|" +b.getAdresa() + "|"+ b.getJMBG() + "|"  +
+					 b.getPlata() + "|" +b.getKorisnickoIme() + "|" + b.getLozinka() + "|" +b.getPol() +   "|"  +
+					b.isObrisan();
+			writer.write(linija);
+			writer.newLine();
+		}
+		writer.close();
+	}
+
+
+	
+public void sacuvajIznajmljivanje() throws IOException {
+	File file=new File(Main.PATH_TO_IZNAJMLJIVANJE);
+	BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+	for(Iznajmljivanje i:iznajmljivanja) {
+		String linija= i.getId() + "|" + i.getPrimerak().getId() + "|" + i.getClan().getIme() + "|" + i.getDatumIznajmljivanja()+ "|" + 
+				i.getDatumVracanja() + "|" + i.getZaposleni().getKorisnickoIme() + "|" + i.getObrisan();
+		writer.write(linija);
+		writer.newLine();
+	}
+
+	writer.close();
+}
+
+
+public void proveriAktivnost() throws IOException{
+	LocalDate trenutniDatum=LocalDate.now();
+	for(Clan clan:clanovi) {
+		LocalDate datum = clan.getDatPoslednjeUplate();
+		String brMeseci=clan.getBrMeseci();
+		int brojMeseci=Integer.parseInt(brMeseci);
+		LocalDate noviDatum=datum.plusMonths(brojMeseci);
+		boolean isAfter = trenutniDatum.isAfter(noviDatum);
+		if(isAfter==true) {
+			clan.setAktivnost(false);
+		}
+		else {
+			clan.setAktivnost(true);	
+		}
+		;
+	}
+}
 }
 
 	

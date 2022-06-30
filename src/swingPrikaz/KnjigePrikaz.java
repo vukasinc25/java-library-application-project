@@ -46,7 +46,6 @@ public class KnjigePrikaz extends JFrame {
 		add(mainToolbar, BorderLayout.NORTH);
 		
 		ArrayList<Knjiga>neobrisaneLKnjige=biblioteka.sveNeobrisaneKnjige();
-		System.out.println(biblioteka.sveNeobrisaneKnjige());
 		String[] zaglavlja = new String[] {"Id", "Naziv", "Pisac" , "Zanr"};
 		Object[][] sadrzaj = new Object[neobrisaneLKnjige.size()][zaglavlja.length];
 		for(int i=0; i<neobrisaneLKnjige.size(); i++) {
@@ -55,7 +54,7 @@ public class KnjigePrikaz extends JFrame {
 			sadrzaj[i][0] =knjiga.getId();
 			sadrzaj[i][1] = knjiga.getNaslov();
 			sadrzaj[i][2] = knjiga.getPisac();
-			sadrzaj[i][3] = knjiga.getZanr();//.getOpis();
+			sadrzaj[i][3] = knjiga.getZanr().getOpis();
 
 		}
 		tableModel = new DefaultTableModel(sadrzaj, zaglavlja);
@@ -100,8 +99,8 @@ public class KnjigePrikaz extends JFrame {
 		btnAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				KnjigaDodavanje knjigaDodavanje = new KnjigaDodavanje(biblioteka);
-				knjigaDodavanje.setVisible(true);
+				KnjigaDodavanje KnjigaDodavanje = new KnjigaDodavanje(biblioteka);
+				KnjigaDodavanje.setVisible(true);
 				
 				KnjigePrikaz.this.dispose();
 				KnjigePrikaz.this.setVisible(false);
