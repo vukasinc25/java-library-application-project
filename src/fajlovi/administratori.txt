@@ -1,0 +1,2 @@
+0|AIme|APrezime|AAdresa 1|321213|60.000|akorisnicko|alozinka|MUSKI|false
+1|AIme2|APrezime2|AAdresa 2|43523|70.000|akorisnicko2|alozinka2|MUSKI|false

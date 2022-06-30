@@ -1,0 +1,6 @@
+0|romantika|oznaka|false
+1|krimi|oznaka|false
+2|akcija|oznaka|false
+3|Horo|2513|false
+4|crtani|155|true
+5|fantastika|123456|false

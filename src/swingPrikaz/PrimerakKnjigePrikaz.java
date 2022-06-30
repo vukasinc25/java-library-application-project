@@ -1,10 +1,10 @@
 package swingPrikaz;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -18,133 +18,126 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 import biblioteka.Biblioteka;
-import biblioteka.PrimerakKnjige;
-import ljudi.Zaposleni;
+import biblioteka.Primerak;
 import swingDodavanje.PrimerakDodavanje;
-import swingIzmena.PrimerakIzmena;
-
 
 public class PrimerakKnjigePrikaz extends JFrame {
 	private JToolBar mainToolbar = new JToolBar();
-	private final JButton btnDodaj = new JButton("Dodaj Primerak");
-	private final JButton btnIzmeni = new JButton("Izmeni Primerak");
-	private final JButton btnIzbrisi = new JButton("Izbrisi Primerak");
+	private JButton btnAdd = new JButton("Dodaj");
+	private JButton btnEdit = new JButton("Izmeni");
+	private JButton btnDelete = new JButton("Obrisi");
 	ImageIcon ikonica = new ImageIcon("src/slike/knjiga.png");
-	private Zaposleni zaposleni;
 	
 	private DefaultTableModel tableModel;
-	private JTable primerciKnjigaTabela;
-	
+	private JTable primerciTabela;
+	 
 	private Biblioteka biblioteka;
-	private PrimerakKnjige primerak;
-
-	public PrimerakKnjigePrikaz (Biblioteka biblioteka, Zaposleni zaposleni) throws IOException {
+	
+	public PrimerakKnjigePrikaz(Biblioteka biblioteka) {
 		this.biblioteka = biblioteka;
-		this.zaposleni = zaposleni;
-		this.biblioteka.citajZanr();
-		this.biblioteka.citajKnjige();
-		setTitle("Primerci Knjige");
-		setSize(600,400);
+		setTitle("Primerci");
+		setSize(600, 300);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
-		initGUI();
-		initActions();
-	}
-
-	private void initGUI() throws IOException {
-		setIconImage(ikonica.getImage());
 		getContentPane().add(mainToolbar, BorderLayout.SOUTH);		
 		mainToolbar.setBackground(Color.LIGHT_GRAY);
-		btnDodaj.setBackground(Color.LIGHT_GRAY);
-		btnIzmeni.setBackground(Color.LIGHT_GRAY);
-		btnIzbrisi.setBackground(Color.LIGHT_GRAY);
-		mainToolbar.add(btnDodaj);
-		mainToolbar.add(btnIzmeni);
-		mainToolbar.add(btnIzbrisi);
-		
-		biblioteka.citajKnjige();
-		String[] zaglavlja = new String[] {"Id", "Br.Strana", "TipPoveza", "GodinaStampanja", "Iznajmljena","Knjiga"};
-		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniPrimerciKnjige().size()][zaglavlja.length];
-		System.out.println(biblioteka.sviNeobrisaniPrimerciKnjige());
-		for(int i=0; i<biblioteka.sviNeobrisaniPrimerciKnjige().size(); i++) {
-			PrimerakKnjige primerak = biblioteka.sviNeobrisaniPrimerciKnjige().get(i);
-			System.out.println(biblioteka.getKnjige());
-			sadrzaj[i][0] = primerak.getId();
-			sadrzaj[i][1] = primerak.getBrStrana();
-			sadrzaj[i][2] = primerak.isTipPoveza();
-			sadrzaj[i][3] = primerak.getGodinaStampanja();
-			sadrzaj[i][4] = primerak.isIzdata();
-			sadrzaj[i][5] = primerak.getKnjiga();//.getId();
+		btnAdd.setBackground(Color.LIGHT_GRAY);
+		btnEdit.setBackground(Color.LIGHT_GRAY);
+		btnDelete.setBackground(Color.LIGHT_GRAY);
+		mainToolbar.add(btnAdd);
+		mainToolbar.add(btnEdit);
+		mainToolbar.add(btnDelete);
+		setIconImage(ikonica.getImage());
+		initGUI();
+		initActions();
 		}
+	private void initGUI() {
+		mainToolbar.add(btnAdd);
+		mainToolbar.add(btnEdit);		 
+		mainToolbar.add(btnDelete);		
+		add(mainToolbar, BorderLayout.SOUTH);
 		
-		tableModel = new DefaultTableModel(sadrzaj, zaglavlja);
-		primerciKnjigaTabela = new JTable(tableModel);
-		
-		primerciKnjigaTabela.setRowSelectionAllowed(true);
-		primerciKnjigaTabela.setColumnSelectionAllowed(false);
-		primerciKnjigaTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		primerciKnjigaTabela.setDefaultEditor(Object.class, null);
-		primerciKnjigaTabela.getTableHeader().setReorderingAllowed(false);
-		
-		JScrollPane scrollPane = new JScrollPane(primerciKnjigaTabela);
-		add(scrollPane, BorderLayout.CENTER);
-		
-	}
-
-	private void initActions() {
-		btnIzbrisi.addActionListener(new ActionListener() {
+		ArrayList<Primerak>neobrisaniPrimerci=biblioteka.sviNeobrisaniPrimerci();
+		String[] zaglavlja = new String[] {"Id", "Naziv", "Jezik"};
+		Object[][] sadrzaj = new Object[neobrisaniPrimerci.size()][zaglavlja.length];
+		for(int i=0; i<neobrisaniPrimerci.size(); i++) {
 			
+			Primerak primerak = neobrisaniPrimerci.get(i);		
+			sadrzaj[i][0] = primerak.getId();
+			sadrzaj[i][1] = primerak.getKnjiga().getNaslov();
+			sadrzaj[i][2] = primerak.getJezikk();
+			
+		}
+		tableModel = new DefaultTableModel(sadrzaj, zaglavlja);
+		primerciTabela = new JTable(tableModel);
+		
+		primerciTabela.setRowSelectionAllowed(true);
+		primerciTabela.setColumnSelectionAllowed(false);
+		primerciTabela.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		primerciTabela.setDefaultEditor(Object.class, null);
+		primerciTabela.getTableHeader().setReorderingAllowed(false);
+		
+		JScrollPane scrollPane = new JScrollPane(primerciTabela);
+		add(scrollPane, BorderLayout.CENTER);
+	
+	}
+	private void initActions() {
+		btnDelete.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int red = primerciKnjigaTabela.getSelectedRow();
+				int red = primerciTabela.getSelectedRow();
 				if(red == -1) {
-					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.","Greska",JOptionPane.WARNING_MESSAGE);
-				}
-				else {
-					int id = Integer.parseInt(tableModel.getValueAt(red, 0).toString());
+					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.", "Greska", JOptionPane.WARNING_MESSAGE);
+				}else {
+					int id =Integer.parseInt(tableModel.getValueAt(red, 0).toString());
 					String naziv = tableModel.getValueAt(red, 1).toString();
 					
-					int izbor = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da zelite da obrisete clana?",naziv + "- Potvrda brisanja",JOptionPane.YES_NO_OPTION);
-					if(izbor == JOptionPane.YES_NO_OPTION) {
-						PrimerakKnjige c = biblioteka.getPrimerakKnjige().get(id);
-						c.setObrisan(true);
-						System.out.println(biblioteka.getPrimerakKnjige().toString());
+					int izbor = JOptionPane.showConfirmDialog(null, 
+							"Da li ste sigurni da zelite da obrisete primerak?", 
+							naziv + " - Porvrda brisanja", JOptionPane.YES_NO_OPTION);
+					if(izbor == JOptionPane.YES_OPTION) {
+						Primerak p =biblioteka.getPrimerci().get(id);
+						p.setObrisan(true);
+						System.out.println(biblioteka.getPrimerci().toString());
 						try {
 							biblioteka.sacuvajPrimerke();
-						}
-						catch(IOException e1) {
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 						tableModel.removeRow(red);
+						
+						
 					}
 				}
 			}
 		});
-		btnDodaj.addActionListener(new ActionListener() {
-			
+		btnAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				PrimerakDodavanje da = new PrimerakDodavanje(biblioteka);
-				da.setVisible(true);
+				PrimerakDodavanje primerakDodavanje = new PrimerakDodavanje(biblioteka);
+				primerakDodavanje.setVisible(true);
 				PrimerakKnjigePrikaz.this.dispose();
 				PrimerakKnjigePrikaz.this.setVisible(false);
 			}
 		});
-		btnIzmeni.addActionListener(new ActionListener() {
-			
+		
+		btnEdit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int row = primerciKnjigaTabela.getSelectedRow();
-				if(row == -1) {
-					JOptionPane.showMessageDialog(null, "Morate da izaberete red koji zelite da promenite","Greska",JOptionPane.WARNING_MESSAGE);
-				}
-				else {
-					String id = tableModel.getValueAt(row, 0).toString();
-					PrimerakKnjige primerak = biblioteka.pronadjiPrimerak(id);
-					PrimerakIzmena edit = new PrimerakIzmena(biblioteka,primerak);
-					edit.setVisible(true);
+				int red = primerciTabela.getSelectedRow();
+				if(red == -1) {
+					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.", "Greska", JOptionPane.WARNING_MESSAGE);
+				}else {
+					String id = tableModel.getValueAt(red, 0).toString();
+					Primerak primerak = biblioteka.pronadjiPrimerak(id);
+					PrimerakDodavanje editPrimerka = new PrimerakDodavanje(biblioteka, primerak);
+					editPrimerka.setVisible(true);
+					PrimerakKnjigePrikaz.this.dispose();
+					PrimerakKnjigePrikaz.this.setVisible(false);
 				}
 			}
 		});
 	}
+
 }

@@ -1,121 +1,182 @@
 package biblioteka;
 
-import enumeracije.JezikOriginala;
+import enumeracije.Jezik;
 
 public class Knjiga {
-
-    protected String naslov;
-    protected String originalniNaslov;
-    protected String pisac;
-    protected int godinaObjavljivanja;
-    protected String opisKnjige;
-    protected String id;
-    protected ZanrKnjige zanr;
-    protected JezikOriginala jezikOriginala;
-    protected boolean obrisan;
-    
-    public Knjiga(String naslov, String originalniNaslov, String pisac,
-    		int godinaObjavljivanja, String opisKnjige, String id, ZanrKnjige zanr, JezikOriginala jezikOriginala, boolean obrisan)
-    {
-    	this.naslov = naslov;
-    	this.originalniNaslov = originalniNaslov;
-    	this.pisac = pisac;
-    	this.godinaObjavljivanja = godinaObjavljivanja;
-    	this.opisKnjige = opisKnjige;
-    	this.id = id;
-    	this.zanr = zanr;
-    	this.jezikOriginala = jezikOriginala;
-    	this.obrisan = false;
-    }
-    
-    public Knjiga() {
-    	super();
-    	this.naslov = "";
-    	this.originalniNaslov = "";
-    	this.pisac = "";
-    	this.godinaObjavljivanja = 0;
-    	this.opisKnjige = "";
-    	this.id = "";
-    	this.zanr = null;
-    	this.jezikOriginala = null;
-    	this.obrisan = false;
-    }
-    
-    public String getNaslov() {
-		return naslov;
+	private String id;
+	private String naslov;
+	private String original;
+	private String pisac;
+	private String godinaObjavljivanja;
+	private String opis;
+	private Jezik jezikk;
+	private Zanr zanr;
+	private boolean obrisan;
+	
+	public Knjiga() {
+		super();
 	}
 
-	public void setNaslov(String naslov) {
+
+
+
+	public Knjiga(String id, String naslov, String original, String pisac, String godinaObjavljivanja, String opis,
+			Jezik jezikk, Zanr zanr,boolean obrisan) {
+		super();
+		this.id = id;
 		this.naslov = naslov;
-	}
-
-	public String getOriginalniNaslov() {
-		return originalniNaslov;
-	}
-
-	public void setOriginalniNaslov(String originalniNaslov) {
-		this.originalniNaslov = originalniNaslov;
-	}
-
-	public String getPisac() {
-		return pisac;
-	}
-
-	public void setPisac(String pisac) {
+		this.original = original;
 		this.pisac = pisac;
-	}
-
-	public int getGodinaObjavljivanja() {
-		return godinaObjavljivanja;
-	}
-
-	public void setGodinaObjavljivanja(int godinaObjavljivanja) {
 		this.godinaObjavljivanja = godinaObjavljivanja;
+		this.opis = opis;
+		this.jezikk = jezikk;
+		this.zanr = zanr;
+		this.obrisan=obrisan;
 	}
+	
 
-	public String getOpisKnjige() {
-		return opisKnjige;
-	}
 
-	public void setOpisKnjige(String opisKnjige) {
-		this.opisKnjige = opisKnjige;
-	}
+
 
 	public String getId() {
 		return id;
 	}
 
+
+
+
 	public void setId(String id) {
 		this.id = id;
 	}
 
-	public ZanrKnjige getZanr() {
+
+
+
+	public String getNaslov() {
+		return naslov;
+	}
+
+
+
+
+	public void setNaslov(String naslov) {
+		this.naslov = naslov;
+	}
+
+
+
+
+	public String getOriginal() {
+		return original;
+	}
+
+
+
+
+	public void setOriginal(String original) {
+		this.original = original;
+	}
+
+
+
+
+	public String getPisac() {
+		return pisac;
+	}
+
+
+
+
+	public void setPisac(String pisac) {
+		this.pisac = pisac;
+	}
+
+
+
+
+	public String getGodinaObjavljivanja() {
+		return godinaObjavljivanja;
+	}
+
+
+
+
+	public void setGodinaObjavljivanja(String godinaObjavljivanja) {
+		this.godinaObjavljivanja = godinaObjavljivanja;
+	}
+
+
+
+
+	public String getOpis() {
+		return opis;
+	}
+
+
+
+
+	public void setOpis(String opis) {
+		this.opis = opis;
+	}
+
+
+
+
+	public Jezik getJezikk() {
+		return jezikk;
+	}
+
+
+
+
+	public void setJezikk(Jezik jezikk) {
+		this.jezikk = jezikk;
+	}
+
+
+
+
+	public Zanr getZanr() {
 		return zanr;
 	}
 
-	public void setZanr(ZanrKnjige zanr) {
+
+
+
+	public void setZanr(Zanr zanr) {
 		this.zanr = zanr;
 	}
 
-	public JezikOriginala getJezikOriginala() {
-		return jezikOriginala;
-	}
 
-	public void setJezikOriginala(JezikOriginala jezikOriginala) {
-		this.jezikOriginala = jezikOriginala;
-	}
-	
+
 	public boolean isObrisan() {
 		return obrisan;
 	}
+
+
+
+
 	public void setObrisan(boolean obrisan) {
 		this.obrisan = obrisan;
 	}
 
+
+
+
 	@Override
 	public String toString() {
-		return naslov + "|" + originalniNaslov + "|" + pisac + "|" + 
-	godinaObjavljivanja + "|" + opisKnjige + "|" + zanr + "|" + jezikOriginala + "|" + id + "|" + obrisan;
+		return  "\n\nKnjiga:"
+				+"\nId: " + id
+				+"\nNaslov: " + naslov
+				+ "\nOriginal: " + original
+				+ "\nPisac: " + pisac
+				+ "\nGodina objavljivanja: " + godinaObjavljivanja
+				+"\nOpis: " + opis
+				+ "\nJezik: " + jezikk
+				+ "\nZanr: " + zanr.getOznaka()
+				+ "\nObrisan: " + obrisan;
 	}
+	
+	
 
 }

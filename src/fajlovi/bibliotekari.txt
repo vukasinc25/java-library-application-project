@@ -1,0 +1,3 @@
+0|BIme1|BPrezime1|BAdresa1|3213|40.000|bkorisnicko1|blozinka1|MUSKI|false
+1|BIme2|BPrezime2|BAdresa2|3216|40.000|bkorisnicko2|blozinka2|MUSKI|false
+2|BIme3|BPrezime3|BAdresa3|3251|40.000|bkorisnicko3|blozinka3|ZENSKI|false

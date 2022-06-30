@@ -1,1 +1,0 @@
-Ime|Prezime|123456|Adresa|0|MUSKI|korisnickoIme|lozinka2|500|False

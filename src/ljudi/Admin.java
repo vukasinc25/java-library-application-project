@@ -2,11 +2,11 @@ package ljudi;
 
 import enumeracije.Pol;
 
-public class Bibliotekar extends Zaposleni{
-	public Bibliotekar() {
+public class Admin extends Zaposleni{
+	public Admin(){
 		super();
 	}
-	public Bibliotekar(String id,String ime, String prezime, String adresa, String JMBG, String plata,  String korisnickoIme,
+	public Admin(String id,String ime, String prezime, String adresa, String JMBG, String plata,  String korisnickoIme,
 			String lozinka, Pol pol,boolean obrisan) {
 		super(id, ime, prezime, adresa, JMBG, plata,korisnickoIme, lozinka, pol,obrisan);
 		this.obrisan = obrisan;
@@ -14,7 +14,7 @@ public class Bibliotekar extends Zaposleni{
 	}
 	@Override
 	public String toString() {
-		return "\n\nBibliotekar: "
+		return "\n\nAdministrator: "
 				+"\nId: " + id
 				+"\nIme: " + ime
 				+ "\nPrezime: " + prezime

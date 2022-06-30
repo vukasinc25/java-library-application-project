@@ -1,154 +1,165 @@
 package swingDodavanje;
 
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import biblioteka.Biblioteka;
 import enumeracije.Pol;
-import ljudi.Administrator;
+import ljudi.Admin;
 import net.miginfocom.swing.MigLayout;
 
-public class AdminDodavanje extends JDialog{
-	private static final long serialVersionUID = 1L;
+public class AdminDodavanje extends JFrame{
+	private Pol[] pol=Pol.values();
+	private JLabel lblIme=new JLabel("Ime: ");
+	private JTextField txtIme=new JTextField(20);
+	private JLabel lblPrezime=new JLabel("Prezime: ");
+	private JTextField txtPrezime=new JTextField(20);
+	private JLabel lblAdresa=new JLabel("Adresa: ");
+	private JTextField txtAdresa=new JTextField(20);
+	private JLabel lblJMBG=new JLabel("JMBG: ");
+	private JTextField txtJMBG=new JTextField(20);
+	private JLabel lblPlata=new JLabel("Plata: ");
+	private JTextField txtPlata=new JTextField(20);
+	private JLabel lblKorisnickoIme=new JLabel("KorisnickoIme: ");
+	private JTextField txtKorisnickoIme=new JTextField(20);
+	private JLabel lblLozinka=new JLabel("Lozinka: ");
+	private JTextField txtLozinka=new JTextField(20);
+	private JLabel lblPol=new JLabel("Pol: ");
+	private JComboBox cbPol=new JComboBox(pol);
+	private JButton btnOk = new JButton("OK");
+	private JButton btnCancel = new JButton("Cancel");
+	
+	
 	private Biblioteka biblioteka;
-	 private Administrator administrator;
-//	 int index;
-	 
-	 private JLabel lblID = new JLabel("ID");
-	 private JTextField txtID = new JTextField(20);
-	 private JLabel lblIme = new JLabel("Ime");
-	 private JTextField txtIme = new JTextField(20);
-	 private JLabel lblPrezime = new JLabel("Prezime");
-	 private JTextField txtPrezime = new JTextField(20);
-	 private JLabel lblJMBG = new JLabel("JMBG");
-	 private JTextField txtJMBG = new JTextField(20);
-	 private JLabel lblAdresa = new JLabel("Adresa");
-	 private JTextField txtAdresa = new JTextField(20);
-	 private Pol[] pol = Pol.values();
-	 private JLabel lblPol = new JLabel("Pol");
-	 private JComboBox cmbxPol = new JComboBox(pol);
-	 private JLabel lblKorisnickoIme = new JLabel("Korisnicko Ime");
-	 private JTextField txtKorisnickoIme = new JTextField(20);
-	 private JLabel lblKorisnickaSifra = new JLabel("Korisnicka Sifra");
-	 private JTextField txtKorisnickaSifra = new JTextField(20);
-	 private JLabel lblPlata = new JLabel("Plata");
-	 private JTextField txtPlata = new JTextField(20);
-	 private JButton btnSave = new JButton("Save");
-	 private JButton btnCancel = new JButton("Cancel");
-	 
-	 public AdminDodavanje(Biblioteka biblioteka) {
-		 this.biblioteka = biblioteka;
-		 setTitle("Dodavanje novog administratora");
-		 setSize(600,400);
-		 setResizable(false);
-		 setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		 setLocationRelativeTo(null);
-		 initGUI();
-		 initActions();
-	 }
-
-	private void initGUI() {
-		MigLayout mig = new MigLayout("wrap 2","[][]","[]10[]10[]");
+	private Admin admin;
+	
+	public AdminDodavanje(Biblioteka biblioteka) {
+		this.biblioteka=biblioteka;
+		setSize(500,1000);
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setLocationRelativeTo(null);
+		initGUI();
+		initActions();
+		pack();
+	}
+	public AdminDodavanje(Biblioteka biblioteka, Admin admin) {
+		this.biblioteka=biblioteka;	
+		this.admin=admin;
+		setTitle("Dodavanje");
+		setSize(500,1000);
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setLocationRelativeTo(null);
+		initGUI();
+		initActions();
+		pack();
+	}
+	
+	public void initGUI() {
+		MigLayout mig = new MigLayout("wrap 2", "[][]", "[]10[][]10[]");
 		setLayout(mig);
 		
-		add(lblID);
-		add(txtID);
 		add(lblIme);
 		add(txtIme);
 		add(lblPrezime);
 		add(txtPrezime);
-		add(lblJMBG);
-		add(txtJMBG);
 		add(lblAdresa);
 		add(txtAdresa);
-		add(lblPol);
-		add(cmbxPol);
-		add(lblKorisnickoIme);
-		add(txtKorisnickoIme);
-		add(lblKorisnickaSifra);
-		add(txtKorisnickaSifra);
+		add(lblJMBG);
+		add(txtJMBG);
 		add(lblPlata);
 		add(txtPlata);
-		add(btnSave);
+		add(lblKorisnickoIme);
+		add(txtKorisnickoIme);
+		add(lblLozinka);
+		add(txtLozinka);
+		add(lblPol);
+		add(cbPol);
+		add(btnOk);
 		add(btnCancel);
-	}
+		
+		if(admin!=null) {
+			txtIme.setText(admin.getIme());
+			txtPrezime.setText(admin.getPrezime());
+			txtAdresa.setText(admin.getAdresa());
+			txtJMBG.setText(admin.getJMBG());
+			txtPlata.setText(admin.getPlata());
+			txtKorisnickoIme.setText(admin.getKorisnickoIme());
+			txtKorisnickoIme.setEnabled(false);
+			txtLozinka.setText(admin.getLozinka());
+			cbPol.setSelectedItem(admin.getPol());
 
-	private void initActions() {
-		 
+
+		}
+	}
+	public void initActions() {
 		btnCancel.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				AdminDodavanje.this.dispose();
 				AdminDodavanje.this.setVisible(false);
 			}
 		});
-		//ANDRIJA
-		btnSave.addActionListener(new ActionListener() {
-			
+		btnOk.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String id = txtID.getText().trim();
-				String ime = txtIme.getText().trim();
-				String prezime = txtPrezime.getText().trim();
-				String jmbg = txtJMBG.getText().trim();
-				String adresa = txtAdresa.getText().trim();
-				String polString=cmbxPol.getSelectedItem().toString();
-				Pol defpol= Pol.valueOf(polString);
-				String korisnickoIme = txtKorisnickoIme.getText().trim();
-				String lozinka = txtKorisnickaSifra.getText().trim();
-				String plata = txtPlata.getText().trim();
-				int plata2 = 0;
-				try {
-					int plata1 = Integer.parseInt(plata);
-					plata2 = plata1;
-				}
-				catch (Exception e1) {
-					JOptionPane.showMessageDialog(null, "Mora biti numericka vrednost upisana","Greska",JOptionPane.WARNING_MESSAGE);
-				}
 				
-				if(id.equals("")||ime.equals("")||prezime.equals("")||jmbg.equals("")||adresa.equals("")||lozinka.equals("")||korisnickoIme.equals("")||plata.equals("")) {
+				String ime=txtIme.getText().trim();
+				String prezime=txtPrezime.getText().trim();
+				String adresa=txtAdresa.getText().trim();
+				String JMBG=txtJMBG.getText().trim();
+				String plata=txtPlata.getText().trim();
+				String korisnickoIme=txtKorisnickoIme.getText().trim();
+				String lozinka=txtLozinka.getText().trim();
+				String polString=cbPol.getSelectedItem().toString();
+				Pol pol=Pol.valueOf(polString);
+
+				if(ime.equals("") || prezime.equals("") || adresa.equals("") || JMBG.equals("") || plata.equals("") 
+						|| korisnickoIme.equals("") || lozinka.equals("")) {
 					JOptionPane.showMessageDialog(null, "Niste uneli sve podatke za dodavanje.", "Greska", JOptionPane.WARNING_MESSAGE);
 				}
 				else {
-					if(administrator == null) {
-						if(biblioteka.pronadjiAdmina(korisnickoIme)!= null) {
-							JOptionPane.showMessageDialog(null, "Korisnicko ime vec postoji!", "Greska",JOptionPane.WARNING_MESSAGE);	
+					if(admin==null) {
+						
+						if(biblioteka.pronadjiAminaPoKorisnickomImenu(korisnickoIme)!=null) {
+							JOptionPane.showMessageDialog(null, "Korisnicko ime vec postoji!", "Greska",
+							JOptionPane.WARNING_MESSAGE);
 						}
-						Administrator noviadmin= new Administrator(ime,prezime,jmbg,adresa,id,defpol,korisnickoIme,lozinka,plata2, false);
-						biblioteka.getAdmin().add(noviadmin);
+						String id= Integer.toString(biblioteka.getAdministratori().size());	
+						Admin noviAdmin=new Admin(id,ime,prezime,adresa,JMBG,plata,korisnickoIme,lozinka,pol,false);
+						biblioteka.getAdministratori().add(noviAdmin);
+						
 					}
-//					else {
-//						administrator.setId(id);
-//						administrator.setIme(ime);
-//						administrator.setPrezime(prezime);
-//						administrator.setJMBG(JMBG);
-//						administrator.setAdresa(adresa);
-//						administrator.setPol(pol);
-//						administrator.setKorisnickaSifra(sifra);
-//						administrator.setKorisnickoIme(korisnickoIme);
-//						administrator.setPlata(plata);
-//					}
+					else {
+						admin.setAdresa(adresa);
+						admin.setIme(korisnickoIme);
+						admin.setJMBG(JMBG);
+						admin.setKorisnickoIme(korisnickoIme);
+						admin.setLozinka(lozinka);
+						admin.setPlata(plata);
+						admin.setPol(pol);
+						admin.setPrezime(prezime);
+					}
 					try {
-						biblioteka.sacuvajAdministatore();
+						biblioteka.sacuvajAdmine();
 						AdminDodavanje.this.setVisible(false);
-					}catch (Exception e1) {
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
+					
 				}
-			}
-		});
-		
-	}
-}
+				
+				}
+			});
+	}}
+

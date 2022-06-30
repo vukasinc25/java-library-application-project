@@ -5,10 +5,8 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -16,47 +14,103 @@ import javax.swing.JTextField;
 
 import biblioteka.Biblioteka;
 import biblioteka.Knjiga;
-import biblioteka.ZanrKnjige;
-import enumeracije.JezikOriginala;
+import biblioteka.Zanr;
+import enumeracije.Jezik;
 import net.miginfocom.swing.MigLayout;
 
-public class KnjigaDodavanje extends JDialog {
-	 private Biblioteka biblioteka;
-	 private Knjiga knjiga;
+public class KnjigaDodavanje extends JFrame{
+	private Jezik[] jezici=Jezik.values();
+//	private JLabel lblGreeting = new JLabel("DODAJ KNJIGU");
+	private JLabel lblNaslov = new JLabel("Naslov");
+	private JTextField txtNaslov = new JTextField(20);
+	private JLabel lblOriginal = new JLabel("Original:");
+	private JTextField txtOriginal = new JTextField(20);
+	private JLabel lblPisac = new JLabel("Pisac:");
+	private JTextField txtPisac = new JTextField(20);
+	private JLabel lblGodinaObj = new JLabel("Godina objavljivanja:");
+	private JTextField txtGodinaObj= new JTextField(20);
+	private JLabel lblOpis = new JLabel("Opis:");
+	private JTextField txtOpis = new JTextField(20);
+	private JLabel lblJezik = new JLabel("Jezik:");
+	private JComboBox cbJezik=new JComboBox(jezici);
+	private JLabel lblZanr = new JLabel("Zanr:");
+	private JComboBox cbZanr= new JComboBox();
 
-	 private JLabel lblID = new JLabel("ID");
-	 private JTextField txtID = new JTextField(20);
-	 private JLabel lblINaslov = new JLabel("Naslov Knjige");
-	 private JTextField txtNaslov = new JTextField(20);
-	 private JLabel lblOriginalniNalsov = new JLabel("Originalsni Naslov");
-	 private JTextField txtOriginalniNalsov = new JTextField(20);
-	 private JLabel lblPisac = new JLabel("Pisac");
-	 private JTextField txtPisac = new JTextField(20);
-	 private JLabel lblGodinaObjavljivanja = new JLabel("Godina Objavljivanja");
-	 private JTextField txtGodinaObjavljivanja = new JTextField(20);
-	 private JezikOriginala[] jezici=JezikOriginala.values();
-	 private JLabel lblJezik = new JLabel("Jezik:");
-	 private JComboBox cmbxJezik = new JComboBox(jezici);
-	 private JLabel lblOpisKnjige = new JLabel("Opis Knjige");
-	 private JTextField txtOpisKnjige = new JTextField(20);
-	 private JLabel lblZanr = new JLabel("Zanr Knjige");
-	 private JComboBox cmbxZanr = new JComboBox();
-	 private JButton btnSave = new JButton("Save");
-	 private JButton btnCancel = new JButton("Cancel");
+	
+	
+	private JButton btnOk = new JButton("OK");
+	private JButton btnCancel = new JButton("Cancel");
+	
+	private Biblioteka biblioteka;
+	private Knjiga knjiga;
+	
 
-	 
-	 public KnjigaDodavanje(Biblioteka biblioteka) {
-		 this.biblioteka = biblioteka;
-		 setTitle("Dodavanje nove knjige:");
-		 setSize(500,500);
-		 setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		 setLocationRelativeTo(null);
-		 initGUI();
-		 initActions();
-	 	 pack();
-	 }
+	
+	public KnjigaDodavanje(Biblioteka biblioteka) {
+		this.biblioteka=biblioteka;	
+		setTitle("Dodavanje");
+		setSize(500,1000);
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setLocationRelativeTo(null);
+		initGUI();
+		initActions();
+		pack();
+		
+	}
+	
+	public KnjigaDodavanje(Biblioteka biblioteka, Knjiga knjiga) {
+		this.biblioteka=biblioteka;	
+		this.knjiga=knjiga;
+		setTitle("Dodavanje");
+		setSize(500,1000);
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setLocationRelativeTo(null);
+		initGUI();
+		initActions();
+		pack();
+	}
+	
+	public void initGUI() {
+		ArrayList<Zanr> zanrovi=biblioteka.sviNeobrisaniZanrovi();
+		for(Zanr zanr: zanrovi) {
+			cbZanr.addItem(zanr.getOpis());
+		}
+		MigLayout mig = new MigLayout("wrap 2", "[][]", "[]10[][]10[]");
+		setLayout(mig);
+		
+//		add(lblGreeting, "span 2");
+		add(lblNaslov);
+		add(txtNaslov);
+		add(lblOriginal);
+		add(txtOriginal);
+		add(lblPisac);
+		add(txtPisac);
+		add(lblGodinaObj);
+		add(txtGodinaObj);
+		add(lblOpis);
+		add(txtOpis);
+		add(lblJezik);
+		add(cbJezik);
+		add(lblZanr);
+		add(cbZanr);
+		add(new JLabel());
+		add(btnOk, "split 2");
+		add(btnCancel);
+		
+		if(knjiga != null) {
+			txtNaslov.setText(knjiga.getNaslov());
+			txtOriginal.setText(knjiga.getOriginal());
+			txtPisac.setText(knjiga.getPisac());
+			txtGodinaObj.setText(knjiga.getGodinaObjavljivanja());
+			txtOpis.setText(knjiga.getOpis());
+			cbJezik.setSelectedItem(knjiga.getJezikk());
+			cbZanr.setSelectedItem(knjiga.getZanr().getOpis());;
+		}
+	}
 
-	private void initActions() {
+	public void initActions() {
 		btnCancel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -64,84 +118,55 @@ public class KnjigaDodavanje extends JDialog {
 				KnjigaDodavanje.this.setVisible(false);
 			}
 		});
-		
-		btnSave.addActionListener(new ActionListener() {
-			
+		btnOk.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String id = txtID.getText().trim();
 				String naslov = txtNaslov.getText().trim();
-				String originalniNaslov = txtOriginalniNalsov.getText().trim();
+				String original = txtOriginal.getText().trim();
 				String pisac = txtPisac.getText().trim();
-				String godinaObjavljivanja = txtGodinaObjavljivanja.getText().trim();
-				int godinaObjavljivanja2 = 0;
-				try {
-					int godinaObjavljivanja1 = Integer.parseInt(godinaObjavljivanja);
-					godinaObjavljivanja2 = godinaObjavljivanja1;
-				}
-				catch (Exception e1) {
-					JOptionPane.showMessageDialog(null, "Mora biti numericka vrednost upisana","Greska",JOptionPane.WARNING_MESSAGE);
-				}
-//				String godinaObjavljivanja = txtGodinaObjavljivanja.getText().trim();
-				String opisKnjige = txtOpisKnjige.getText().trim();
-				int zanrId = cmbxZanr.getSelectedIndex();
-				String jezikString = cmbxJezik.getSelectedItem().toString();
-				JezikOriginala jezikOriginala = JezikOriginala.valueOf(jezikString);
-				ZanrKnjige zanr = biblioteka.pronadjiZanr(Integer.toString(zanrId));
-				if(naslov.equals("")||originalniNaslov.equals("")||pisac.equals("")||opisKnjige.equals("")) {
-					JOptionPane.showMessageDialog(null, "Niste uneli sve podatke za dodavanje", "Greska",JOptionPane.WARNING_MESSAGE);
-				}
+				String godinaObjavljivanja = txtGodinaObj.getText().trim();
+				String opis = txtOpis.getText().trim();
+				int zanrId = cbZanr.getSelectedIndex();
+				String jezikString=cbJezik.getSelectedItem().toString();
+				Jezik jezik=Jezik.valueOf(jezikString);
+				Zanr zanr=biblioteka.pronadjiZanr(Integer.toString(zanrId));
 				
-				if(knjiga == null) {
-					Knjiga novaKnjiga = new Knjiga(naslov, originalniNaslov, pisac, godinaObjavljivanja2, opisKnjige, id, zanr, jezikOriginala, false);
-					biblioteka.getKnjige().add(novaKnjiga);
+				if(naslov.equals("") || original.equals("") || pisac.equals("") || godinaObjavljivanja.equals("") || opis.equals("") ) {
+					JOptionPane.showMessageDialog(null, "Niste uneli sve podatke za dodavanje.", "Greska", JOptionPane.WARNING_MESSAGE);
 				}
 				else {
-					knjiga.setNaslov(naslov);
-					knjiga.setGodinaObjavljivanja(godinaObjavljivanja2);
-					knjiga.setNaslov(originalniNaslov);
-					knjiga.setOpisKnjige(opisKnjige);
-					knjiga.setZanr(zanr);
-					knjiga.setJezikOriginala(jezikOriginala);
-					knjiga.setPisac(pisac);
-				}
-				try {
-					biblioteka.sacuvajKnjige();
-					KnjigaDodavanje.this.setVisible(false);
-				}catch(IOException e1) {
-					e1.printStackTrace();
-				}
 				
-			}});
-	}
-			
-	private void initGUI() {
-		ArrayList<ZanrKnjige> zanrovi=biblioteka.getZanrovi();
-		for(ZanrKnjige zanr : zanrovi) {
-			cmbxZanr.addItem(zanr.getOpisZanra());
-		}
-		MigLayout mig = new MigLayout("wrap 2","[][]","[]10[]10[]");
-		setLayout(mig);
+					if(knjiga ==null) {
+						String id= Integer.toString(biblioteka.getKnjige().size());	
+						Knjiga novaKnjiga=new Knjiga(id, naslov, original, pisac, godinaObjavljivanja, opis, jezik, zanr, false);
+						biblioteka.getKnjige().add(novaKnjiga);
+					}
+					else {
+						knjiga.setNaslov(naslov);
+						knjiga.setGodinaObjavljivanja(godinaObjavljivanja);
+						knjiga.setOriginal(original);
+						knjiga.setOpis(opis);
+						knjiga.setZanr(zanr);
+						knjiga.setJezikk(jezik);
+						knjiga.setPisac(pisac);
+					}
+					try {
+						biblioteka.sacuvajKnjige();
+						KnjigaDodavanje.this.setVisible(false);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					
+	
+				}
+			}
+		});
+		
+		
+		
 
 		
-		add(lblID);
-		add(txtID);
-		add(lblINaslov);
-		add(txtNaslov);
-		add(lblOriginalniNalsov);
-		add(txtOriginalniNalsov);
-		add(lblPisac);
-		add(txtPisac);
-		add(lblGodinaObjavljivanja);
-		add(txtGodinaObjavljivanja);
-		add(lblJezik);
-		add(cmbxJezik);
-		add(lblOpisKnjige);
-		add(txtOpisKnjige);
-		add(lblZanr);
-		add(cmbxZanr);
-		add(btnSave,"split 2");
-		add(btnSave);
-		add(btnCancel);
-	}
-}
+		
+}}

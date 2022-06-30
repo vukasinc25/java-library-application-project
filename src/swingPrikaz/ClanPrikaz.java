@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -18,68 +19,63 @@ import javax.swing.table.DefaultTableModel;
 
 import biblioteka.Biblioteka;
 import ljudi.Clan;
-import ljudi.Zaposleni;
 import swingDodavanje.ClanDodavanje;
-import swingIzmena.ClanIzmena;
 
-
-public class ClanPrikaz extends JFrame{
+public class ClanPrikaz extends JFrame {
 	private JToolBar mainToolbar = new JToolBar();
-	private Zaposleni zaposleni;
+	private JButton btnAdd = new JButton("Dodaj");
+	private JButton btnEdit = new JButton("Izmeni");
+	private JButton btnDelete = new JButton("Obrisi");
+	ImageIcon ikonica = new ImageIcon("src/slike/knjiga.png");
+	
 	private DefaultTableModel tableModel;
 	private JTable clanoviTabela;
-	
+	 
 	private Biblioteka biblioteka;
-	private Clan clan;
 	
-	private final JButton btnDodaj = new JButton("Dodaj Clana");
-	private final JButton btnIzmeni = new JButton("Izmeni Clana");
-	private final JButton btnIzbrisi = new JButton("Izbrisi Clana");
-	
-	ImageIcon ikonica = new ImageIcon("src/slike/knjiga.png");
-
-	public ClanPrikaz (Biblioteka biblioteka,Zaposleni zaposleni) {
+	public ClanPrikaz(Biblioteka biblioteka) {
 		this.biblioteka = biblioteka;
-		this.zaposleni = zaposleni;
 		setTitle("Clanovi");
-		setSize(600,400);
+		setSize(600, 300);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
-		initGUI();
-		initActions();
-	}
-
-	private void initGUI() {
-		setIconImage(ikonica.getImage());
+		try {
+			biblioteka.proveriAktivnost();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		getContentPane().add(mainToolbar, BorderLayout.SOUTH);		
 		mainToolbar.setBackground(Color.LIGHT_GRAY);
-		btnDodaj.setBackground(Color.LIGHT_GRAY);
-		btnIzmeni.setBackground(Color.LIGHT_GRAY);
-		btnIzbrisi.setBackground(Color.LIGHT_GRAY);
-		mainToolbar.add(btnDodaj);
-		mainToolbar.add(btnIzmeni);
-		mainToolbar.add(btnIzbrisi);
-
+		btnAdd.setBackground(Color.LIGHT_GRAY);
+		btnEdit.setBackground(Color.LIGHT_GRAY);
+		btnDelete.setBackground(Color.LIGHT_GRAY);
+		mainToolbar.add(btnAdd);
+		mainToolbar.add(btnEdit);
+		mainToolbar.add(btnDelete);
+		setIconImage(ikonica.getImage());
+		initGUI();
+		initActions();
 		
-		String[] zaglavlja = new String[] {"Id", "Ime", "Prezime", "JMBG", "POL", "BR.ClanskeKarte", "DatumPoslednje uplate", "BrojMEseciClanarine","TipClanarine"};
-		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniClanoviBiblioteke().size()][zaglavlja.length];
+		}
+	private void initGUI() {
+		mainToolbar.add(btnAdd);
+		mainToolbar.add(btnEdit);		 
+		mainToolbar.add(btnDelete);		
+		add(mainToolbar, BorderLayout.SOUTH);
 		
-		for(int i=0; i<biblioteka.sviNeobrisaniClanoviBiblioteke().size(); i++) {
-			Clan clan = biblioteka.sviNeobrisaniClanoviBiblioteke().get(i);
-//			Knjiga knjiga = biblioteka.pronadjiDisk(clan);
-			sadrzaj[i][0] = clan.getId();
-			System.out.print("clan id    " + clan.getId());
+		ArrayList<Clan>neobrisaniClanovi=biblioteka.sviNeobrisaniClanovi();
+		String[] zaglavlja = new String[] {"Broj clanske karte", "Ime", "Prezime", "Status"};
+		Object[][] sadrzaj = new Object[neobrisaniClanovi.size()][zaglavlja.length];
+		for(int i=0; i<neobrisaniClanovi.size(); i++) {
+			
+			Clan clan = neobrisaniClanovi.get(i);		
+			sadrzaj[i][0] = clan.getBrojClanskeKarte();
 			sadrzaj[i][1] = clan.getIme();
 			sadrzaj[i][2] = clan.getPrezime();
-			sadrzaj[i][3] = clan.getJmbg();
-			sadrzaj[i][4] = clan.getPol();
-			sadrzaj[i][5] = clan.getBrClanskeKarte();
-			sadrzaj[i][6] = clan.getDatumUplate();
-			sadrzaj[i][7] = clan.getUplacenoMeseci();
-			sadrzaj[i][8] = clan.getTipClanarine().getId();
-//			sadrzaj[i][2] = disk == null ? "--" : disk.getNaziv();
+			sadrzaj[i][3] = clan.getAktivnost();
+
 		}
-		
 		tableModel = new DefaultTableModel(sadrzaj, zaglavlja);
 		clanoviTabela = new JTable(tableModel);
 		
@@ -91,63 +87,67 @@ public class ClanPrikaz extends JFrame{
 		
 		JScrollPane scrollPane = new JScrollPane(clanoviTabela);
 		add(scrollPane, BorderLayout.CENTER);
-		
+	
 	}
-
-	private void initActions() {
-		btnIzbrisi.addActionListener(new ActionListener() {
 			
+	private void initActions() {
+		btnDelete.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int red = clanoviTabela.getSelectedRow();
 				if(red == -1) {
-					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.","Greska",JOptionPane.WARNING_MESSAGE);
-				}
-				else {
-					int id = Integer.parseInt(tableModel.getValueAt(red, 0).toString());
+					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.", "Greska", JOptionPane.WARNING_MESSAGE);
+				}else {
+					int id =Integer.parseInt(tableModel.getValueAt(red, 0).toString());
 					String naziv = tableModel.getValueAt(red, 1).toString();
 					
-					int izbor = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da zelite da obrisete clana?",naziv + "- Potvrda brisanja",JOptionPane.YES_NO_OPTION);
-					if(izbor == JOptionPane.YES_NO_OPTION) {
-						Clan c = biblioteka.getClanBiblioteke().get(id);
+					int izbor = JOptionPane.showConfirmDialog(null, 
+							"Da li ste sigurni da zelite da obrisete clana?", 
+							naziv + " - Porvrda brisanja", JOptionPane.YES_NO_OPTION);
+					if(izbor == JOptionPane.YES_OPTION) {
+						Clan c =biblioteka.getClanovi().get(id);
 						c.setObrisan(true);
-						System.out.println(biblioteka.getClanBiblioteke().toString());
+						System.out.println(biblioteka.getClanovi().toString());
 						try {
 							biblioteka.sacuvajClanove();
-						}
-						catch(IOException e1) {
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 						tableModel.removeRow(red);
+						
+						
 					}
 				}
-				
 			}
 		});
-		btnDodaj.addActionListener(new ActionListener() {
-			
+		btnAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ClanDodavanje da = new ClanDodavanje(biblioteka, clan);
-				da.setVisible(true);
+				ClanDodavanje clanDodavanje = new ClanDodavanje(biblioteka);
+				clanDodavanje.setVisible(true);
 				ClanPrikaz.this.dispose();
 				ClanPrikaz.this.setVisible(false);
 			}
 		});
 		
-		btnIzmeni.addActionListener(new ActionListener() {
-			
+		btnEdit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int row = clanoviTabela.getSelectedRow();
-				if(row == -1) {
-					JOptionPane.showMessageDialog(null, "Morate da izberete red koji zelite da promenite","Greska",JOptionPane.WARNING_MESSAGE);
+				int red = clanoviTabela.getSelectedRow();
+				if(red == -1) {
+					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.", "Greska", JOptionPane.WARNING_MESSAGE);
+				}else {
+					String id = tableModel.getValueAt(red, 0).toString();
+					Clan clan = biblioteka.pronadjiClana(id);
+					ClanDodavanje editClanovi = new ClanDodavanje(biblioteka,clan );
+					editClanovi.setVisible(true);
+					ClanPrikaz.this.dispose();
+					ClanPrikaz.this.setVisible(false);
 				}
-				String id = tableModel.getValueAt(row, 0).toString();
-				Clan clan = biblioteka.pronadjiClana(id);
-				ClanIzmena edit = new ClanIzmena(biblioteka, clan);
-				edit.setVisible(true);
 			}
 		});
 	}
+
 }
+

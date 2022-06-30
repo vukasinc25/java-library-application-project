@@ -1,79 +1,85 @@
 package ljudi;
 
-import biblioteka.Biblioteka;
 import enumeracije.Pol;
 
-public abstract class Zaposleni extends Korisnik {
+public class Zaposleni extends Korisnik {
 
     protected String korisnickoIme;
-    protected int plata;
     protected String lozinka;
+    protected String plata;
+    protected String id;
     protected boolean obrisan;
-    protected Biblioteka biblioteka;
     
     public Zaposleni() {
-    	super();
-    	this.korisnickoIme = "";
-    	this.lozinka = "";
-    	this.plata = 0;
-    	this.obrisan = false;
+    	
+    }
 
-    }
-    
-    public Zaposleni(String ime, String prezime, String jmbg, String adresa,
-    		String id, Pol pol, String korisnickoIme, String lozinka, int plata, boolean obrisan) {
-    	super(id, ime, prezime, jmbg, adresa, pol);
-    	this.korisnickoIme = korisnickoIme;
-    	this.lozinka = lozinka;
-    	this.plata = plata;
-    	this.obrisan = obrisan;
-    }
-    
-    public boolean isObrisan() {
-		return obrisan;
+
+	public Zaposleni( String id,String ime, String prezime,String adresa, String JMBG, String plata,String korisnickoIme, String lozinka,
+			  Pol pol,boolean obrisan) {
+		super(ime, prezime, JMBG, adresa, pol,obrisan);
+		this.korisnickoIme = korisnickoIme;
+		this.lozinka = lozinka;
+		this.plata = plata;
+		this.id = id;
 	}
-	public void setObrisan(boolean obrisan) {
-		this.obrisan = obrisan;
-	}
-    public String getKorisnickoIme() {
+
+
+
+	public String getKorisnickoIme() {
 		return korisnickoIme;
 	}
-	
+
 	public void setKorisnickoIme(String korisnickoIme) {
 		this.korisnickoIme = korisnickoIme;
 	}
-	public int getPlata() {
-		return plata;
-	}
-	public void setPlata(int plata) {
-		this.plata = plata;
-	}
+
 	public String getLozinka() {
 		return lozinka;
 	}
+
 	public void setLozinka(String lozinka) {
 		this.lozinka = lozinka;
 	}
-	
-	public Biblioteka getBiblioteka() {
-		return biblioteka;
-	}
-	public void setBiblioteka(Biblioteka biblioteka) {
-		this.biblioteka = biblioteka;
+
+	public String getPlata() {
+		return plata;
 	}
 
+	public void setPlata(String plata) {
+		this.plata = plata;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public boolean isObrisan() {
+		return obrisan;
+	}
+
+	public void setObrisan(boolean obrisan) {
+		this.obrisan = obrisan;
+	}
+
+	public void DodavanjeNovihClanova() {
+		
+	}
+	
 	@Override
 	public String toString() {
-		return id + "|" + ime + "|" + prezime + "|" + jmbg + "|" + adresa + "|"
-	+ pol + "|" + korisnickoIme + "|" + lozinka + "|" + plata + "|" + obrisan ; 
+		return "\n\nZaposleni: " 
+		    + "\nId: " + id
+		    + super.toString()
+		    + "\nPlata: " + plata
+			+"\nKorisnicko ime: " + korisnickoIme
+			+ "\nLozinka: " + lozinka
+			+ "\nObrisan: " + obrisan;
 	}
 	
-	protected void iznajmiKnjigu() {
-        // TODO implement here
-    }
-
-    protected void registrujClana() {
-        // TODO implement here
-    }
-
+    
 }

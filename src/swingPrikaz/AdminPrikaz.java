@@ -1,9 +1,11 @@
 package swingPrikaz;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,143 +17,131 @@ import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
-import ljudi.Administrator;
 import biblioteka.Biblioteka;
-import swingIzmena.AdminIzmena;
-import ljudi.Zaposleni;
-//import projekatObjektno.ClanBiblioteke;
-//import projekatObjektno.EmnumPol;
+import ljudi.Admin;
 import swingDodavanje.AdminDodavanje;
-import java.awt.Color;
 
-public class AdminPrikaz extends JFrame{
+
+public class AdminPrikaz extends JFrame {
 	private JToolBar mainToolbar = new JToolBar();
-	private Zaposleni zaposleni;
+	private JButton btnAdd = new JButton("Dodaj");
+	private JButton btnEdit = new JButton("Izmeni");
+	private JButton btnDelete = new JButton("Obrisi");
 	ImageIcon ikonica = new ImageIcon("src/slike/knjiga.png");
 	
 	private DefaultTableModel tableModel;
-	private JTable administratoriTabela;
-	
+	private JTable AdminiTabela;
+	 
 	private Biblioteka biblioteka;
-	private Administrator admin;
 	
-	private final JButton btnDodaj = new JButton("Dodaj Admina");
-	private final JButton btnIzmeni = new JButton("Izmeni Admina");
-	private final JButton btnIzbrisi = new JButton("Izbrisi Admina");
-
-	public AdminPrikaz (Biblioteka biblioteka,Zaposleni zaposleni) {
+	public AdminPrikaz(Biblioteka biblioteka) {
 		this.biblioteka = biblioteka;
-		this.zaposleni = zaposleni;
 		setTitle("Administratori");
-		setSize(600,400);
+		setSize(600, 300);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
-		setIconImage(ikonica.getImage());
-		initGui();
-		initActions();
-	}
-	private void initGui() {
-		mainToolbar.setBackground(Color.LIGHT_GRAY);
-		
 		getContentPane().add(mainToolbar, BorderLayout.SOUTH);		
-		btnDodaj.setBackground(Color.LIGHT_GRAY);
-		
-		mainToolbar.add(btnDodaj);
-		btnIzmeni.setBackground(Color.LIGHT_GRAY);
-		mainToolbar.add(btnIzmeni);
-		btnIzbrisi.setBackground(Color.LIGHT_GRAY);
-		mainToolbar.add(btnIzbrisi);
-			
-		String[] zaglavlja = new String[] {"ID", "Adresa", "Ime", "Prezime", "JMBG", "Pol", "Lozinka", "KorisnicoIme","Plata"};
-		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniAdministatori().size()][zaglavlja.length];
-		
-		for(int i=0; i<biblioteka.sviNeobrisaniAdministatori().size(); i++) {
-			Administrator clan = biblioteka.sviNeobrisaniAdministatori().get(i);
-//			Knjiga knjiga = biblioteka.pronadjiDisk(clan);
-			sadrzaj[i][0] = clan.getId();
-			sadrzaj[i][1] = clan.getIme();
-			sadrzaj[i][2] = clan.getPrezime();
-			sadrzaj[i][3] = clan.getJmbg();
-			sadrzaj[i][4] = clan.getAdresa();
-			sadrzaj[i][5] = clan.getPol();
-			sadrzaj[i][6] = clan.getLozinka();
-			sadrzaj[i][7] = clan.getKorisnickoIme();
-			sadrzaj[i][8] = clan.getPlata();
-//			sadrzaj[i][2] = disk == null ? "--" : disk.getNaziv();
+		mainToolbar.setBackground(Color.LIGHT_GRAY);
+		btnAdd.setBackground(Color.LIGHT_GRAY);
+		btnEdit.setBackground(Color.LIGHT_GRAY);
+		btnDelete.setBackground(Color.LIGHT_GRAY);
+		mainToolbar.add(btnAdd);
+		mainToolbar.add(btnEdit);
+		mainToolbar.add(btnDelete);
+		setIconImage(ikonica.getImage());
+		initGUI();
+		initActions();
 		}
+	private void initGUI() {
+		mainToolbar.add(btnAdd);
+		mainToolbar.add(btnEdit);		 
+		mainToolbar.add(btnDelete);		
+		add(mainToolbar, BorderLayout.SOUTH);
 		
-		
-		tableModel = new DefaultTableModel(sadrzaj, zaglavlja);
-		administratoriTabela = new JTable(tableModel);
-		
-		administratoriTabela.setRowSelectionAllowed(true);
-		administratoriTabela.setColumnSelectionAllowed(false);
-		administratoriTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		administratoriTabela.setDefaultEditor(Object.class, null);
-		administratoriTabela.getTableHeader().setReorderingAllowed(false);
-		
-		JScrollPane scrollPane = new JScrollPane(administratoriTabela);
-		getContentPane().add(scrollPane, BorderLayout.CENTER);
+		ArrayList<Admin>neobrisaniAdministratori=biblioteka.sviNeobrisaniAdmini();
+		String[] zaglavlja = new String[] {"ID", "Korisnicko ime", "lozinka", "Pol"};
+		Object[][] sadrzaj = new Object[neobrisaniAdministratori.size()][zaglavlja.length];
+		for(int i=0; i<neobrisaniAdministratori.size(); i++) {
+			
+			Admin admin = neobrisaniAdministratori.get(i);		
+			sadrzaj[i][0] = admin.getId();
+			sadrzaj[i][1] = admin.getKorisnickoIme();
+			sadrzaj[i][2] = admin.getLozinka();
+			sadrzaj[i][3] = admin.getPol();
 
+		}
+		tableModel = new DefaultTableModel(sadrzaj, zaglavlja);
+		AdminiTabela = new JTable(tableModel);
+		
+		AdminiTabela.setRowSelectionAllowed(true);
+		AdminiTabela.setColumnSelectionAllowed(false);
+		AdminiTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		AdminiTabela.setDefaultEditor(Object.class, null);
+		AdminiTabela.getTableHeader().setReorderingAllowed(false);
+		
+		JScrollPane scrollPane = new JScrollPane(AdminiTabela);
+		add(scrollPane, BorderLayout.CENTER);
+	
 	}
 	private void initActions() {
-		btnIzmeni.addActionListener(new ActionListener() {
-			
+		btnDelete.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int row = administratoriTabela.getSelectedRow();
-				if(row == -1) {
-					JOptionPane.showMessageDialog(null, "Morate da izaberete red koji zelite da promenite","Greska",JOptionPane.WARNING_MESSAGE);
-				}
-				else {
-					String id = tableModel.getValueAt(row, 0).toString();
-					Administrator admin = biblioteka.pronadjiAdmina(id);
-					System.out.println(admin);
-					AdminIzmena edit = new AdminIzmena(biblioteka,admin);
-					edit.setVisible(true);
-				}
-			}
-		});
-		btnIzbrisi.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int red = administratoriTabela.getSelectedRow();
+				int red = AdminiTabela.getSelectedRow();
 				if(red == -1) {
-					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.","Greska",JOptionPane.WARNING_MESSAGE);
-				}
-				else {
-					int id = Integer.parseInt(tableModel.getValueAt(red, 0).toString());
+					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.", "Greska", JOptionPane.WARNING_MESSAGE);
+				}else {
+					int id =Integer.parseInt(tableModel.getValueAt(red, 0).toString());
 					String naziv = tableModel.getValueAt(red, 1).toString();
 					
-					int izbor = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da zelite da obrisete clana?",naziv + "- Potvrda brisanja",JOptionPane.YES_NO_OPTION);
-					if(izbor == JOptionPane.YES_NO_OPTION) {
-						Administrator c = biblioteka.getAdmin().get(id);
-						c.setObrisan(true);
-						System.out.println(biblioteka.getAdmin().toString());
+					int izbor = JOptionPane.showConfirmDialog(null, 
+							"Da li ste sigurni da zelite da obrisete administratora?", 
+							naziv + " - Porvrda brisanja", JOptionPane.YES_NO_OPTION);
+					if(izbor == JOptionPane.YES_OPTION) {
+						Admin a =biblioteka.getAdministratori().get(id);
+						a.setObrisan(true);
+						System.out.println(biblioteka.getAdministratori().toString());
 						try {
-							biblioteka.sacuvajAdministatore();
-						}
-						catch(IOException e1) {
+							biblioteka.sacuvajAdmine();;
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 						tableModel.removeRow(red);
+						
+						
 					}
 				}
-				
 			}
 		});
-		btnDodaj.addActionListener(new ActionListener() {
-			
+		btnAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				AdminDodavanje da = new AdminDodavanje(biblioteka);
-				da.setVisible(true);
+				AdminDodavanje adminDodavanje = new AdminDodavanje(biblioteka);
+				adminDodavanje.setVisible(true);
 				AdminPrikaz.this.dispose();
 				AdminPrikaz.this.setVisible(false);
 			}
 		});
-		
-	}
 	
+		btnEdit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int red = AdminiTabela.getSelectedRow();
+				if(red == -1) {
+					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.", "Greska", JOptionPane.WARNING_MESSAGE);
+				}else {
+					String id = tableModel.getValueAt(red, 0).toString();
+					Admin admin = biblioteka.pronadjiAdmina(id);
+					AdminDodavanje editAdmin = new AdminDodavanje(biblioteka, admin);
+					editAdmin.setVisible(true);
+					AdminPrikaz.this.dispose();
+					AdminPrikaz.this.setVisible(false);
+				}
+			}
+		});
+	}
+
 }
+
+

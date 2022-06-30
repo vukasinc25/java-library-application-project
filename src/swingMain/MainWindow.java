@@ -1,28 +1,23 @@
 package swingMain;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-
-import biblioteka.Biblioteka;
-import ljudi.Bibliotekar;
-import biblioteka.Iznajmljivanje;
-import ljudi.Zaposleni;
-
-import ljudi.Bibliotekar;
-import biblioteka.Biblioteka;
-import java.awt.Component;
 import javax.swing.JTextPane;
-import java.awt.BorderLayout;
-import java.awt.Color;
+
+import biblioteka.Biblioteka;
+import ljudi.Zaposleni;
 import net.miginfocom.swing.MigLayout;
 import swingPrikaz.AdminPrikaz;
+import swingPrikaz.BibliotekaPrikaz;
 import swingPrikaz.BibliotekarPrikaz;
 import swingPrikaz.ClanPrikaz;
 import swingPrikaz.IznajmljivanjePrikaz;
@@ -31,18 +26,15 @@ import swingPrikaz.PrimerakKnjigePrikaz;
 import swingPrikaz.TipClanarinePrikaz;
 import swingPrikaz.ZanrKnjigePrikaz;
 
-import javax.swing.JLabel;
-import java.awt.GridLayout;
-
 //import osobe.Prodavac;
 //import prodavnica.Prodavnica;
 
 public class MainWindow extends JFrame{
-
-	private static final long serialVersionUID = 1L;
+	
 	private JMenuBar mainMenu = new JMenuBar();
 	private JMenu knjigeMenu = new JMenu("Knjige");
 	private JMenu ljudiMenu = new JMenu("Clanovi");
+	private JMenu bibliotekaMenu = new JMenu("Biblitoeka");
 	private JMenuItem clanItem = new JMenuItem("Clan Biblioteke");
 	private JMenuItem knjigeItem = new JMenuItem("Sve Knjige");
 	private JMenuItem primerciItem = new JMenuItem("Primerci");
@@ -52,6 +44,7 @@ public class MainWindow extends JFrame{
 	private JMenu zaposleniMenu = new JMenu("Zaposleni");
 	private JMenuItem bibliotekarItem = new JMenuItem("Bibliotekari");
 	private JMenuItem administratorItem = new JMenuItem("Administartori");
+	private JMenuItem bibliotekaItem = new JMenuItem("Biblioteka");
 	private Biblioteka biblioteka;
 	private Zaposleni prijavljeniKorisnik;
 	private boolean isAdmin;
@@ -101,75 +94,82 @@ public class MainWindow extends JFrame{
 			zaposleniMenu.add(bibliotekarItem);
 			zaposleniMenu.add(administratorItem);
 		}
+		mainMenu.add(bibliotekaMenu);
+		bibliotekaMenu.add(bibliotekaItem);
 	}
-	
 	private void initActions() {
-		bibliotekarItem.addActionListener(new ActionListener() { 
+		primerciItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				BibliotekarPrikaz pp = new BibliotekarPrikaz(biblioteka,prijavljeniKorisnik);
-				pp.setVisible(true);
-			}
+				PrimerakKnjigePrikaz primerak = new PrimerakKnjigePrikaz(biblioteka);
+				primerak.setVisible(true);
+			};
 		});
-		iznajmljivanjeKnjigeItem.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				IznajmljivanjePrikaz pp = new IznajmljivanjePrikaz(biblioteka,prijavljeniKorisnik);
-				pp.setVisible(true);
-			}
-		});
-		
-		tipClanarinejeItem.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				TipClanarinePrikaz pp = new TipClanarinePrikaz(biblioteka,prijavljeniKorisnik);
-				pp.setVisible(true);
-			}
-		});
-		
-		administratorItem.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				AdminPrikaz pp = new AdminPrikaz(biblioteka,prijavljeniKorisnik);
-				pp.setVisible(true);
-			}
-		});
-		
-		primerciItem.addActionListener(new ActionListener() { 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				PrimerakKnjigePrikaz kp;
-				try {
-					kp = new PrimerakKnjigePrikaz(biblioteka,prijavljeniKorisnik);
-					kp.setVisible(true);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
-		
-		clanItem.addActionListener(new ActionListener() { 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ClanPrikaz dp = new ClanPrikaz(biblioteka,prijavljeniKorisnik);
-				dp.setVisible(true);
-			}
-		});
-		
 		knjigeItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				KnjigePrikaz kp = new KnjigePrikaz(biblioteka,prijavljeniKorisnik);
-				kp.setVisible(true);
-			}
+				KnjigePrikaz knjiga = new KnjigePrikaz(biblioteka);
+				knjiga.setVisible(true);
+			};
+		});
+		clanItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ClanPrikaz clan = new ClanPrikaz(biblioteka);
+				
+				
+				
+				clan.setVisible(true);
+			};
 		});
 		
 		zanrKnjigeItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ZanrKnjigePrikaz kp = new ZanrKnjigePrikaz(biblioteka,prijavljeniKorisnik);
-				kp.setVisible(true);
-			}
+				ZanrKnjigePrikaz zanr = new ZanrKnjigePrikaz(biblioteka);
+				zanr.setVisible(true);
+			};
+		});
+		
+		tipClanarinejeItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				TipClanarinePrikaz tip = new TipClanarinePrikaz(biblioteka);
+				tip.setVisible(true);
+			};
+		});
+		
+		administratorItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				AdminPrikaz admin = new AdminPrikaz(biblioteka);
+				admin.setVisible(true);
+			};
+		});
+	
+		bibliotekarItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				BibliotekarPrikaz bibliotekari = new BibliotekarPrikaz(biblioteka);
+				bibliotekari.setVisible(true);
+			};
+		});
+		
+		iznajmljivanjeKnjigeItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				IznajmljivanjePrikaz iznajmljivanje = new IznajmljivanjePrikaz(biblioteka,prijavljeniKorisnik);
+				iznajmljivanje.setVisible(true);
+			};
+		});
+	
+
+		bibliotekaItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				BibliotekaPrikaz bibliotekaa = new BibliotekaPrikaz(biblioteka);
+				bibliotekaa.setVisible(true);
+			};
 		});
 	}
 }

@@ -1,0 +1,5 @@
+0|Mesecna|10|false
+1|Godisnja|8|true
+2|Godisnja|8|false
+3|Mesecna|10|true
+4|dnevna|100|true

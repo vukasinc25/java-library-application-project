@@ -2,13 +2,12 @@ package swingDodavanje;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -16,133 +15,141 @@ import javax.swing.JTextField;
 
 import biblioteka.Biblioteka;
 import biblioteka.Knjiga;
-import biblioteka.PrimerakKnjige;
+import biblioteka.Primerak;
+import enumeracije.Jezik;
+import enumeracije.Korice;
 import net.miginfocom.swing.MigLayout;
 
-public class PrimerakDodavanje extends JDialog{
-	 private Biblioteka biblioteka;
-	 private PrimerakKnjige primerak;
-	  
-	 private JLabel lblID = new JLabel("ID");
-	 private JTextField txtID = new JTextField(20);
-	 private JLabel lblBrStrana = new JLabel("Broj Strana");
-	 private JTextField txtBrStrana = new JTextField(20);
-	 private JLabel lblTipPoveza = new JLabel("Tvrd povez");
-	 private JCheckBox txtTipPoveza = new JCheckBox();
-	 private JLabel lblGodinaSt = new JLabel("Godina Stampanja");
-	 private JTextField txtGodinaSt = new JTextField(20);
-	 private JLabel lbljeliIznajmljena = new JLabel("jeliIznajmljena");
-	 private JCheckBox txtjeliIznajmljena = new JCheckBox();
-	 private JLabel lblKnjiga = new JLabel("Knjiga");
-	 private JComboBox cmbxKnjiga = new JComboBox();
-	 private JButton btnSave = new JButton("Save");
-	 private JButton btnCancel = new JButton("Cancel");
-	 
-	 public PrimerakDodavanje(Biblioteka biblioteka) {
-		 this.biblioteka = biblioteka;
-		 setTitle("Dodavanje novi primerak");
-		 setSize(500,500);
-		 setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		 setLocationRelativeTo(null);
-		 initGUI();
-		 initActions();
-		 pack();
-	 }
+public class PrimerakDodavanje extends JFrame{
+	private Jezik[] jezici=Jezik.values();
+	private Korice[] korice=Korice.values();
+	private JLabel lblKnjiga= new JLabel("Knjiga: ");
+	private JComboBox cbKnjiga=new JComboBox();
+	private JLabel lblBrStrana=new JLabel("Broj strana: ");
+	private JTextField txtBrStrana=new JTextField(20);
+	private JLabel lblGodStampanja=new JLabel("Godina stampanja: ");
+	private JTextField txtGodStampanja=new JTextField(20);
+	private JLabel lblKorice= new JLabel("Korice: ");
+	private JComboBox cbKorice=new JComboBox(korice);
+	private JLabel lblJezik= new JLabel("Jezik: ");
+	private JComboBox cbJezik=new JComboBox(jezici);
+	private JLabel lblIznajmljena=new JLabel("Iznajmljena: ");
+	private JCheckBox chbIznajmljena=new JCheckBox();
+	private JButton btnOk = new JButton("OK");
+	private JButton btnCancel = new JButton("Cancel");
+	
+	private Biblioteka biblioteka;
+	private Primerak primerak;
+	
+	public PrimerakDodavanje(Biblioteka biblioteka) {
+		this.biblioteka=biblioteka;	
+		setTitle("Dodavanje");
+		setSize(500,1000);
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setLocationRelativeTo(null);
+		initGUI();
+		initActions();
+		pack();
+		
+	}
+	public PrimerakDodavanje(Biblioteka biblioteka, Primerak primerak) {
+		this.biblioteka=biblioteka;	
+		this.primerak=primerak;
+		setTitle("Dodavanje");
+		setSize(500,1000);
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setLocationRelativeTo(null);
+		initGUI();
+		initActions();
+		pack();
+	}
+	
+	public void initGUI() {
+		ArrayList<Knjiga> knjige=biblioteka.sveNeobrisaneKnjige();
+		for (Knjiga knjiga:knjige) {
+			cbKnjiga.addItem(knjiga.getNaslov());
+		}
 
-	private void initActions() {
+		MigLayout mig = new MigLayout("wrap 2", "[][]", "[]10[][]10[]");
+		setLayout(mig);
+		
+		add(lblKnjiga);
+		add(cbKnjiga);
+		add(lblBrStrana);
+		add(txtBrStrana);
+		add(lblGodStampanja);
+		add(txtGodStampanja);
+		add(lblKorice);
+		add(cbKorice);
+		add(lblJezik);
+		add(cbJezik);
+		add(lblIznajmljena);
+		add(chbIznajmljena);
+		
+		add(btnOk);
+		add(btnCancel);
+		
+		if(primerak!=null) {
+			cbKnjiga.setSelectedItem(primerak.getKnjiga().getNaslov());
+			txtBrStrana.setText(primerak.getBrStrana());
+			txtGodStampanja.setText(primerak.getGodStampanja());
+			cbKorice.setSelectedItem(primerak.getKorica());
+			cbJezik.setSelectedItem(primerak.getJezikk());
+			chbIznajmljena.setSelected(primerak.getIznajmljena());
+		}
+	}
+	public void initActions() {
 		btnCancel.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				PrimerakDodavanje.this.dispose();
 				PrimerakDodavanje.this.setVisible(false);
 			}
 		});
-		btnSave.addActionListener(new ActionListener() {
+		
+		btnOk.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String id = txtID.getText().trim();
+				int knjigaId = cbKnjiga.getSelectedIndex();
 				String brStrana = txtBrStrana.getText().trim();
-				int brStrana1 = 0;
-				try {
-					int brStrana2 = Integer.parseInt(brStrana);
-					brStrana1 = brStrana2;
+				String godStampanja = txtGodStampanja.getText().trim();
+				String jezikString=cbJezik.getSelectedItem().toString();
+				Jezik jezik=Jezik.valueOf(jezikString);
+				String koricaString=cbKorice.getSelectedItem().toString();
+				Korice korica=Korice.valueOf(koricaString);
+				Knjiga knjiga=biblioteka.sveNeobrisaneKnjige().get(knjigaId);
+				boolean isSelected = chbIznajmljena.isSelected();
+				if(brStrana.equals("") || godStampanja.equals("") ) {
+					JOptionPane.showMessageDialog(null, "Niste uneli sve podatke za dodavanje.", "Greska", JOptionPane.WARNING_MESSAGE);
 				}
-				catch (Exception e1) {
-					JOptionPane.showMessageDialog(null, "Mora biti numericka vrednost upisana","Greska",JOptionPane.WARNING_MESSAGE);
-				}
-				boolean tipPoveza = txtTipPoveza.isSelected();
-				String godinaStampanja = txtGodinaSt.getText().trim();
-				int godinaStampanja1 = 0;
-				try {
-					int godinaStampanja2 = Integer.parseInt(godinaStampanja);
-					godinaStampanja1 = godinaStampanja2;
-				}
-				catch (Exception e1) {
-					JOptionPane.showMessageDialog(null, "Mora biti numericka vrednost upisana","Greska",JOptionPane.WARNING_MESSAGE);
-				}
-				boolean jelIznajmljena = txtjeliIznajmljena.isSelected();
-				int knjigaid = cmbxKnjiga.getSelectedIndex();
-				Knjiga knjiga = biblioteka.sveNeobrisaneKnjige().get(knjigaid);
-				
-				if(id.equals("")||brStrana.equals("")||godinaStampanja.equals("")) {
-					JOptionPane.showMessageDialog(null, "Moraju sva polja da budu popunjena","Greska",JOptionPane.WARNING_MESSAGE);
-				}
-				//String id, int brStrana, int godinaStampanja, 
-	    		//String jezikStampanja, boolean izdata, Knjiga knjiga, boolean tipPoveza, boolean obrisan
 				else {
-					if(primerak == null) {
-						PrimerakKnjige priSmerak = new PrimerakKnjige(id, brStrana1, godinaStampanja1, jelIznajmljena, knjiga, tipPoveza, false);
-						biblioteka.getPrimerakKnjige().add(primerak);
+					if(primerak ==null) {
+						String id= Integer.toString(biblioteka.getPrimerci().size());	
+						Primerak noviPrimerak=new Primerak(id,knjiga, brStrana, godStampanja, korica, jezik, isSelected, false);
+						biblioteka.getPrimerci().add(noviPrimerak);
 					}
 					else {
-						primerak.setId(id);
-						primerak.setBrStrana(brStrana1);
-						primerak.setTipPoveza(tipPoveza);
-						primerak.setGodinaStampanja(godinaStampanja1);
-						primerak.setIzdata(jelIznajmljena);
+						primerak.setIznajmljena(isSelected);
+						primerak.setBrStrana(brStrana);
+						primerak.setGodStampanja(godStampanja);
+						primerak.setJezikk(jezik);
 						primerak.setKnjiga(knjiga);
+						primerak.setKorica(korica);
 					}
 					try {
 						biblioteka.sacuvajPrimerke();
 						PrimerakDodavanje.this.setVisible(false);
-					}
-					catch (Exception e1) {
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
+			
+					
 				}
-			}
+				}
+				
 		});
-	}
-
-	private void initGUI() {
-		ArrayList<Knjiga> knjige = biblioteka.sveNeobrisaneKnjige();
-		for(Knjiga knjiga : knjige) {
-			cmbxKnjiga.addItem(knjiga.getNaslov());
-		}
 		
-		MigLayout mig = new MigLayout("wrap 2","[][]","[]10[]10[]");
-		setLayout(mig);
-		
-		add(lblID);
-		add(txtID);
-		add(lblBrStrana);
-		add(txtBrStrana);
-		add(lblTipPoveza);
-		add(txtTipPoveza);
-		add(lblGodinaSt);
-		add(txtGodinaSt);
-		add(lbljeliIznajmljena);
-		add(txtjeliIznajmljena);
-		add(lblKnjiga);
-		add(cmbxKnjiga);
-		add(btnSave,"split 2");
-		add(btnSave);
-		add(btnCancel);
-		
-		
-		
-	}
-	
-	
-}
+	}}

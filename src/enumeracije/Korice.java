@@ -1,6 +1,5 @@
 package enumeracije;
 
 public enum Korice {
-    Tvrde,
-    Meke
+	TVRDE, MEKE
 }

@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -18,125 +19,124 @@ import javax.swing.table.DefaultTableModel;
 
 import biblioteka.Biblioteka;
 import ljudi.TipClanarine;
-import ljudi.Zaposleni;
 import swingDodavanje.TipDodavanje;
-import swingIzmena.TipIzmena;
 
-public class TipClanarinePrikaz extends JFrame{
+public class TipClanarinePrikaz extends JFrame {
 	private JToolBar mainToolbar = new JToolBar();
-	private final JButton btnDodaj = new JButton("Dodaj Tip");
-	private final JButton btnIzmeni = new JButton("Izmeni Tip");
-	private final JButton btnIzbrisi = new JButton("Izbrisi Tip");
-	private Zaposleni zaposleni;
-	private DefaultTableModel tableModel;
-	private JTable tipclanarineTabela;
+	private JButton btnAdd = new JButton("Dodaj");
+	private JButton btnEdit = new JButton("Izmeni");
+	private JButton btnDelete = new JButton("Obrisi");
 	ImageIcon ikonica = new ImageIcon("src/slike/knjiga.png");
+	
+	private DefaultTableModel tableModel;
+	private JTable tipoviTabela;
+	 
 	private Biblioteka biblioteka;
-	private TipClanarine tipClanarine;
-
-	public TipClanarinePrikaz (Biblioteka biblioteka,Zaposleni zaposleni) {
+	
+	public TipClanarinePrikaz(Biblioteka biblioteka) {
 		this.biblioteka = biblioteka;
-		this.zaposleni = zaposleni;
 		setTitle("Tipovi Clanarine");
-		setSize(600, 400);
+		setSize(600, 300);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
-		initGUI();
-		initActions();
-	}
-
-	private void initGUI() {
 		getContentPane().add(mainToolbar, BorderLayout.SOUTH);		
 		mainToolbar.setBackground(Color.LIGHT_GRAY);
-		btnDodaj.setBackground(Color.LIGHT_GRAY);
-		btnIzmeni.setBackground(Color.LIGHT_GRAY);
-		btnIzbrisi.setBackground(Color.LIGHT_GRAY);
-		mainToolbar.add(btnDodaj);
-		mainToolbar.add(btnIzmeni);
-		mainToolbar.add(btnIzbrisi);
+		btnAdd.setBackground(Color.LIGHT_GRAY);
+		btnEdit.setBackground(Color.LIGHT_GRAY);
+		btnDelete.setBackground(Color.LIGHT_GRAY);
+		mainToolbar.add(btnAdd);
+		mainToolbar.add(btnEdit);
+		mainToolbar.add(btnDelete);
 		setIconImage(ikonica.getImage());
-
-		String[] zaglavlja = new String[] {"Naziv","ID", "Cena"};
-		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniTipovi().size()][zaglavlja.length];
-		
-		for(int i=0; i<biblioteka.sviNeobrisaniTipovi().size(); i++) {
-			TipClanarine clan = biblioteka.sviNeobrisaniTipovi().get(i);
-			sadrzaj[i][0] = clan.getId();
-			sadrzaj[i][1] = clan.getTip();
-			sadrzaj[i][2] = clan.getCena();
+		initGUI();
+		initActions();
 		}
+	private void initGUI() {
+		mainToolbar.add(btnAdd);
+		mainToolbar.add(btnEdit);		 
+		mainToolbar.add(btnDelete);		
+		add(mainToolbar, BorderLayout.SOUTH);
 		
-		tableModel = new DefaultTableModel(sadrzaj, zaglavlja);
-		tipclanarineTabela = new JTable(tableModel);
-		
-		tipclanarineTabela.setRowSelectionAllowed(true);
-		tipclanarineTabela.setColumnSelectionAllowed(false);
-		tipclanarineTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tipclanarineTabela.setDefaultEditor(Object.class, null);
-		tipclanarineTabela.getTableHeader().setReorderingAllowed(false);
-		
-		JScrollPane scrollPane = new JScrollPane(tipclanarineTabela);
-		add(scrollPane, BorderLayout.CENTER);
-		
-	}
-
-	private void initActions() {
-		btnIzbrisi.addActionListener(new ActionListener() {
+		ArrayList<TipClanarine>neobrisaniTipovi=biblioteka.sviNeobrisaniTipovi();
+		String[] zaglavlja = new String[] {"Id", "Opis", "Cena"};
+		Object[][] sadrzaj = new Object[neobrisaniTipovi.size()][zaglavlja.length];
+		for(int i=0; i<neobrisaniTipovi.size(); i++) {
 			
+			TipClanarine tip = neobrisaniTipovi.get(i);		
+			sadrzaj[i][0] = tip.getId();
+			sadrzaj[i][1] = tip.getOpis();
+			sadrzaj[i][2] = tip.getCena();
+			
+		}
+		tableModel = new DefaultTableModel(sadrzaj, zaglavlja);
+		tipoviTabela = new JTable(tableModel);
+		
+		tipoviTabela.setRowSelectionAllowed(true);
+		tipoviTabela.setColumnSelectionAllowed(false);
+		tipoviTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tipoviTabela.setDefaultEditor(Object.class, null);
+		tipoviTabela.getTableHeader().setReorderingAllowed(false);
+		
+		JScrollPane scrollPane = new JScrollPane(tipoviTabela);
+		add(scrollPane, BorderLayout.CENTER);
+	
+	}
+	private void initActions() {
+		btnDelete.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int red = tipclanarineTabela.getSelectedRow();
+				int red = tipoviTabela.getSelectedRow();
 				if(red == -1) {
-					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.","Greska",JOptionPane.WARNING_MESSAGE);
-				}
-				else {
-					int id = Integer.parseInt(tableModel.getValueAt(red, 1).toString());
-					String naziv = tableModel.getValueAt(red, 0).toString();		
-					int izbor = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da zelite da obrisete clana?",naziv + "- Potvrda brisanja",JOptionPane.YES_NO_OPTION);
-					if(izbor == JOptionPane.YES_NO_OPTION) {
-						TipClanarine c = biblioteka.getTipClanarine().get(id);
-						c.setObrisan(true);
-						System.out.println(biblioteka.getTipClanarine().toString());
+					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.", "Greska", JOptionPane.WARNING_MESSAGE);
+				}else {
+					int id =Integer.parseInt(tableModel.getValueAt(red, 0).toString());
+					String naziv = tableModel.getValueAt(red, 1).toString();
+					
+					int izbor = JOptionPane.showConfirmDialog(null, 
+							"Da li ste sigurni da zelite da obrisete tip clanarine?", 
+							naziv + " - Porvrda brisanja", JOptionPane.YES_NO_OPTION);
+					if(izbor == JOptionPane.YES_OPTION) {
+						TipClanarine t =biblioteka.getTipovi().get(id);
+						t.setObrisan(true);
 						try {
-							biblioteka.sacuvajTipClanarine();
-						}
-						catch(IOException e1) {
+							biblioteka.sacuvajTipoveClanarine();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 						tableModel.removeRow(red);
+						
+						
 					}
 				}
 			}
 		});
-		
-		btnDodaj.addActionListener(new ActionListener() {
-			
+		btnAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				TipDodavanje da = new TipDodavanje(biblioteka);
-				da.setVisible(true);
+				TipDodavanje tipDodavanje = new TipDodavanje(biblioteka);
+				tipDodavanje.setVisible(true);
 				TipClanarinePrikaz.this.dispose();
 				TipClanarinePrikaz.this.setVisible(false);
 			}
 		});
 		
-		btnIzmeni.addActionListener(new ActionListener() {
-			
+		btnEdit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int row = tipclanarineTabela.getSelectedRow();
-				if(row == -1) {
-					JOptionPane.showMessageDialog(null, "Morate da izaberete red koji zelite da promenite","Greska",JOptionPane.WARNING_MESSAGE);
-				}
-				else {
-					String id = tableModel.getValueAt(row, 0).toString();
-					TipClanarine tip = biblioteka.pronadjiTip(id);
-					System.out.println(tip);
-					TipIzmena edit = new TipIzmena(biblioteka,tip);
-					edit.setVisible(true);
+				int red = tipoviTabela.getSelectedRow();
+				if(red == -1) {
+					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.", "Greska", JOptionPane.WARNING_MESSAGE);
+				}else {
+					String id = tableModel.getValueAt(red, 0).toString();
+					TipClanarine tipClanarine = biblioteka.pronadjiTip(id);
+					TipDodavanje tip = new TipDodavanje(biblioteka, tipClanarine);
+					tip.setVisible(true);
+					TipClanarinePrikaz.this.dispose();
+					TipClanarinePrikaz.this.setVisible(false);
 				}
 			}
 		});
-		
 	}
+
 }

@@ -1,1 +1,0 @@
-0|25|true|1920|true|1|false

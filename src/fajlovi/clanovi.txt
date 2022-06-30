@@ -1,0 +1,3 @@
+0|2022-04-25|12|0|true|CIme1|CPrezime1|32131|CAdresa1|MUSKI|false
+1|2022-03-25|2|2|false|CIme2|CPrezime2|32123|CAdresa2|MUSKI|false
+2|2022-02-25|6|0|true|CIme3|CPrezime3|32134|CAdresa3|MUSKI|false
